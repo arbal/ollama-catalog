@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ollama-catalog"
+version = "0.1.0"
+description = "Ollama community model catalog scraper"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx[http2]",
+    "beautifulsoup4",
+    "lxml",
+    "tenacity",
+    "rich",
+    "aiofiles",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "pytest-httpx",
+]
+
+[project.scripts]
+ollama-catalog = "ollama_catalog.cli:main"
