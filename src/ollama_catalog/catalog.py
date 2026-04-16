@@ -98,6 +98,8 @@ class CatalogFetcher:
              open(PULLS_JSONL,  "w", encoding="utf-8") as pf:
             for m in sorted_models:
                 stable = {k: m[k] for k in _STABLE_FIELDS if k in m}
+                if "capabilities" in stable:
+                    stable["capabilities"] = sorted(stable["capabilities"])
                 mf.write(json.dumps(stable, separators=(',', ':')) + "\n")
                 pf.write(json.dumps(
                     {"slug": m["slug"], "pulls": m.get("pulls", 0), "pulls_text": m.get("pulls_text", "0")},
