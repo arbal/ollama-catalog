@@ -35,7 +35,10 @@ def run_fetch(args, console):
 
 def run_all(args, console):
     run_discover(args, console)
-    run_fetch(args, console)
+    if not getattr(args, 'dry_run', False):
+        run_fetch(args, console)
+    else:
+        console.print("[bold yellow]Skipping fetch due to --dry-run[/bold yellow]")
 
 def main():
     parser = argparse.ArgumentParser(description="Ollama community model catalog scraper")
