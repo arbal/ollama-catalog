@@ -9,10 +9,13 @@ build/
 
 # Ignore all files in out/ by default
 out/*
-# But track these specific files
-!out/ollama_catalog.json
+# Track git-friendly split files (committed, small diffs)
+!out/models.jsonl
+!out/pulls.jsonl
+!out/metadata.json
 !out/seen_slugs.json
 !out/discovered_slugs.json
+# ollama_catalog.json is a derived artifact — regenerate via: python3 scripts/render_catalog.py
 
 # Test artifacts
 .pytest_cache/

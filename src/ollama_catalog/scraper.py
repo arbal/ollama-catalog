@@ -1,10 +1,13 @@
 import asyncio
+import logging
 import re
 import string
 from typing import Set, List, Optional
 import httpx
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 from rich.progress import Progress, TaskID
+
+logger = logging.getLogger(__name__)
 
 from .state import StateManager
 
@@ -19,10 +22,13 @@ class DiscoveryScraper:
         self.semaphore = asyncio.Semaphore(5)
         self.client = httpx.AsyncClient(
             http2=True,
+            follow_redirects=True,
             headers={"User-Agent": "Mozilla/5.0 (compatible; ollama-catalog/1.0)"},
             timeout=30.0
         )
-        self.queries = list(string.ascii_lowercase + string.digits)
+        # Empty query first: returns ~220 official/library models sorted by popularity.
+        # Ensures official models aren't missed by the incremental stop in alphabet crawl.
+        self.queries = [""] + list(string.ascii_lowercase + string.digits)
         self.stop_event = asyncio.Event()
 
     @retry(
@@ -31,7 +37,12 @@ class DiscoveryScraper:
         retry=retry_if_exception_type((httpx.RequestError, httpx.HTTPStatusError))
     )
     async def _fetch_page(self, query: str, page: int) -> str:
-        url = f"https://ollama.com/search?q={query}&o=newest&page={page}"
+        # Blank query: use default (popularity) sort to surface all official models.
+        # Alphabet queries: use newest sort to surface recent community models.
+        if query == "":
+            url = f"https://ollama.com/search?page={page}"
+        else:
+            url = f"https://ollama.com/search?q={query}&o=newest&page={page}"
         async with self.semaphore:
             response = await self.client.get(url)
             response.raise_for_status()
@@ -50,7 +61,7 @@ class DiscoveryScraper:
             try:
                 html = await self._fetch_page(query, page)
             except Exception as e:
-                # Log error or handle it. For now, stop crawling this query.
+                logger.warning(f"Error crawling query '{query}' page {page}: {e}")
                 break
 
             slugs = self._parse_slugs(html)
@@ -75,7 +86,9 @@ class DiscoveryScraper:
                         self.stop_event.set()
                         break
 
-            if not self.full_mode:
+            # Blank query (official models): always paginate to exhaustion —
+            # they're sorted by popularity, not newest, so old ones appear late.
+            if not self.full_mode and query != "":
                 if new_slugs_in_page == 0:
                     consecutive_empty_or_seen_pages += 1
                     if consecutive_empty_or_seen_pages >= self.state.incremental_stop:
