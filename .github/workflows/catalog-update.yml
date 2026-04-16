@@ -31,7 +31,7 @@ jobs:
         run: ollama-catalog discover
 
       - name: Fetch model details
-        run: ollama-catalog fetch
+        run: ollama-catalog fetch --refetch
 
       - name: Commit and push if changed
         run: |
