@@ -57,6 +57,21 @@ def load_models(ref: str | None = None):
         models = _load_jsonl_models(f.read())
     with open("out/metadata.json", encoding="utf-8") as f:
         metadata = json.load(f)
+    # Merge pull counts from pulls.jsonl — models.jsonl stores 0 for community models
+    try:
+        pulls_map = {}
+        with open("out/pulls.jsonl", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    p = json.loads(line)
+                    pulls_map[p["slug"]] = p
+        for m in models:
+            if m.get("pulls", 0) == 0 and m["slug"] in pulls_map:
+                m["pulls"] = pulls_map[m["slug"]].get("pulls", 0)
+                m["pulls_text"] = pulls_map[m["slug"]].get("pulls_text", "")
+    except FileNotFoundError:
+        pass
     return models, metadata
 
 
@@ -196,8 +211,10 @@ def _parse_slug_anatomy(slug: str) -> dict:
     }
 
 
-def fmt_pulls(text: str) -> str:
-    return text or "-"
+def fmt_pulls(text: str, pulls: int = 0) -> str:
+    if text:
+        return text
+    return f"{pulls:,}" if pulls else "0"
 
 
 def fmt_caps(caps: list) -> str:
@@ -383,7 +400,7 @@ def _slug_table(models_list: list, color: str = "cyan") -> Table:
     for m in models_list:
         t.add_row(
             m["slug"],
-            fmt_pulls(m.get("pulls_text", "")),
+            fmt_pulls(m.get("pulls_text", ""), m.get("pulls", 0)),
             str(m.get("tags_count", "")),
             fmt_caps(m.get("capabilities", [])),
             (m.get("blurb") or "").strip().replace("\n", " "),
@@ -622,7 +639,7 @@ def show_namespace_stats(models, ns: str, fmt: str | None = None):
     table.add_column("Blurb", ratio=4, no_wrap=True)
     for i, m in enumerate(ns_models, 1):
         table.add_row(
-            str(i), m["slug"], fmt_pulls(m.get("pulls_text", "")), str(m.get("tags_count", "")),
+            str(i), m["slug"], fmt_pulls(m.get("pulls_text", ""), m.get("pulls", 0)), str(m.get("tags_count", "")),
             fmt_caps(m.get("capabilities", [])), m.get("updated", "") or "[dim]—[/dim]",
             (m.get("blurb") or "").strip().replace("\n", " "),
         )
@@ -775,7 +792,7 @@ def show_list(models, limit, new_days=None, sort_field="pulls", filter_parts=Non
         table.add_row(
             str(i),
             m["slug"],
-            fmt_pulls(m.get("pulls_text", "")),
+            fmt_pulls(m.get("pulls_text", ""), m.get("pulls", 0)),
             str(m.get("tags_count", 0)),
             fmt_caps(m.get("capabilities", [])),
             m.get("updated", "") or "-",

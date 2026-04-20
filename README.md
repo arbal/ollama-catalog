@@ -1,6 +1,6 @@
 # Ollama Catalog
 
-Ollama Catalog is a robust web scraper that extracts detailed information about both official and community models from the Ollama website. It acts as an open-source alternative and spiritual successor to `chrizzo84/OllamaScraper`, implementing a reliable, type-hinted, asynchronous pipeline.
+Ollama Catalog is a robust web scraper that extracts detailed information about both official and community models from the Ollama website. It is an alternative to `chrizzo84/OllamaScraper` with a reliable, type-hinted, asynchronous pipeline.
 
 *Inspired by [chrizzo84/OllamaScraper](https://github.com/chrizzo84/OllamaScraper).*
 *Licensed under MIT.*
@@ -16,7 +16,8 @@ Ollama Catalog is a robust web scraper that extracts detailed information about 
 ```bash
 git clone https://github.com/your-username/ollama-catalog.git
 cd ollama-catalog
-pip install -e .
+uv venv && source .venv/bin/activate
+uv pip install -e .
 ollama-catalog run
 ```
 
@@ -134,3 +135,5 @@ The output generated in `out/ollama_catalog.json` has the following schema:
 
 ## Known Limitations
 - Since the discovery crawler uses single alphanumeric character queries (`a-z`, `0-9`) to bypass search limitations, it might miss some models if an alphabet subset exceeds the maximum pagination limit.
+
+**Coverage confidence:** The catalog currently tracks **222 official models** and **~10,900 community models** (as of April 2026). The 222 official models are believed to be complete — Ollama's official namespace is bounded and fully reachable via pagination. Community model coverage is harder to bound since Ollama does not publish a total count, but the alphabet-crawl method has been verified to capture the full set of models indexed by `chrizzo84/OllamaScraper` (which served as a reference baseline), confirming the discovery pipeline reliably surfaces at least everything that is prominently searchable. Models that appear only in low-traffic search results near alphabet-boundary pagination limits may still be missed.
