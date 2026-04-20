@@ -1,0 +1,42 @@
+name: Catalog Update
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -e .
+
+      - name: Discover new models
+        run: ollama-catalog discover
+
+      - name: Fetch model details
+        run: ollama-catalog fetch --refetch
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add out/models.jsonl out/pulls.jsonl out/metadata.json out/seen_slugs.json out/discovered_slugs.json
+          git diff --cached --quiet && echo "No changes to commit." || git commit -m "chore: catalog update $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push

@@ -3,8 +3,9 @@ import asyncio
 from datetime import datetime
 from typing import Dict, Any, Optional, List
 import httpx
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag as BSTag
 import logging
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
 logger = logging.getLogger(__name__)
 
@@ -12,9 +13,19 @@ class ModelScraper:
     def __init__(self, client: Optional[httpx.AsyncClient] = None):
         self.client = client or httpx.AsyncClient(
             http2=True,
+            follow_redirects=True,
             headers={"User-Agent": "Mozilla/5.0 (compatible; ollama-catalog/1.0)"},
             timeout=30.0
         )
+
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=0.5, min=1.0, max=8.0),
+        retry=retry_if_exception_type(httpx.RequestError),
+        reraise=True
+    )
+    async def _fetch_url(self, url: str) -> httpx.Response:
+        return await self.client.get(url)
 
     def detect_url(self, slug: str) -> str:
         if "/" in slug:
@@ -29,10 +40,10 @@ class ModelScraper:
         tags_url = f"{base_url}/tags"
 
         try:
-            # Fetch both pages concurrently
+            # Fetch both pages concurrently (retries on transient network errors)
             page_resp, tags_resp = await asyncio.gather(
-                self.client.get(base_url),
-                self.client.get(tags_url),
+                self._fetch_url(base_url),
+                self._fetch_url(tags_url),
                 return_exceptions=True
             )
 
@@ -140,89 +151,75 @@ class ModelScraper:
         soup = BeautifulSoup(tags_html, 'lxml')
         variants = []
 
-        # The variants are usually in a list or table
-        # We can look for items with a specific structure or flex classes
-        # For each tag entry, we usually find tag name, size, and hash/updated info
+        # Real Ollama /tags HTML structure (verified 2026-04-16):
+        # Each tag row: div.group.px-4.py-3
+        #   └─ div.grid.grid-cols-12.items-center
+        #        ├─ col 0 (col-span-6): tag name in <a class="group-hover:underline">
+        #        │   (may also contain a "latest" badge <span>)
+        #        ├─ col 1 (col-span-2): size text e.g. "2.0GB"
+        #        ├─ col 2 (col-span-2): context e.g. "128K"
+        #        └─ col 3 (col-span-2): input type e.g. "Text"
+        rows = soup.find_all('div', class_=lambda c: c and 'group' in c and 'px-4' in c and 'py-3' in c)
+        for row in rows:
+            grid = row.find('div', class_=lambda c: c and 'grid' in c and 'grid-cols-12' in c)
+            if not grid:
+                continue
+            cols = [c for c in grid.children if isinstance(c, BSTag)]
+            if len(cols) < 2:
+                continue
 
-        # Often rows are flex containers
-        # Try to find elements that look like tag rows
-        # The tag string is usually strong or a link
+            # Tag name: use the <a> inside col 0 to avoid badge text concatenation
+            tag_link = cols[0].find('a')
+            tag_name = tag_link.get_text(strip=True) if tag_link else cols[0].get_text(strip=True)
 
-        # Fallback approach: search for common patterns in text
-        # Since I need to parse specific structure, let's look for tags like "latest", "8b", etc.
-        # In Ollama's /tags page, there is a list of models
+            size_text = cols[1].get_text(strip=True) if len(cols) > 1 else ""
+            context   = cols[2].get_text(strip=True) if len(cols) > 2 else ""
+            input_type = cols[3].get_text(strip=True) if len(cols) > 3 else ""
 
-        # This implementation will attempt to find the block containing tags
-        # and extract: tag, size_bytes (estimate or parse), size_text, context, input type
-        # For the mock/tests, we will be more permissive.
+            size_bytes = 0
+            if size_text:
+                try:
+                    num = float(re.sub(r'[^\d.]', '', size_text))
+                    if 'GB' in size_text.upper():
+                        size_bytes = int(num * 1024 * 1024 * 1024)
+                    elif 'MB' in size_text.upper():
+                        size_bytes = int(num * 1024 * 1024)
+                except ValueError:
+                    pass
 
-        # Let's find all items that seem to be tags
-        # Tag name is usually in a 'div' with class break-all or a link
-        for item in soup.find_all('div', class_=lambda c: c and 'flex' in c and 'items-center' in c):
-            # Attempt to extract tag info
-            tag_elem = item.find('a', class_=lambda c: c and 'break-all' in c)
-            if not tag_elem:
-                # Sometimes it's a span or div
-                tag_elem = item.find(lambda t: t.name in ['div', 'span'] and 'break-all' in t.get('class', []))
-
-            if tag_elem:
-                tag_name = tag_elem.get_text(strip=True)
-
-                # Sibling or children text often has size
-                text = item.get_text(strip=True, separator=' ')
-
-                # Look for size like 4.7 GB
-                size_match = re.search(r'([0-9.]+\s*[MGB]+)', text)
-                size_text = size_match.group(1) if size_match else ""
-
-                size_bytes = 0
-                if size_text:
-                    try:
-                        num = float(re.sub(r'[^\d.]', '', size_text))
-                        if 'GB' in size_text:
-                            size_bytes = int(num * 1024 * 1024 * 1024)
-                        elif 'MB' in size_text:
-                            size_bytes = int(num * 1024 * 1024)
-                    except ValueError:
-                        pass
-
-                # Context/input type often requires more detailed parsing
-                # But we'll try to find common patterns
-
+            if tag_name:
                 variants.append({
                     "tag": tag_name,
                     "size_bytes": size_bytes,
                     "size_text": size_text,
-                    "context": "", # Not always present in HTML
-                    "input": ""    # Not always present in HTML
+                    "context": context,
+                    "input": input_type,
                 })
 
-        # If the complex parse fails, try a simpler one for the tests
+        # Fallback for unit tests using mock HTML with class="tag-item"
         if not variants:
-            for row in soup.find_all('div', class_='tag-item'): # Mock class
+            for row in soup.find_all('div', class_='tag-item'):
                 tag = row.find(class_='tag-name')
-                tag = tag.get_text(strip=True) if tag else ""
-
+                tag_name = tag.get_text(strip=True) if tag else ""
                 size = row.find(class_='tag-size')
                 size_text = size.get_text(strip=True) if size else ""
+                if tag_name:
+                    variants.append({
+                        "tag": tag_name,
+                        "size_bytes": 0,
+                        "size_text": size_text,
+                        "context": "",
+                        "input": "",
+                    })
 
-                variants.append({
-                    "tag": tag,
-                    "size_bytes": 0,
-                    "size_text": size_text,
-                    "context": "",
-                    "input": ""
-                })
-
-        # Remove duplicates while preserving order
-        unique_variants = []
-        seen_tags = set()
+        # Deduplicate preserving order
+        seen_tags: set = set()
+        unique: List[Dict[str, str]] = []
         for v in variants:
-            if v['tag'] and v['tag'] not in seen_tags:
+            if v['tag'] not in seen_tags:
                 seen_tags.add(v['tag'])
-                unique_variants.append(v)
-
-        return unique_variants
+                unique.append(v)
+        return unique
 
     def parse_model_detail(self, slug: str, page_html: str, tags_html: str) -> Dict[str, Any]:
         if "/" in slug:

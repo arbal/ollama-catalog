@@ -11,12 +11,22 @@ from .model_scraper import ModelScraper
 CATALOG_FILE = Path("out/ollama_catalog.json")
 DISCOVERED_FILE = Path("out/discovered_slugs.json")
 
+# Git-committed split files (small diffs, time-series friendly)
+MODELS_JSONL   = Path("out/models.jsonl")
+PULLS_JSONL    = Path("out/pulls.jsonl")
+METADATA_JSON  = Path("out/metadata.json")
+
+# Fields committed to models.jsonl (stable — only changes on structural updates)
+_STABLE_FIELDS = ["slug", "name", "model_type", "namespace", "capabilities",
+                   "blurb", "description", "updated", "tags_count", "variants"]
+
 class CatalogFetcher:
     def __init__(self, concurrency: int = 10):
         self.concurrency = concurrency
         self.semaphore = asyncio.Semaphore(concurrency)
         self.client = httpx.AsyncClient(
             http2=True,
+            follow_redirects=True,
             headers={"User-Agent": "Mozilla/5.0 (compatible; ollama-catalog/1.0)"},
             timeout=30.0
         )
@@ -27,7 +37,9 @@ class CatalogFetcher:
 
     def load_discovered(self) -> List[str]:
         if not DISCOVERED_FILE.exists():
-            return []
+            raise FileNotFoundError(
+                f"{DISCOVERED_FILE} not found. Run 'ollama-catalog discover' first."
+            )
         try:
             with open(DISCOVERED_FILE, "r", encoding="utf-8") as f:
                 return json.load(f)
@@ -35,27 +47,67 @@ class CatalogFetcher:
             return []
 
     def load_existing_catalog(self) -> Dict[str, Any]:
-        if not CATALOG_FILE.exists():
-            return {"scraped_at": None, "model_count": 0, "models": []}
-        try:
-            with open(CATALOG_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except (json.JSONDecodeError, IOError):
-            return {"scraped_at": None, "model_count": 0, "models": []}
+        # Primary: full JSON (fast local working file)
+        if CATALOG_FILE.exists():
+            try:
+                with open(CATALOG_FILE, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except (json.JSONDecodeError, IOError):
+                pass
+        # Fallback: reconstruct from committed JSONL split files
+        if MODELS_JSONL.exists() and PULLS_JSONL.exists():
+            models: Dict[str, Any] = {}
+            with open(MODELS_JSONL, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        m = json.loads(line)
+                        models[m["slug"]] = m
+            with open(PULLS_JSONL, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        p = json.loads(line)
+                        if p["slug"] in models:
+                            models[p["slug"]].update(p)
+            return {"scraped_at": None, "model_count": len(models), "models": list(models.values())}
+        return {"scraped_at": None, "model_count": 0, "models": []}
 
     def save_catalog(self):
         CATALOG_FILE.parent.mkdir(parents=True, exist_ok=True)
-        # Sort current models dict
         sorted_models = sorted([m for m in self.models.values() if m is not None], key=lambda x: x["slug"])
+        scraped_at = datetime.now(timezone.utc).isoformat()
 
+        # Local working file (not committed — derived from split files)
         output = {
-            "scraped_at": datetime.now(timezone.utc).isoformat(),
+            "scraped_at": scraped_at,
             "model_count": len(sorted_models),
             "models": sorted_models
         }
-
         with open(CATALOG_FILE, "w", encoding="utf-8") as f:
             json.dump(output, f, indent=2)
+
+        # Committed split files (git-friendly, small diffs)
+        self._save_split(sorted_models, scraped_at)
+
+    def _save_split(self, sorted_models: List[Dict[str, Any]], scraped_at: str):
+        out_dir = MODELS_JSONL.parent
+        out_dir.mkdir(parents=True, exist_ok=True)
+
+        with open(MODELS_JSONL, "w", encoding="utf-8") as mf, \
+             open(PULLS_JSONL,  "w", encoding="utf-8") as pf:
+            for m in sorted_models:
+                stable = {k: m[k] for k in _STABLE_FIELDS if k in m}
+                if "capabilities" in stable:
+                    stable["capabilities"] = sorted(stable["capabilities"])
+                mf.write(json.dumps(stable, separators=(',', ':')) + "\n")
+                pf.write(json.dumps(
+                    {"slug": m["slug"], "pulls": m.get("pulls", 0), "pulls_text": m.get("pulls_text", "0")},
+                    separators=(',', ':')
+                ) + "\n")
+
+        with open(METADATA_JSON, "w", encoding="utf-8") as f:
+            json.dump({"scraped_at": scraped_at, "model_count": len(sorted_models)}, f, indent=2)
 
     async def _fetch_and_process(self, slug: str, progress: Progress, task_id: TaskID) -> None:
         async with self.semaphore:
@@ -90,7 +142,10 @@ class CatalogFetcher:
         if refetch:
             # If refetching, get everything from existing catalog, discovered, and seen
             slugs_to_fetch_set.update(self.models.keys())
-            slugs_to_fetch_set.update(self.load_discovered())
+            try:
+                slugs_to_fetch_set.update(self.load_discovered())
+            except FileNotFoundError:
+                pass  # OK in refetch mode — catalog slugs already loaded above
 
             seen_file = Path("out/seen_slugs.json")
             if seen_file.exists():
