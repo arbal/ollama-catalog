@@ -40,6 +40,15 @@ def run_all(args, console):
     else:
         console.print("[bold yellow]Skipping fetch due to --dry-run[/bold yellow]")
 
+def run_sanitize(args, console):
+    fetcher = CatalogFetcher()
+    result = fetcher.sanitize_committed_models()
+    asyncio.run(fetcher.client.aclose())
+    console.print(
+        f"Sanitized [bold blue]{result.changed}[/bold blue] of "
+        f"{result.records} model records."
+    )
+
 def main():
     parser = argparse.ArgumentParser(description="Ollama community model catalog scraper")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -61,6 +70,8 @@ def main():
     run_parser.add_argument("--limit", type=int, help="Stop after N items")
     run_parser.add_argument("--concurrency", type=int, default=10, help="Number of concurrent fetches (fetch)")
 
+    subparsers.add_parser("sanitize", help="Redact sensitive-looking text from committed models.jsonl without network access")
+
     args = parser.parse_args()
     console = Console()
 
@@ -70,6 +81,8 @@ def main():
         run_fetch(args, console)
     elif args.command == "run":
         run_all(args, console)
+    elif args.command == "sanitize":
+        run_sanitize(args, console)
 
 if __name__ == "__main__":
     main()

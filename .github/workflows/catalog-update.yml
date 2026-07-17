@@ -27,16 +27,40 @@ jobs:
       - name: Install dependencies
         run: pip install -e .
 
+      - name: Install Gitleaks
+        env:
+          GITLEAKS_VERSION: '8.30.1'
+          GITLEAKS_SHA256: '551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb'
+        run: |
+          curl --fail --location --show-error --silent \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+            --output "$RUNNER_TEMP/gitleaks.tar.gz"
+          echo "${GITLEAKS_SHA256}  $RUNNER_TEMP/gitleaks.tar.gz" | sha256sum --check --status
+          tar --extract --gzip --file "$RUNNER_TEMP/gitleaks.tar.gz" \
+            --directory "$RUNNER_TEMP" gitleaks
+          mkdir -p "$RUNNER_TEMP/bin"
+          install --mode=0755 "$RUNNER_TEMP/gitleaks" "$RUNNER_TEMP/bin/gitleaks"
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/bin/gitleaks" version
+
       - name: Discover new models
         run: ollama-catalog discover
 
       - name: Fetch model details
         run: ollama-catalog fetch --refetch
 
+      - name: Sanitize public catalog text
+        run: ollama-catalog sanitize
+
+      - name: Stage and scan public catalog changes
+        run: |
+          git add out/models.jsonl out/pulls.jsonl out/metadata.json out/seen_slugs.json out/discovered_slugs.json
+          scripts/check-public-catalog.sh
+          scripts/check-public-catalog.sh --staged
+
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add out/models.jsonl out/pulls.jsonl out/metadata.json out/seen_slugs.json out/discovered_slugs.json
           git diff --cached --quiet && echo "No changes to commit." || git commit -m "chore: catalog update $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push

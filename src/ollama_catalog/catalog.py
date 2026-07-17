@@ -7,6 +7,7 @@ import httpx
 from rich.progress import Progress, TaskID
 
 from .model_scraper import ModelScraper
+from .sanitization import SanitizationResult, sanitize_model_record, sanitize_models_jsonl
 
 CATALOG_FILE = Path("out/ollama_catalog.json")
 DISCOVERED_FILE = Path("out/discovered_slugs.json")
@@ -75,7 +76,7 @@ class CatalogFetcher:
 
     def save_catalog(self):
         CATALOG_FILE.parent.mkdir(parents=True, exist_ok=True)
-        sorted_models = sorted([m for m in self.models.values() if m is not None], key=lambda x: x["slug"])
+        sorted_models = sorted([sanitize_model_record(m) for m in self.models.values() if m is not None], key=lambda x: x["slug"])
         scraped_at = datetime.now(timezone.utc).isoformat()
 
         # Local working file (not committed — derived from split files)
@@ -108,6 +109,10 @@ class CatalogFetcher:
 
         with open(METADATA_JSON, "w", encoding="utf-8") as f:
             json.dump({"scraped_at": scraped_at, "model_count": len(sorted_models)}, f, indent=2)
+
+    def sanitize_committed_models(self) -> SanitizationResult:
+        """Redact existing public model text without changing scrape metadata."""
+        return sanitize_models_jsonl(MODELS_JSONL)
 
     async def _fetch_and_process(self, slug: str, progress: Progress, task_id: TaskID) -> None:
         async with self.semaphore:

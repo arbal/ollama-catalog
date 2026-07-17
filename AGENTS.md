@@ -2,6 +2,21 @@
 
 Scraper that builds a structured JSON catalog of all Ollama models (official + community).
 
+## Private Operational Companion
+
+This public repository contains public-safe code guidance only. Authorized
+local operational work uses the separately versioned companion spec at
+`/root/agent-shared/ollama-catalog/AGENTS.md`.
+
+Never create, read as canonical, or write lifecycle plans or other operational
+artifacts under `/root/ollama-catalog/.agent`. Store ollama-catalog lifecycle
+run artifacts only under `/root/agent-shared/.runs/ollama-catalog/<UTC_TIMESTAMP>/`.
+
+Before committing or pushing generated public catalog data, run
+`scripts/check-public-catalog.sh`. Install its local Git hooks with
+`scripts/install-public-git-hooks.sh`; the hooks fail closed if Gitleaks is not
+available or the catalog scan finds a credential-like value.
+
 ## Architecture
 
 Two-stage pipeline:

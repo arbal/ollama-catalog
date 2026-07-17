@@ -1,29 +1,35 @@
 import pytest
-from unittest.mock import AsyncMock, patch, MagicMock
-from pathlib import Path
+from unittest.mock import AsyncMock, patch
 import json
 import asyncio
 from ollama_catalog.catalog import CatalogFetcher
 
 @pytest.fixture
-def mock_catalog_files(tmp_path):
-    catalog_file = tmp_path / "ollama_catalog.json"
-    discovered_file = tmp_path / "discovered_slugs.json"
-    seen_file = tmp_path / "seen_slugs.json"
+def catalog_output_paths(tmp_path):
+    """Redirect every catalog artifact so tests never modify tracked output."""
+    return {
+        "catalog": tmp_path / "ollama_catalog.json",
+        "discovered": tmp_path / "discovered_slugs.json",
+        "models": tmp_path / "models.jsonl",
+        "pulls": tmp_path / "pulls.jsonl",
+        "metadata": tmp_path / "metadata.json",
+    }
 
-    with patch("ollama_catalog.catalog.CATALOG_FILE", catalog_file), \
-         patch("ollama_catalog.catalog.DISCOVERED_FILE", discovered_file), \
-         patch("pathlib.Path.exists", side_effect=lambda: True): # simplified
-        yield {
-            "catalog": catalog_file,
-            "discovered": discovered_file,
-            "seen": seen_file
-        }
+
+def patch_catalog_output_paths(paths):
+    return patch.multiple(
+        "ollama_catalog.catalog",
+        CATALOG_FILE=paths["catalog"],
+        DISCOVERED_FILE=paths["discovered"],
+        MODELS_JSONL=paths["models"],
+        PULLS_JSONL=paths["pulls"],
+        METADATA_JSON=paths["metadata"],
+    )
 
 @pytest.mark.asyncio
-async def test_run_preserves_existing_models(tmp_path):
-    catalog_file = tmp_path / "ollama_catalog.json"
-    discovered_file = tmp_path / "discovered_slugs.json"
+async def test_run_preserves_existing_models(catalog_output_paths):
+    catalog_file = catalog_output_paths["catalog"]
+    discovered_file = catalog_output_paths["discovered"]
 
     # Pre-populate catalog
     with open(catalog_file, "w") as f:
@@ -34,8 +40,7 @@ async def test_run_preserves_existing_models(tmp_path):
     with open(discovered_file, "w") as f:
         json.dump(["new_model"], f)
 
-    with patch("ollama_catalog.catalog.CATALOG_FILE", catalog_file), \
-         patch("ollama_catalog.catalog.DISCOVERED_FILE", discovered_file):
+    with patch_catalog_output_paths(catalog_output_paths):
 
         fetcher = CatalogFetcher()
         fetcher.scraper.fetch_model_detail = AsyncMock(return_value={"slug": "new_model", "name": "new_model", "pulls_text": "1", "capabilities": []})
@@ -49,9 +54,9 @@ async def test_run_preserves_existing_models(tmp_path):
             assert "new_model" in slugs
 
 @pytest.mark.asyncio
-async def test_incremental_save_does_not_wipe_catalog(tmp_path):
-    catalog_file = tmp_path / "ollama_catalog.json"
-    discovered_file = tmp_path / "discovered_slugs.json"
+async def test_incremental_save_does_not_wipe_catalog(catalog_output_paths):
+    catalog_file = catalog_output_paths["catalog"]
+    discovered_file = catalog_output_paths["discovered"]
 
     with open(catalog_file, "w") as f:
         json.dump({
@@ -62,8 +67,7 @@ async def test_incremental_save_does_not_wipe_catalog(tmp_path):
         # Create 50 slugs to trigger incremental save
         json.dump([f"new_{i}" for i in range(50)], f)
 
-    with patch("ollama_catalog.catalog.CATALOG_FILE", catalog_file), \
-         patch("ollama_catalog.catalog.DISCOVERED_FILE", discovered_file):
+    with patch_catalog_output_paths(catalog_output_paths):
 
         fetcher = CatalogFetcher()
         fetcher.scraper.fetch_model_detail = AsyncMock(return_value={"slug": "mock", "pulls_text": "1", "capabilities": []})
@@ -79,10 +83,10 @@ async def test_incremental_save_does_not_wipe_catalog(tmp_path):
 
 
 @pytest.mark.asyncio
-async def test_missing_discovered_file_handled_gracefully(tmp_path):
-    catalog_file = tmp_path / "ollama_catalog.json"
-    discovered_file = tmp_path / "missing.json"  # Ensure it doesn't exist
+async def test_missing_discovered_file_requires_discovery(catalog_output_paths):
+    catalog_output_paths["discovered"] = catalog_output_paths["discovered"].with_name("missing.json")
 
-    with patch("ollama_catalog.catalog.CATALOG_FILE", catalog_file),          patch("ollama_catalog.catalog.DISCOVERED_FILE", discovered_file):
+    with patch_catalog_output_paths(catalog_output_paths):
         fetcher = CatalogFetcher()
-        assert fetcher.load_discovered() == []
+        with pytest.raises(FileNotFoundError, match="ollama-catalog discover"):
+            fetcher.load_discovered()

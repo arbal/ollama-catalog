@@ -34,14 +34,12 @@ def test_parse_pulls():
 def test_parse_variants():
     scraper = ModelScraper()
     tags_html = """
-    <div class="flex items-center">
-        <a class="break-all">latest</a>
-        <span>4.7 GB</span>
-    </div>
-    <div class="flex items-center">
-        <a class="break-all">8b</a>
-        <span>8.5 GB</span>
-    </div>
+    <div class="group px-4 py-3"><div class="grid grid-cols-12 items-center">
+        <div><a>latest</a></div><div>4.7 GB</div><div>8K</div><div>Text</div>
+    </div></div>
+    <div class="group px-4 py-3"><div class="grid grid-cols-12 items-center">
+        <div><a>8b</a></div><div>8.5 GB</div><div>8K</div><div>Text</div>
+    </div></div>
     """
     variants = scraper._parse_variants(tags_html)
     assert len(variants) == 2
@@ -78,7 +76,7 @@ async def test_fetch_success(httpx_mock):
     )
     httpx_mock.add_response(
         url="https://ollama.com/library/testmodel/tags",
-        text='<div class="flex items-center"><a class="break-all">latest</a> 4.7 GB</div>'
+        text='<div class="group px-4 py-3"><div class="grid grid-cols-12 items-center"><div><a>latest</a></div><div>4.7 GB</div><div>8K</div><div>Text</div></div></div>'
     )
 
     scraper = ModelScraper()

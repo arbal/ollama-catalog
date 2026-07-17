@@ -7,6 +7,9 @@ build/
 *.egg-info/
 *.egg
 
+# Private lifecycle artifacts belong in /root/agent-shared/.runs/ollama-catalog.
+.agent/
+
 # Ignore all files in out/ by default
 out/*
 # Track git-friendly split files (committed, small diffs)
