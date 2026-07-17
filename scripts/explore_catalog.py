@@ -381,7 +381,7 @@ def emit_format(models, fmt, limit=0):
             str(m.get("pulls", 0)),
             str(m.get("tags_count", 0)),
             m.get("model_type", ""),
-            m.get("namespace", ""),
+            m.get("namespace") or "",
             m.get("updated", ""),
             ",".join(m.get("capabilities", [])),
             (m.get("blurb") or "").replace("\n", " "),
