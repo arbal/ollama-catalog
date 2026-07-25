@@ -1,5 +1,6 @@
 import asyncio
 import json
+import logging
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import List, Dict, Any, Optional
@@ -8,6 +9,8 @@ from rich.progress import Progress, TaskID
 
 from .model_scraper import ModelScraper
 from .sanitization import SanitizationResult, sanitize_model_record, sanitize_models_jsonl
+
+logger = logging.getLogger(__name__)
 
 CATALOG_FILE = Path("out/ollama_catalog.json")
 DISCOVERED_FILE = Path("out/discovered_slugs.json")
@@ -22,8 +25,9 @@ _STABLE_FIELDS = ["slug", "name", "model_type", "namespace", "capabilities",
                    "blurb", "description", "updated", "tags_count", "variants"]
 
 class CatalogFetcher:
-    def __init__(self, concurrency: int = 10):
+    def __init__(self, concurrency: int = 10, delay: float = 0.0):
         self.concurrency = concurrency
+        self.delay = delay
         self.semaphore = asyncio.Semaphore(concurrency)
         self.client = httpx.AsyncClient(
             http2=True,
@@ -62,15 +66,23 @@ class CatalogFetcher:
                 for line in f:
                     line = line.strip()
                     if line:
-                        m = json.loads(line)
-                        models[m["slug"]] = m
+                        try:
+                            m = json.loads(line)
+                            slug = m["slug"]
+                            models[slug] = m
+                        except (json.JSONDecodeError, KeyError) as e:
+                            logger.warning(f"Skipping malformed models JSONL line: {line}. Error: {e}")
             with open(PULLS_JSONL, "r", encoding="utf-8") as f:
                 for line in f:
                     line = line.strip()
                     if line:
-                        p = json.loads(line)
-                        if p["slug"] in models:
-                            models[p["slug"]].update(p)
+                        try:
+                            p = json.loads(line)
+                            slug = p["slug"]
+                            if slug in models:
+                                models[slug].update(p)
+                        except (json.JSONDecodeError, KeyError) as e:
+                            logger.warning(f"Skipping malformed pulls JSONL line: {line}. Error: {e}")
             return {"scraped_at": None, "model_count": len(models), "models": list(models.values())}
         return {"scraped_at": None, "model_count": 0, "models": []}
 
@@ -98,12 +110,24 @@ class CatalogFetcher:
         with open(MODELS_JSONL, "w", encoding="utf-8") as mf, \
              open(PULLS_JSONL,  "w", encoding="utf-8") as pf:
             for m in sorted_models:
-                stable = {k: m[k] for k in _STABLE_FIELDS if k in m}
+                # Avoid double dict lookups by using get()
+                stable = {}
+                for k in _STABLE_FIELDS:
+                    val = m.get(k)
+                    if val is not None:
+                        stable[k] = val
+
+                # Capabilities are sorted during ingestion, but ensure it's sorted safely
                 if "capabilities" in stable:
                     stable["capabilities"] = sorted(stable["capabilities"])
+
                 mf.write(json.dumps(stable, separators=(',', ':')) + "\n")
+
+                slug_val = m.get("slug")
+                pulls_val = m.get("pulls", 0)
+                pulls_text_val = m.get("pulls_text", "0")
                 pf.write(json.dumps(
-                    {"slug": m["slug"], "pulls": m.get("pulls", 0), "pulls_text": m.get("pulls_text", "0")},
+                    {"slug": slug_val, "pulls": pulls_val, "pulls_text": pulls_text_val},
                     separators=(',', ':')
                 ) + "\n")
 
@@ -116,6 +140,9 @@ class CatalogFetcher:
 
     async def _fetch_and_process(self, slug: str, progress: Progress, task_id: TaskID) -> None:
         async with self.semaphore:
+            if self.delay > 0:
+                await asyncio.sleep(self.delay)
+
             model_data = await self.scraper.fetch_model_detail(slug)
 
             if model_data:
