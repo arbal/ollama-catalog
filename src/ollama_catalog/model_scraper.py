@@ -1,5 +1,6 @@
 import re
 import asyncio
+import urllib.parse
 from datetime import datetime
 from typing import Dict, Any, Optional, List
 import httpx
@@ -21,19 +22,23 @@ class ModelScraper:
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=0.5, min=1.0, max=8.0),
-        retry=retry_if_exception_type(httpx.RequestError),
+        retry=retry_if_exception_type((httpx.RequestError, httpx.HTTPStatusError)),
         reraise=True
     )
     async def _fetch_url(self, url: str) -> httpx.Response:
-        return await self.client.get(url)
+        response = await self.client.get(url)
+        if response.status_code != 404:
+            response.raise_for_status()
+        return response
 
     def detect_url(self, slug: str) -> str:
+        encoded_slug = urllib.parse.quote(slug, safe="/")
         if "/" in slug:
             # Community model
-            return f"https://ollama.com/{slug}"
+            return f"https://ollama.com/{encoded_slug}"
         else:
             # Official model
-            return f"https://ollama.com/library/{slug}"
+            return f"https://ollama.com/library/{encoded_slug}"
 
     async def fetch_model_detail(self, slug: str) -> Optional[Dict[str, Any]]:
         base_url = self.detect_url(slug)
@@ -58,6 +63,7 @@ class ModelScraper:
                 logger.warning(f"Model {slug} not found (404)")
                 return None
 
+            # Raise for any other error status that escaped _fetch_url
             page_resp.raise_for_status()
             tags_resp.raise_for_status()
 
@@ -70,12 +76,18 @@ class ModelScraper:
             logger.warning(f"Unexpected error fetching {slug}: {e}")
             return None
 
-    def _parse_pulls(self, html: str) -> tuple[int, str]:
+    def _parse_pulls(self, soup_or_html: BeautifulSoup | str) -> tuple[int, str]:
         # Based on the requirement:
         # Parse pulls count: re.search(r'([0-9]+(?:\.[0-9]+)?)([KMB])?\s*Pulls', html)
-        match = re.search(r'([0-9]+(?:\.[0-9]+)?)([KMB])?\s*Pulls', html, re.IGNORECASE)
+        if isinstance(soup_or_html, str):
+            soup = BeautifulSoup(soup_or_html, 'lxml')
+            html_str = soup_or_html
+        else:
+            soup = soup_or_html
+            html_str = str(soup)
 
-        soup = BeautifulSoup(html, 'lxml')
+        match = re.search(r'([0-9]+(?:\.[0-9]+)?)([KMB])?\s*Pulls', html_str, re.IGNORECASE)
+
         text = soup.get_text(separator=' ', strip=True)
 
         if not match:
@@ -101,10 +113,15 @@ class ModelScraper:
             elif suffix == 'B':
                 num *= 1_000_000_000
             return int(num), pulls_text
-        except ValueError:
+        except (ValueError, OverflowError):
             return 0, "0"
-    def _parse_capabilities(self, html: str) -> List[str]:
-        soup = BeautifulSoup(html, 'lxml')
+
+    def _parse_capabilities(self, soup_or_html: BeautifulSoup | str) -> List[str]:
+        if isinstance(soup_or_html, str):
+            soup = BeautifulSoup(soup_or_html, 'lxml')
+        else:
+            soup = soup_or_html
+
         capabilities = []
         # Capabilities are usually chips like Tools, Vision, Embedding
         # Example chip classes might have bg-blue-100 or text-blue-600
@@ -117,11 +134,14 @@ class ModelScraper:
             if text in ['tools', 'vision', 'thinking', 'embedding']:
                 capabilities.append(text)
 
-        # Remove duplicates
-        return list(set(capabilities))
+        # Remove duplicates and sort deterministically
+        return sorted(list(set(capabilities)))
 
-    def _parse_blurb_and_desc(self, html: str) -> tuple[str, str]:
-        soup = BeautifulSoup(html, 'lxml')
+    def _parse_blurb_and_desc(self, soup_or_html: BeautifulSoup | str) -> tuple[str, str]:
+        if isinstance(soup_or_html, str):
+            soup = BeautifulSoup(soup_or_html, 'lxml')
+        else:
+            soup = soup_or_html
 
         # Meta description usually has the blurb
         blurb = ""
@@ -138,17 +158,24 @@ class ModelScraper:
 
         return blurb, description
 
-    def _parse_updated(self, html: str) -> str:
-        # Looking for 'Updated X days ago' or similar
-        soup = BeautifulSoup(html, 'lxml')
+    def _parse_updated(self, soup_or_html: BeautifulSoup | str) -> str:
+        if isinstance(soup_or_html, str):
+            soup = BeautifulSoup(soup_or_html, 'lxml')
+        else:
+            soup = soup_or_html
+
         text = soup.get_text()
         match = re.search(r'Updated\s+(.*?ago)', text, re.IGNORECASE)
         if match:
             return match.group(1).strip()
         return ""
 
-    def _parse_variants(self, tags_html: str) -> List[Dict[str, str]]:
-        soup = BeautifulSoup(tags_html, 'lxml')
+    def _parse_variants(self, soup_or_html: BeautifulSoup | str) -> List[Dict[str, str]]:
+        if isinstance(soup_or_html, str):
+            soup = BeautifulSoup(soup_or_html, 'lxml')
+        else:
+            soup = soup_or_html
+
         variants = []
 
         # Real Ollama /tags HTML structure (verified 2026-04-16):
@@ -230,11 +257,15 @@ class ModelScraper:
             namespace = None
             name = slug
 
-        pulls, pulls_text = self._parse_pulls(page_html)
-        capabilities = self._parse_capabilities(page_html)
-        blurb, description = self._parse_blurb_and_desc(page_html)
-        updated = self._parse_updated(page_html)
-        variants = self._parse_variants(tags_html)
+        # Performance Optimization: Parse HTML into BeautifulSoup objects once
+        page_soup = BeautifulSoup(page_html, 'lxml')
+        tags_soup = BeautifulSoup(tags_html, 'lxml')
+
+        pulls, pulls_text = self._parse_pulls(page_soup)
+        capabilities = self._parse_capabilities(page_soup)
+        blurb, description = self._parse_blurb_and_desc(page_soup)
+        updated = self._parse_updated(page_soup)
+        variants = self._parse_variants(tags_soup)
 
         return {
             "slug": slug,

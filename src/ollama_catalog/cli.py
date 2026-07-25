@@ -1,6 +1,7 @@
 import argparse
 import asyncio
 import json
+import logging
 from pathlib import Path
 from rich.console import Console
 
@@ -29,7 +30,11 @@ def run_discover(args, console):
 
 def run_fetch(args, console):
     console.print("[bold green]Starting fetch...[/bold green]")
-    fetcher = CatalogFetcher(concurrency=args.concurrency if hasattr(args, 'concurrency') else 10)
+    delay_val = getattr(args, 'delay', 0.0)
+    fetcher = CatalogFetcher(
+        concurrency=args.concurrency if hasattr(args, 'concurrency') else 10,
+        delay=delay_val
+    )
     asyncio.run(fetcher.run(limit=args.limit, refetch=args.refetch))
     console.print(f"[bold green]Done fetching catalog![/bold green]")
 
@@ -51,6 +56,8 @@ def run_sanitize(args, console):
 
 def main():
     parser = argparse.ArgumentParser(description="Ollama community model catalog scraper")
+    parser.add_argument("--verbose", action="store_true", help="Enable verbose debug logging")
+
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     discover_parser = subparsers.add_parser("discover", help="Discover models from Ollama")
@@ -62,6 +69,7 @@ def main():
     fetch_parser.add_argument("--refetch", action="store_true", help="Refetch all known models")
     fetch_parser.add_argument("--limit", type=int, help="Stop after fetching N models")
     fetch_parser.add_argument("--concurrency", type=int, default=10, help="Number of concurrent fetches")
+    fetch_parser.add_argument("--delay", type=float, default=0.0, help="Optional delay in seconds between fetches (rate limiting)")
 
     run_parser = subparsers.add_parser("run", help="Discover then fetch details (normal daily workflow)")
     run_parser.add_argument("--full", action="store_true", help="Ignore seen slugs, re-crawl everything (discover)")
@@ -69,11 +77,24 @@ def main():
     run_parser.add_argument("--refetch", action="store_true", help="Refetch all known models (fetch)")
     run_parser.add_argument("--limit", type=int, help="Stop after N items")
     run_parser.add_argument("--concurrency", type=int, default=10, help="Number of concurrent fetches (fetch)")
+    run_parser.add_argument("--delay", type=float, default=0.0, help="Optional delay in seconds between fetches (rate limiting)")
 
     subparsers.add_parser("sanitize", help="Redact sensitive-looking text from committed models.jsonl without network access")
 
     args = parser.parse_args()
     console = Console()
+
+    # Configure logging based on verbose flag
+    if args.verbose:
+        logging.basicConfig(
+            level=logging.DEBUG,
+            format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+        )
+    else:
+        logging.basicConfig(
+            level=logging.WARNING,
+            format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+        )
 
     if args.command == "discover":
         run_discover(args, console)
