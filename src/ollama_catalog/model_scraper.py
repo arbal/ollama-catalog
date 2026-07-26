@@ -5,6 +5,7 @@ from typing import Dict, Any, Optional, List
 import httpx
 from bs4 import BeautifulSoup, Tag as BSTag
 import logging
+import urllib.parse
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
 logger = logging.getLogger(__name__)
@@ -28,12 +29,13 @@ class ModelScraper:
         return await self.client.get(url)
 
     def detect_url(self, slug: str) -> str:
+        safe_slug = urllib.parse.quote(slug, safe="/")
         if "/" in slug:
             # Community model
-            return f"https://ollama.com/{slug}"
+            return f"https://ollama.com/{safe_slug}"
         else:
             # Official model
-            return f"https://ollama.com/library/{slug}"
+            return f"https://ollama.com/library/{safe_slug}"
 
     async def fetch_model_detail(self, slug: str) -> Optional[Dict[str, Any]]:
         base_url = self.detect_url(slug)
