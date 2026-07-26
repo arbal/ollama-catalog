@@ -4,10 +4,7 @@
 set -e
 
 echo "Starting daily catalog update..."
-ollama-catalog discover --full
-ollama-catalog fetch --refetch --reconcile
-ollama-catalog sanitize
-scripts/check-public-catalog.sh
+scripts/run-catalog-update.sh auto
 
 echo "Committing updates..."
 git add out/models.jsonl out/pulls.jsonl out/metadata.json out/seen_slugs.json out/discovered_slugs.json

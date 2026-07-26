@@ -56,6 +56,20 @@ OLLAMASCRAPER_REPO=/path/to/ollama-catalog ollama-models-diff --days 7
 | `fetch` | `--refetch`, `--limit N`, `--concurrency N` | Download model metadata for discovered slugs. |
 | `run` | *(Combines all above flags)* | Executes `discover` followed by `fetch`. This is the typical workflow for daily automation. |
 
+### Automation cadence
+
+Catalog Update runs at 06:00 UTC every day. In `auto` mode, Tuesday through
+Sunday use incremental discovery and fetch only newly discovered models; Monday
+uses a full discovery, refetch, and reconciliation to repair coverage and prune
+stale records. Manual workflow dispatch supports `auto`, `incremental`, and
+`full` modes. The shared update entry point is:
+
+```bash
+scripts/run-catalog-update.sh auto
+scripts/run-catalog-update.sh incremental
+scripts/run-catalog-update.sh full
+```
+
 ### Explore the catalog
 
 The repo also includes `oc-explore`, a local CLI wrapper around `scripts/explore_catalog.py` for slicing, trending, and comparing the scraped catalog data.
