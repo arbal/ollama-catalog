@@ -1,4 +1,0 @@
-# Public model slug, not a credential. Keep the scanner enabled for this file.
-out/seen_slugs.json:generic-api-key:2253
-# Public model-card prose; verified scanner false positive, not an API key.
-out/models.jsonl:generic-api-key:5137

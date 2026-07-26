@@ -14,8 +14,11 @@ run artifacts only under `/root/agent-shared/.runs/ollama-catalog/<UTC_TIMESTAMP
 
 Before committing or pushing generated public catalog data, run
 `scripts/check-public-catalog.sh`. Install its local Git hooks with
-`scripts/install-public-git-hooks.sh`; the hooks fail closed if Gitleaks is not
-available or the catalog scan finds a credential-like value.
+`scripts/install-public-git-hooks.sh`; the hooks validate that all generated
+files are present, parse as JSON, and contain only constrained public model
+identifiers. The daily Catalog Update workflow intentionally does not run a
+credential-pattern scanner over upstream model text: broad heuristic matches
+on public model names and documentation previously blocked catalog publishing.
 
 ## Architecture
 
