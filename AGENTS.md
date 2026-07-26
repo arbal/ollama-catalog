@@ -25,7 +25,9 @@ on public model names and documentation previously blocked catalog publishing.
 Two-stage pipeline:
 
 ```
-discover  →  out/discovered_slugs.json  →  fetch  →  out/ollama_catalog.json
+discover  →  out/discovered_slugs.json  →  fetch  →  out/models.jsonl
+                                             ├──→  out/pulls.jsonl
+                                             └──→  out/metadata.json
                                              ↑
                                      out/seen_slugs.json  (current full-listing state)
 ```
@@ -47,7 +49,10 @@ discover  →  out/discovered_slugs.json  →  fetch  →  out/ollama_catalog.js
 |---|---|
 | `discovered_slugs.json` | All slugs found in current discovery run (input to `fetch`) |
 | `seen_slugs.json` | Incremental crawl state; a successful `discover --full` replaces it with the current authoritative search listing |
-| `ollama_catalog.json` | Final catalog — `scraped_at`, `model_count`, `models[]` |
+| `models.jsonl` | Committed stable model records, including descriptions and variants |
+| `pulls.jsonl` | Committed volatile pull-count records, kept separate for smaller diffs |
+| `metadata.json` | Committed `scraped_at` timestamp and `model_count` |
+| `ollama_catalog.json` | Ignored local aggregate derived from the committed split files |
 
 ### Catalog model schema
 
@@ -153,7 +158,10 @@ catalog update workflow.
 
 ## Daily Automation
 
-`scripts/daily-run.sh` is designed for cron. Run from the repo root:
+`scripts/daily-run.sh` is designed for cron. It follows the same full
+discovery, reconciliation, sanitization, and split-artifact validation path as
+the GitHub workflow, then creates a local commit. It does not push. Run from
+the repo root:
 
 ```bash
 cd /path/to/ollama-catalog && bash scripts/daily-run.sh
