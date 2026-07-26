@@ -616,7 +616,8 @@ def show_namespace_stats(models, ns: str, fmt: str | None = None):
     if fmt == "tsv":
         print("slug\tpulls\ttags\tcapabilities\tupdated\tblurb")
         for m in ns_models:
-            print(f"{m['slug']}\t{m.get('pulls', 0)}\t{m.get('tags_count', 0)}\t{','.join(m.get('capabilities', []))}\t{m.get('updated', '')}\t{(m.get('blurb') or '').strip().replace('\n', ' ')}")
+            blurb = (m.get("blurb") or "").strip().replace("\n", " ")
+            print(f"{m['slug']}\t{m.get('pulls', 0)}\t{m.get('tags_count', 0)}\t{','.join(m.get('capabilities', []))}\t{m.get('updated', '')}\t{blurb}")
         return
 
     history_block = ""
