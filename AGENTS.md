@@ -24,14 +24,14 @@ Two-stage pipeline:
 ```
 discover  →  out/discovered_slugs.json  →  fetch  →  out/ollama_catalog.json
                                              ↑
-                                     out/seen_slugs.json  (incremental state)
+                                     out/seen_slugs.json  (current full-listing state)
 ```
 
 ### Modules
 
 | File | Role |
 |---|---|
-| `src/ollama_catalog/scraper.py` | `DiscoveryScraper` — alphabet crawl of `ollama.com/search?q=X&o=newest`, extracts slugs via regex, incremental stop logic |
+| `src/ollama_catalog/scraper.py` | `DiscoveryScraper` — alphabet crawl of `ollama.com/search?q=X&o=newest`, extracts slugs via regex, with incremental and complete-coverage modes |
 | `src/ollama_catalog/model_scraper.py` | `ModelScraper` — fetches `ollama.com/{slug}` + `ollama.com/{slug}/tags`, parses pulls/caps/variants/blurb |
 | `src/ollama_catalog/catalog.py` | `CatalogFetcher` — drives concurrent detail fetches, incremental JSON saves every 50 models |
 | `src/ollama_catalog/state.py` | `StateManager` — persists `seen_slugs.json`, provides `is_seen()` / `merge()` |
@@ -43,7 +43,7 @@ discover  →  out/discovered_slugs.json  →  fetch  →  out/ollama_catalog.js
 | File | Description |
 |---|---|
 | `discovered_slugs.json` | All slugs found in current discovery run (input to `fetch`) |
-| `seen_slugs.json` | Cumulative set of all ever-seen slugs (incremental stop state) |
+| `seen_slugs.json` | Incremental crawl state; a successful `discover --full` replaces it with the current authoritative search listing |
 | `ollama_catalog.json` | Final catalog — `scraped_at`, `model_count`, `models[]` |
 
 ### Catalog model schema
@@ -79,7 +79,7 @@ python3 -m venv .venv
 ## CLI Usage
 
 ```bash
-# Discover slugs (full crawl, ~10–15 min)
+# Discover newly unknown slugs with the fast incremental crawl
 .venv/bin/ollama-catalog discover
 
 # Discover with limit for testing
@@ -96,16 +96,18 @@ python3 -m venv .venv
 
 # Refetch everything (ignores seen state)
 .venv/bin/ollama-catalog fetch --refetch
+# Reconcile catalog membership to a successful full upstream listing
 .venv/bin/ollama-catalog discover --full
+.venv/bin/ollama-catalog fetch --refetch --reconcile
 ```
 
 ## Key Implementation Details
 
 ### Discovery — incremental stop
 
-`DiscoveryScraper` uses `StateManager.incremental_stop` (default 3): if 3 consecutive pages for a query contain only already-seen slugs, crawling stops for that query. This makes daily re-runs fast — only new models are discovered.
+`DiscoveryScraper` uses `StateManager.incremental_stop` (default 3): if 3 consecutive pages for a query contain only already-seen slugs, incremental crawling stops for that query. This makes ad-hoc re-runs fast, but it cannot prove that no unseen URLs occur later in the search results.
 
-Override with `--full` to ignore seen state and crawl everything.
+Use `--full` for a complete listing reconciliation. It crawls every result page using the upstream HTMX pagination protocol, but still writes only slugs absent from `seen_slugs.json` to the discovery output. It fails rather than replacing state if it extracts no model links. The scheduled GitHub workflow follows it with `fetch --refetch --reconcile`, which removes catalog records absent from the successful full listing. This prevents a changed search ordering, stale HTML selector, or obsolete model URL from silently producing a false zero-addition update.
 
 ### Fetch — crash recovery
 
@@ -141,6 +143,10 @@ Slug extraction regex: `x-test-search-response-title[^>]*>\s*([^<]+?)\s*<`
 | `tests/test_discovery.py` | Dedup, incremental stop, limit |
 | `tests/test_model_scraper.py` | URL detection, pulls parsing, variants, 404, success |
 | `tests/test_catalog.py` | Catalog load/save behavior |
+
+GitHub Actions runs the full test suite through `.github/workflows/test.yml`
+on pushes to `main` and on pull requests. This is separate from the scheduled
+catalog update workflow.
 
 ## Daily Automation
 

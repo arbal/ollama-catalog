@@ -222,7 +222,11 @@ class ModelScraper:
         return unique
 
     def parse_model_detail(self, slug: str, page_html: str, tags_html: str) -> Dict[str, Any]:
-        if "/" in slug:
+        if slug.startswith("library/"):
+            model_type = "official"
+            namespace = None
+            name = slug.split("/", 1)[1]
+        elif "/" in slug:
             model_type = "community"
             namespace, name = slug.split("/", 1)
         else:

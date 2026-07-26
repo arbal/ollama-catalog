@@ -8,6 +8,13 @@ def test_detect_url():
     assert scraper.detect_url("llama2") == "https://ollama.com/library/llama2"
     assert scraper.detect_url("huihui_ai/qwen") == "https://ollama.com/huihui_ai/qwen"
 
+def test_library_slug_is_official():
+    scraper = ModelScraper()
+    model = scraper.parse_model_detail("library/gemma4", "", "")
+    assert model["model_type"] == "official"
+    assert model["namespace"] is None
+    assert model["name"] == "gemma4"
+
 def test_parse_pulls():
     scraper = ModelScraper()
 

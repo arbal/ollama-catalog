@@ -4,7 +4,7 @@
 set -e
 
 echo "Starting daily catalog update..."
-ollama-catalog run
+ollama-catalog run --full --refetch --reconcile
 
 echo "Committing updates..."
 git add out/ollama_catalog.json out/seen_slugs.json out/discovered_slugs.json 2>/dev/null || true

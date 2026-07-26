@@ -13,6 +13,7 @@ def catalog_output_paths(tmp_path):
         "models": tmp_path / "models.jsonl",
         "pulls": tmp_path / "pulls.jsonl",
         "metadata": tmp_path / "metadata.json",
+        "seen": tmp_path / "seen_slugs.json",
     }
 
 
@@ -24,6 +25,7 @@ def patch_catalog_output_paths(paths):
         MODELS_JSONL=paths["models"],
         PULLS_JSONL=paths["pulls"],
         METADATA_JSON=paths["metadata"],
+        SEEN_SLUGS_FILE=paths["seen"],
     )
 
 @pytest.mark.asyncio
@@ -90,3 +92,25 @@ async def test_missing_discovered_file_requires_discovery(catalog_output_paths):
         fetcher = CatalogFetcher()
         with pytest.raises(FileNotFoundError, match="ollama-catalog discover"):
             fetcher.load_discovered()
+
+@pytest.mark.asyncio
+async def test_reconcile_prunes_models_not_in_full_discovery(catalog_output_paths):
+    with open(catalog_output_paths["catalog"], "w") as f:
+        json.dump({"models": [
+            {"slug": "current/model", "name": "model"},
+            {"slug": "stale/model", "name": "model"},
+        ]}, f)
+    with open(catalog_output_paths["discovered"], "w") as f:
+        json.dump([], f)
+    with open(catalog_output_paths["seen"], "w") as f:
+        json.dump(["current/model"], f)
+
+    with patch_catalog_output_paths(catalog_output_paths):
+        fetcher = CatalogFetcher()
+        fetcher.scraper.fetch_model_detail = AsyncMock(
+            return_value={"slug": "current/model", "name": "model", "pulls_text": "1", "capabilities": []}
+        )
+        await fetcher.run(refetch=True, reconcile=True)
+
+    with open(catalog_output_paths["catalog"], "r") as f:
+        assert [model["slug"] for model in json.load(f)["models"]] == ["current/model"]

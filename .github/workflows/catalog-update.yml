@@ -14,6 +14,7 @@ env:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
 
     steps:
       - name: Checkout
@@ -43,11 +44,11 @@ jobs:
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
           "$RUNNER_TEMP/bin/gitleaks" version
 
-      - name: Discover new models
-        run: ollama-catalog discover
+      - name: Reconcile complete upstream model listing
+        run: ollama-catalog discover --full
 
       - name: Fetch model details
-        run: ollama-catalog fetch --refetch
+        run: ollama-catalog fetch --refetch --reconcile
 
       - name: Sanitize public catalog text
         run: ollama-catalog sanitize

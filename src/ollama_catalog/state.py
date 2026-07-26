@@ -35,3 +35,7 @@ class StateManager:
 
     def merge(self, new_slugs: Set[str]):
         self.seen_slugs.update(new_slugs)
+
+    def replace(self, slugs: Set[str]):
+        """Make the state exactly match a successful full upstream listing."""
+        self.seen_slugs = set(slugs)

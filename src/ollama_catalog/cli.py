@@ -16,7 +16,11 @@ def run_discover(args, console):
 
     discovered = asyncio.run(scraper.run())
 
-    console.print(f"Found [bold blue]{len(discovered)}[/bold blue] new models.")
+    mode = "full coverage" if args.full else "incremental"
+    console.print(
+        f"Scanned [bold blue]{len(scraper.observed_slugs)}[/bold blue] unique models "
+        f"in {mode} mode; found [bold blue]{len(discovered)}[/bold blue] new models."
+    )
 
     if args.dry_run:
         console.print(discovered)
@@ -28,9 +32,17 @@ def run_discover(args, console):
         console.print(f"Saved to [bold green]{out_file}[/bold green]")
 
 def run_fetch(args, console):
+    if getattr(args, "reconcile", False) and not args.refetch:
+        raise ValueError("--reconcile requires --refetch")
     console.print("[bold green]Starting fetch...[/bold green]")
     fetcher = CatalogFetcher(concurrency=args.concurrency if hasattr(args, 'concurrency') else 10)
-    asyncio.run(fetcher.run(limit=args.limit, refetch=args.refetch))
+    asyncio.run(
+        fetcher.run(
+            limit=args.limit,
+            refetch=args.refetch,
+            reconcile=getattr(args, "reconcile", False),
+        )
+    )
     console.print(f"[bold green]Done fetching catalog![/bold green]")
 
 def run_all(args, console):
@@ -54,19 +66,37 @@ def main():
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     discover_parser = subparsers.add_parser("discover", help="Discover models from Ollama")
-    discover_parser.add_argument("--full", action="store_true", help="Ignore seen slugs, re-crawl everything")
+    discover_parser.add_argument(
+        "--full",
+        action="store_true",
+        help="Crawl every result page; emit only slugs not already in seen state",
+    )
     discover_parser.add_argument("--dry-run", action="store_true", help="Print slugs found, don't save")
     discover_parser.add_argument("--limit", type=int, help="Stop after N new slugs")
 
     fetch_parser = subparsers.add_parser("fetch", help="Fetch model details")
     fetch_parser.add_argument("--refetch", action="store_true", help="Refetch all known models")
+    fetch_parser.add_argument(
+        "--reconcile",
+        action="store_true",
+        help="Prune records absent from the full discovery state; requires --refetch",
+    )
     fetch_parser.add_argument("--limit", type=int, help="Stop after fetching N models")
     fetch_parser.add_argument("--concurrency", type=int, default=10, help="Number of concurrent fetches")
 
     run_parser = subparsers.add_parser("run", help="Discover then fetch details (normal daily workflow)")
-    run_parser.add_argument("--full", action="store_true", help="Ignore seen slugs, re-crawl everything (discover)")
+    run_parser.add_argument(
+        "--full",
+        action="store_true",
+        help="Crawl every result page; emit only unseen slugs (discover)",
+    )
     run_parser.add_argument("--dry-run", action="store_true", help="Print slugs found, don't save (discover)")
     run_parser.add_argument("--refetch", action="store_true", help="Refetch all known models (fetch)")
+    run_parser.add_argument(
+        "--reconcile",
+        action="store_true",
+        help="Prune records absent from the full discovery state; requires --refetch",
+    )
     run_parser.add_argument("--limit", type=int, help="Stop after N items")
     run_parser.add_argument("--concurrency", type=int, default=10, help="Number of concurrent fetches (fetch)")
 

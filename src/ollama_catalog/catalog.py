@@ -8,6 +8,7 @@ from rich.progress import Progress, TaskID
 
 from .model_scraper import ModelScraper
 from .sanitization import SanitizationResult, sanitize_model_record, sanitize_models_jsonl
+from .state import STATE_FILE
 
 CATALOG_FILE = Path("out/ollama_catalog.json")
 DISCOVERED_FILE = Path("out/discovered_slugs.json")
@@ -16,6 +17,7 @@ DISCOVERED_FILE = Path("out/discovered_slugs.json")
 MODELS_JSONL   = Path("out/models.jsonl")
 PULLS_JSONL    = Path("out/pulls.jsonl")
 METADATA_JSON  = Path("out/metadata.json")
+SEEN_SLUGS_FILE = STATE_FILE
 
 # Fields committed to models.jsonl (stable — only changes on structural updates)
 _STABLE_FIELDS = ["slug", "name", "model_type", "namespace", "capabilities",
@@ -137,22 +139,47 @@ class CatalogFetcher:
                 description=f"Fetching {self.processed_count}/{self.total_count}: {slug} | {status} | {pulls} | {caps}"
             )
 
-    async def run(self, limit: Optional[int] = None, refetch: bool = False):
+    async def run(
+        self,
+        limit: Optional[int] = None,
+        refetch: bool = False,
+        reconcile: bool = False,
+    ):
+        if reconcile and not refetch:
+            raise ValueError("reconcile requires refetch")
         existing = self.load_existing_catalog()
         # Always pre-load existing catalog models so incremental saves don't lose data
         self.models = {m["slug"]: m for m in existing.get("models", []) if m is not None}
 
+        if reconcile:
+            seen_file = SEEN_SLUGS_FILE
+            if not seen_file.exists():
+                raise FileNotFoundError(
+                    "out/seen_slugs.json is required for reconciliation. "
+                    "Run 'ollama-catalog discover --full' first."
+                )
+            with open(seen_file, "r", encoding="utf-8") as f:
+                authoritative_slugs = set(json.load(f))
+            if not authoritative_slugs:
+                raise ValueError("Refusing to reconcile against an empty seen-slug set.")
+            self.models = {
+                slug: model for slug, model in self.models.items()
+                if slug in authoritative_slugs
+            }
+
         slugs_to_fetch_set = set()
 
         if refetch:
-            # If refetching, get everything from existing catalog, discovered, and seen
+            # If refetching, get everything from existing catalog, discovered, and seen.
+            # In reconciliation mode, the full discovery just replaced seen with
+            # the authoritative upstream listing, so stale records are excluded.
             slugs_to_fetch_set.update(self.models.keys())
             try:
                 slugs_to_fetch_set.update(self.load_discovered())
             except FileNotFoundError:
                 pass  # OK in refetch mode — catalog slugs already loaded above
 
-            seen_file = Path("out/seen_slugs.json")
+            seen_file = SEEN_SLUGS_FILE
             if seen_file.exists():
                 try:
                     with open(seen_file, "r", encoding="utf-8") as f:
