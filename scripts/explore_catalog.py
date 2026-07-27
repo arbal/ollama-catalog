@@ -574,7 +574,11 @@ def show_namespace_stats(models, ns: str, fmt: str | None = None):
             elif fmt == "tsv":
                 print("slug\tpulls\ttags\tcapabilities\tupdated\tblurb")
             else:
-                console.print(f"[red]No models found for namespace '{ns}'[/red]")
+                console.print(Panel(
+                    f"[yellow]No models found for namespace '{ns}'[/yellow]\n[dim]The namespace might be misspelled or hasn't been scraped yet.[/dim]",
+                    title="No Results",
+                    border_style="yellow",
+                ))
             return
 
     ns_models.sort(key=lambda m: m.get("pulls", 0), reverse=True)
@@ -673,6 +677,19 @@ def _build_namespace_leaderboard_rows(models, compare_ref=""):
 
 
 def show_namespace_leaderboard(models, compare_ref="", limit=30, fmt=None):
+    if not models:
+        if fmt == "json":
+            print("[]")
+        elif fmt == "tsv":
+            print("namespace\tcount\tpulls\tdelta\ttop_slug")
+        else:
+            console.print(Panel(
+                "[yellow]No namespaces found to populate leaderboard.[/yellow]\n[dim]The catalog might be empty or filters excluded all models.[/dim]",
+                title="No Results",
+                border_style="yellow",
+            ))
+        return
+
     rows, has_delta = _build_namespace_leaderboard_rows(models, compare_ref)
     displayed = rows[:limit] if limit > 0 else rows
     if fmt == "json":
@@ -682,6 +699,14 @@ def show_namespace_leaderboard(models, compare_ref="", limit=30, fmt=None):
         print("namespace\tcount\tpulls\tdelta\ttop_slug")
         for r in displayed:
             print(f"{r['namespace']}\t{r['count']}\t{r['pulls']}\t{r.get('delta', '')}\t{r['top_slug']}")
+        return
+
+    if not displayed:
+        console.print(Panel(
+            "[yellow]No namespaces found to populate leaderboard.[/yellow]\n[dim]The catalog might be empty or filters excluded all models.[/dim]",
+            title="No Results",
+            border_style="yellow",
+        ))
         return
 
     table = Table(box=box.ROUNDED, highlight=True, expand=True)
@@ -781,25 +806,32 @@ def show_installed_recommendations(models, installed_arg, fmt=None):
 def show_list(models, limit, new_days=None, sort_field="pulls", filter_parts=None, total_catalog=None, compare_ref="", vram_gb=None):
     shown = len(models) if limit == 0 else min(len(models), limit)
     displayed = models[:shown] if limit > 0 else models
-    table = Table(box=box.ROUNDED, expand=True)
-    table.add_column("#", justify="right", style="dim", no_wrap=True, min_width=3)
-    table.add_column("Slug", style="cyan", ratio=3, no_wrap=True)
-    table.add_column("Pulls", justify="right", style="yellow", no_wrap=True, min_width=7)
-    table.add_column("Tags", justify="right", no_wrap=True, min_width=4)
-    table.add_column("Capabilities", ratio=2, no_wrap=True)
-    table.add_column("Updated", style="dim", no_wrap=True, min_width=8)
-    table.add_column("Blurb", ratio=4, no_wrap=True)
-    for i, m in enumerate(displayed, 1):
-        table.add_row(
-            str(i),
-            m["slug"],
-            fmt_pulls(m.get("pulls_text", ""), m.get("pulls", 0)),
-            str(m.get("tags_count", 0)),
-            fmt_caps(m.get("capabilities", [])),
-            m.get("updated", "") or "-",
-            (m.get("blurb") or "").strip().replace("\n", " "),
-        )
-    console.print(table)
+    if not displayed:
+        console.print(Panel(
+            "[yellow]No models found matching your criteria.[/yellow]\n[dim]Try adjusting or removing some filters to see more results.[/dim]",
+            title="No Results",
+            border_style="yellow",
+        ))
+    else:
+        table = Table(box=box.ROUNDED, expand=True)
+        table.add_column("#", justify="right", style="dim", no_wrap=True, min_width=3)
+        table.add_column("Slug", style="cyan", ratio=3, no_wrap=True)
+        table.add_column("Pulls", justify="right", style="yellow", no_wrap=True, min_width=7)
+        table.add_column("Tags", justify="right", no_wrap=True, min_width=4)
+        table.add_column("Capabilities", ratio=2, no_wrap=True)
+        table.add_column("Updated", style="dim", no_wrap=True, min_width=8)
+        table.add_column("Blurb", ratio=4, no_wrap=True)
+        for i, m in enumerate(displayed, 1):
+            table.add_row(
+                str(i),
+                m["slug"],
+                fmt_pulls(m.get("pulls_text", ""), m.get("pulls", 0)),
+                str(m.get("tags_count", 0)),
+                fmt_caps(m.get("capabilities", [])),
+                m.get("updated", "") or "-",
+                (m.get("blurb") or "").strip().replace("\n", " "),
+            )
+        console.print(table)
     total_filtered = len(models)
     suffix = f"  [dim](+{total_filtered - shown} more — use --limit 0)[/dim]" if shown < total_filtered else ""
     footer_bits = [f"{shown} of {total_filtered} shown", f"sorted by {sort_field}"]
