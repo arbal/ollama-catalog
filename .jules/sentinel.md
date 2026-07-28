@@ -1,0 +1,4 @@
+## 2025-05-18 - Prevent Path Traversal in Model URL Construction
+**Vulnerability:** The `detect_url` method in `ModelScraper` constructed URLs by directly interpolating user-controlled `slug` strings without URL-encoding them. This created a potential SSRF and Path Traversal vulnerability where a maliciously crafted slug (e.g., containing `../` or special control characters) could allow an attacker to bypass intended URL boundaries.
+**Learning:** Even internal API wrappers and scrapers that deal with external endpoints must validate and encode URL parameters to prevent unexpected path traversal attacks on outbound requests.
+**Prevention:** Always use `urllib.parse.quote(value, safe="/")` (or equivalent encoders in other languages) when interpolating user-controlled values into URLs to ensure special characters are safely escaped, keeping allowed namespace characters like `/` intact as required.

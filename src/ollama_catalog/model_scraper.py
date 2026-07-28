@@ -28,12 +28,21 @@ class ModelScraper:
         return await self.client.get(url)
 
     def detect_url(self, slug: str) -> str:
-        if "/" in slug:
+        import urllib.parse
+
+        # Path traversal prevention: validate that the slug doesn't contain traversal sequences
+        if ".." in slug:
+            raise ValueError(f"Invalid slug containing path traversal sequences: {slug}")
+
+        # URL encode the slug to prevent SSRF via crafted input,
+        # but keep the namespace slash if present.
+        safe_slug = urllib.parse.quote(slug, safe="/")
+        if "/" in safe_slug:
             # Community model
-            return f"https://ollama.com/{slug}"
+            return f"https://ollama.com/{safe_slug}"
         else:
             # Official model
-            return f"https://ollama.com/library/{slug}"
+            return f"https://ollama.com/library/{safe_slug}"
 
     async def fetch_model_detail(self, slug: str) -> Optional[Dict[str, Any]]:
         base_url = self.detect_url(slug)
