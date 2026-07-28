@@ -574,7 +574,7 @@ def show_namespace_stats(models, ns: str, fmt: str | None = None):
             elif fmt == "tsv":
                 print("slug\tpulls\ttags\tcapabilities\tupdated\tblurb")
             else:
-                console.print(f"[red]No models found for namespace '{ns}'[/red]")
+                console.print(Panel(f"[yellow]No models found for namespace '{ns}'[/yellow]", title="Zero Results", border_style="yellow"))
             return
 
     ns_models.sort(key=lambda m: m.get("pulls", 0), reverse=True)
@@ -781,6 +781,15 @@ def show_installed_recommendations(models, installed_arg, fmt=None):
 def show_list(models, limit, new_days=None, sort_field="pulls", filter_parts=None, total_catalog=None, compare_ref="", vram_gb=None):
     shown = len(models) if limit == 0 else min(len(models), limit)
     displayed = models[:shown] if limit > 0 else models
+
+    if not displayed:
+        filter_str = "\n".join(f"  • {f}" for f in (filter_parts or []))
+        msg = "[yellow]No models found matching your criteria.[/yellow]"
+        if filter_str:
+            msg += f"\n\n[dim]Filters applied:\n{filter_str}[/dim]"
+        console.print(Panel(msg, title="Zero Results", border_style="yellow"))
+        return
+
     table = Table(box=box.ROUNDED, expand=True)
     table.add_column("#", justify="right", style="dim", no_wrap=True, min_width=3)
     table.add_column("Slug", style="cyan", ratio=3, no_wrap=True)
