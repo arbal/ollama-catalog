@@ -3,6 +3,7 @@ import asyncio
 from datetime import datetime
 from typing import Dict, Any, Optional, List
 import httpx
+import urllib.parse
 from bs4 import BeautifulSoup, Tag as BSTag
 import logging
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
@@ -28,12 +29,16 @@ class ModelScraper:
         return await self.client.get(url)
 
     def detect_url(self, slug: str) -> str:
-        if "/" in slug:
+        # Security: Prevent path traversal and URL encode slug to protect against injection
+        if ".." in slug:
+            raise ValueError(f"Invalid slug: contains path traversal sequence")
+        encoded_slug = urllib.parse.quote(slug, safe="/")
+        if "/" in encoded_slug:
             # Community model
-            return f"https://ollama.com/{slug}"
+            return f"https://ollama.com/{encoded_slug}"
         else:
             # Official model
-            return f"https://ollama.com/library/{slug}"
+            return f"https://ollama.com/library/{encoded_slug}"
 
     async def fetch_model_detail(self, slug: str) -> Optional[Dict[str, Any]]:
         base_url = self.detect_url(slug)
