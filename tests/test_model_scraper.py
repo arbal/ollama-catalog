@@ -8,6 +8,19 @@ def test_detect_url():
     assert scraper.detect_url("llama2") == "https://ollama.com/library/llama2"
     assert scraper.detect_url("huihui_ai/qwen") == "https://ollama.com/huihui_ai/qwen"
 
+def test_detect_url_path_traversal():
+    scraper = ModelScraper()
+    with pytest.raises(ValueError, match="contains path traversal sequences"):
+        scraper.detect_url("../../../etc/passwd")
+
+    with pytest.raises(ValueError, match="contains path traversal sequences"):
+        scraper.detect_url("some/model/..")
+
+def test_detect_url_encoding():
+    scraper = ModelScraper()
+    assert scraper.detect_url("user/model%20name") == "https://ollama.com/user/model%2520name"
+    assert scraper.detect_url("user/model with space") == "https://ollama.com/user/model%20with%20space"
+
 def test_library_slug_is_official():
     scraper = ModelScraper()
     model = scraper.parse_model_detail("library/gemma4", "", "")
