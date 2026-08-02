@@ -1,0 +1,4 @@
+## 2024-05-24 - Path Traversal in External URLs
+**Vulnerability:** Constructing external API URLs using unsanitized model slugs (e.g., `https://ollama.com/{slug}`) allows potential path traversal if a slug contains sequences like `../`.
+**Learning:** Even when making requests to third-party services, unsanitized user inputs or external data used in URL construction can lead to SSRF or path traversal vulnerabilities. Furthermore, `urllib.parse.quote` does not URL-encode the dot (`.`) character by default, so standard URL-encoding does not automatically mitigate path traversal sequences like `../`.
+**Prevention:** Always explicitly validate and reject sequence patterns like `..` in user-provided or external identifiers before incorporating them into URLs or file paths, and then properly URL-encode other components.
