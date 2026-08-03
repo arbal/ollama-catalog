@@ -521,7 +521,11 @@ def show_catalog_history(max_commits: int = 30, fmt: str | None = None):
         elif fmt == "tsv":
             print("date\tcommit\ttotal_pulls\tdelta")
         else:
-            console.print("[red]No pull history found.[/red]")
+            console.print(Panel(
+                "[dim]No pull history found.[/dim]",
+                title="History Not Found",
+                border_style="yellow",
+            ))
         return
 
     values = [e["total_pulls"] for e in entries]
@@ -574,7 +578,11 @@ def show_namespace_stats(models, ns: str, fmt: str | None = None):
             elif fmt == "tsv":
                 print("slug\tpulls\ttags\tcapabilities\tupdated\tblurb")
             else:
-                console.print(f"[red]No models found for namespace '{ns}'[/red]")
+                console.print(Panel(
+                    f"[dim]No models found for namespace '{ns}'[/dim]",
+                    title="Namespace Not Found",
+                    border_style="yellow",
+                ))
             return
 
     ns_models.sort(key=lambda m: m.get("pulls", 0), reverse=True)
@@ -737,7 +745,11 @@ def show_detail(models, slug, all_models=None, enrich=False):
     if not matches:
         matches = [m for m in models if slug.lower() in m["slug"].lower()]
     if not matches:
-        console.print(f"[red]No model found matching '{slug}'[/red]")
+        console.print(Panel(
+            f"[dim]No model found matching '{slug}'[/dim]",
+            title="Model Not Found",
+            border_style="yellow",
+        ))
         return
     if len(matches) > 1:
         console.print(f"[yellow]Multiple matches ({len(matches)}) — showing first. Use exact slug.[/yellow]")
@@ -779,6 +791,20 @@ def show_installed_recommendations(models, installed_arg, fmt=None):
 
 
 def show_list(models, limit, new_days=None, sort_field="pulls", filter_parts=None, total_catalog=None, compare_ref="", vram_gb=None):
+    if not models:
+        console.print(Panel(
+            "[dim]No models match the current filters and search criteria.[/dim]",
+            title="No Results",
+            border_style="yellow",
+        ))
+        footer_bits = [f"0 of {total_catalog if total_catalog is not None else 0} shown", f"sorted by {sort_field}"]
+        if filter_parts:
+            footer_bits.append("filters: " + ", ".join(filter_parts))
+        if compare_ref:
+            footer_bits.append(f"compare={compare_ref}")
+        console.print(f"[dim]{' · '.join(footer_bits)}[/dim]")
+        return
+
     shown = len(models) if limit == 0 else min(len(models), limit)
     displayed = models[:shown] if limit > 0 else models
     table = Table(box=box.ROUNDED, expand=True)
@@ -915,7 +941,11 @@ def main():
     if args.history:
         entries = load_history_for_slug(args.history, max_commits=args.commits)
         if not entries:
-            console.print(f"[red]No history found for '{args.history}'.[/red]")
+            console.print(Panel(
+                f"[dim]No history found for '{args.history}'.[/dim]",
+                title="History Not Found",
+                border_style="yellow",
+            ))
             return
         chrono = list(reversed(entries))
         pulls_values = [e["pulls"] for e in chrono]
