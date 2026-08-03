@@ -1,0 +1,4 @@
+## 2024-05-24 - Fix Path Traversal and URL Injection in ModelScraper
+**Vulnerability:** The `ModelScraper.detect_url` method constructs URLs for fetching models using the `slug` variable directly without any validation or URL encoding. This creates a risk for SSRF or Path Traversal, allowing an attacker to query arbitrary endpoints if they control the `slug` value (e.g. using `../` in a community model namespace, or spaces).
+**Learning:** Even though `urllib.parse.quote` correctly URL-encodes special characters, it notably does *not* encode the period character (`.`). This means sequences like `..` remain intact and must be explicitly validated and rejected before constructing paths.
+**Prevention:** Always validate against traversal sequences like `..` before doing any path manipulations, and always URL encode user-controlled values (using `safe="/"`) when generating web endpoints.
