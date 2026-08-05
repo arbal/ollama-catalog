@@ -1,0 +1,4 @@
+## 2023-10-27 - Path Traversal in Model Slugs
+**Vulnerability:** The application was vulnerable to path traversal because `detect_url` directly injected user-supplied `slug` strings into HTTP requests without proper escaping or path traversal sequence checks. Specifically, a slug like `../../evil` could bypass directory boundaries.
+**Learning:** `urllib.parse.quote` does not automatically URL-encode the period `.` character. Because of this, it is necessary to explicitly validate and reject path traversal sequences (like `..`) to safely construct endpoints, especially if external services or reverse proxies normalize requests on their end.
+**Prevention:** Always combine URL encoding with explicit checks (e.g., `if ".." in input: raise Error`) when accepting file path equivalents as variables.
