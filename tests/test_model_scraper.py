@@ -7,6 +7,11 @@ def test_detect_url():
     scraper = ModelScraper()
     assert scraper.detect_url("llama2") == "https://ollama.com/library/llama2"
     assert scraper.detect_url("huihui_ai/qwen") == "https://ollama.com/huihui_ai/qwen"
+    assert scraper.detect_url("foo/bar baz") == "https://ollama.com/foo/bar%20baz"
+    with pytest.raises(ValueError, match="path traversal"):
+        scraper.detect_url("../malicious")
+    with pytest.raises(ValueError, match="path traversal"):
+        scraper.detect_url("namespace/..%2f..%2fetc/passwd")
 
 def test_library_slug_is_official():
     scraper = ModelScraper()
