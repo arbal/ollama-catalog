@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: Update cadence; auto uses full reconciliation on Monday UTC
+        description: Update cadence; auto uses full reconciliation on Monday and Thursday UTC
         required: false
         default: auto
         type: choice

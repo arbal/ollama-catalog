@@ -58,11 +58,12 @@ OLLAMASCRAPER_REPO=/path/to/ollama-catalog ollama-models-diff --days 7
 
 ### Automation cadence
 
-Catalog Update runs at 06:00 UTC every day. In `auto` mode, Tuesday through
-Sunday use incremental discovery and fetch only newly discovered models; Monday
-uses a full discovery, refetch, and reconciliation to repair coverage and prune
-stale records. Manual workflow dispatch supports `auto`, `incremental`, and
-`full` modes. The shared update entry point is:
+Catalog Update runs at 06:00 UTC every day. In `auto` mode, Monday and Thursday
+use a full discovery, refetch, and reconciliation to repair coverage and prune
+stale records; Tuesday, Wednesday, Friday, Saturday, and Sunday use incremental
+discovery and fetch only newly discovered models. Manual workflow dispatch
+supports `auto`, `incremental`, and `full` modes. The shared update entry point
+is:
 
 ```bash
 scripts/run-catalog-update.sh auto

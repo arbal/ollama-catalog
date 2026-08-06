@@ -159,10 +159,10 @@ catalog update workflow.
 ## Daily Automation
 
 `scripts/daily-run.sh` is designed for cron. It follows the same cadence as
-the GitHub workflow: incremental discovery and fetching Tuesday through Sunday,
-then full discovery, reconciliation, sanitization, and split-artifact
-validation on Monday UTC. It creates a local commit but does not push. Run from
-the repo root:
+the GitHub workflow: full discovery, reconciliation, sanitization, and
+split-artifact validation on Monday and Thursday UTC; incremental discovery and
+fetching on the other UTC days. It creates a local commit but does not push.
+Run from the repo root:
 
 ```bash
 cd /path/to/ollama-catalog && bash scripts/daily-run.sh

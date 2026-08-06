@@ -20,8 +20,8 @@ case "$requested_mode" in
   auto)
     weekday="${CATALOG_UPDATE_DAY:-$(date -u +%u)}"
     case "$weekday" in
-      1) mode=full ;;
-      [2-7]) mode=incremental ;;
+      1|4) mode=full ;;
+      2|3|5|6|7) mode=incremental ;;
       *)
         echo "CATALOG_UPDATE_DAY must be an ISO weekday from 1 through 7" >&2
         exit 2

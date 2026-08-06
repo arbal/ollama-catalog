@@ -19,15 +19,17 @@ def select_mode(*args: str, day: str = "2") -> subprocess.CompletedProcess[str]:
     )
 
 
-def test_auto_mode_is_full_on_monday():
-    result = select_mode(day="1")
+@pytest.mark.parametrize("day", ["1", "4"])
+def test_auto_mode_is_full_on_monday_and_thursday(day: str):
+    result = select_mode(day=day)
 
     assert result.returncode == 0
     assert result.stdout == "full\n"
 
 
-def test_auto_mode_is_incremental_after_monday():
-    result = select_mode(day="2")
+@pytest.mark.parametrize("day", ["2", "3", "5", "6", "7"])
+def test_auto_mode_is_incremental_on_non_reconciliation_days(day: str):
+    result = select_mode(day=day)
 
     assert result.returncode == 0
     assert result.stdout == "incremental\n"
