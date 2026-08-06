@@ -2199,6 +2199,7 @@
 {"slug":"Omoeba/qwen3-coder-128k","pulls":319,"pulls_text":"319"}
 {"slug":"Omoeba/qwen3-coder-max","pulls":512,"pulls_text":"512"}
 {"slug":"Onkar2025/genie","pulls":0,"pulls_text":"0"}
+{"slug":"Onwords/iniyal-1","pulls":0,"pulls_text":"0"}
 {"slug":"OpenGCM/gcmmark1","pulls":28,"pulls_text":"28"}
 {"slug":"OpenLLM-France/Lucie-7B-Instruct","pulls":50,"pulls_text":"050"}
 {"slug":"OpenLLM-France/Luciole-Instruct-1.1","pulls":69,"pulls_text":"69"}
@@ -2695,6 +2696,7 @@
 {"slug":"Song22221/Ds1.5B-1.8B","pulls":0,"pulls_text":"0"}
 {"slug":"SonlineLLC/nadiaOne","pulls":2,"pulls_text":"2"}
 {"slug":"SonofGod/Apex","pulls":101,"pulls_text":"101"}
+{"slug":"Sophia_AI_Companion/SophiaV1.2","pulls":26800,"pulls_text":"26.8K"}
 {"slug":"Sorbux/ollama","pulls":0,"pulls_text":"0"}
 {"slug":"Sorot/Halu-Mini-1.2","pulls":0,"pulls_text":"0"}
 {"slug":"Sourcesiri/Blok","pulls":4,"pulls_text":"4"}
@@ -2794,6 +2796,7 @@
 {"slug":"TerryN051/description_contenu_technique_rhia","pulls":8,"pulls_text":"8"}
 {"slug":"TerryN051/identification_poste_rhia","pulls":17,"pulls_text":"17"}
 {"slug":"TerryN051/qualification_requise_rhia","pulls":7,"pulls_text":"7"}
+{"slug":"Tesleum/Claude-Agent","pulls":11,"pulls_text":"11"}
 {"slug":"Tesleum/Claude-OSS","pulls":301,"pulls_text":"301"}
 {"slug":"Tesleum/shirdel-coder","pulls":611,"pulls_text":"611"}
 {"slug":"Tharun/qwen2","pulls":7,"pulls_text":"7"}
@@ -3023,6 +3026,7 @@
 {"slug":"XiaomiMiMo/MiMo-VL-7B-RL","pulls":509,"pulls_text":"509"}
 {"slug":"XiaomiMiMo/MiMo-VL-7B-SFT","pulls":200,"pulls_text":"200"}
 {"slug":"Xingwudi/deepseek-r1-medical","pulls":0,"pulls_text":"0"}
+{"slug":"Xionic/avelon","pulls":0,"pulls_text":"0"}
 {"slug":"Y-18/astroguide","pulls":4,"pulls_text":"4"}
 {"slug":"YConcept/yield-navigator","pulls":0,"pulls_text":"0"}
 {"slug":"YDChiang/MyModel","pulls":0,"pulls_text":"0"}
@@ -3547,6 +3551,7 @@
 {"slug":"alfredohac/Archi","pulls":3,"pulls_text":"3"}
 {"slug":"alfredohac/Bob","pulls":3,"pulls_text":"3"}
 {"slug":"alfredpennyworth27/PersonalAssistant","pulls":3,"pulls_text":"3"}
+{"slug":"alfredvirtualsolutions/hermes","pulls":0,"pulls_text":"0"}
 {"slug":"alfreido/llama3.2-vis","pulls":12,"pulls_text":"12"}
 {"slug":"algoscienceacademy/cogenbai","pulls":15,"pulls_text":"15"}
 {"slug":"algoscienceacademy/cogenbai-7.5b","pulls":39,"pulls_text":"39"}
@@ -6370,6 +6375,7 @@
 {"slug":"feadxus/embeddinggemma","pulls":0,"pulls_text":"0"}
 {"slug":"feadxus/flux2-klein-4b-uncensored","pulls":139,"pulls_text":"139"}
 {"slug":"feadxus/flux2-klein-9b-uncensored","pulls":296,"pulls_text":"296"}
+{"slug":"feadxus/nomic-embed-text-v2-moe","pulls":0,"pulls_text":"0"}
 {"slug":"feadxus/qwen3-embedding","pulls":0,"pulls_text":"0"}
 {"slug":"feadxus/qwen3-vl-4b-heretic","pulls":24,"pulls_text":"24"}
 {"slug":"feadxus/z_image_turbo","pulls":12,"pulls_text":"12"}
@@ -7123,6 +7129,7 @@
 {"slug":"hasnainwork705/Claude1","pulls":9,"pulls_text":"9"}
 {"slug":"hassanbake/karahoosh","pulls":0,"pulls_text":"0"}
 {"slug":"hassanhasskeeh1988/A","pulls":0,"pulls_text":"0"}
+{"slug":"hassanmogtaba99/King","pulls":0,"pulls_text":"0"}
 {"slug":"hassansilim3/Aliyun","pulls":0,"pulls_text":"0"}
 {"slug":"hasx/gpt-smiley","pulls":0,"pulls_text":"0"}
 {"slug":"hatemkhalfallahj/timou","pulls":0,"pulls_text":"0"}
@@ -8482,6 +8489,7 @@
 {"slug":"joreilly86/structural_llama","pulls":186,"pulls_text":"186"}
 {"slug":"joreilly86/structural_llama_3.0","pulls":529,"pulls_text":"529"}
 {"slug":"jores1301/deepseek-v4-flash.cloud","pulls":14,"pulls_text":"14"}
+{"slug":"jorgebotero190/debop","pulls":0,"pulls_text":"0"}
 {"slug":"jorgedelosreyesrodriguez/coinbraker","pulls":0,"pulls_text":"0"}
 {"slug":"jorgenm89/chatbot-anico","pulls":0,"pulls_text":"0"}
 {"slug":"jorgpilawa03/hak","pulls":0,"pulls_text":"0"}
@@ -11097,6 +11105,7 @@
 {"slug":"oakmilkcharlotte/my_ollama_model","pulls":0,"pulls_text":"0"}
 {"slug":"oamazonasgabriel/bonsai-27b","pulls":159,"pulls_text":"159"}
 {"slug":"oamazonasgabriel/lfm2-1.2b-tool","pulls":41,"pulls_text":"41"}
+{"slug":"oamazonasgabriel/lfm2.5-2.6b","pulls":128,"pulls_text":"128"}
 {"slug":"oamazonasgabriel/lfm2.5-230m","pulls":223,"pulls_text":"223"}
 {"slug":"oamazonasgabriel/lfm2.5-8b-a1b","pulls":8,"pulls_text":"8"}
 {"slug":"oamazonasgabriel/qwen2.5-coder-0.5b","pulls":103,"pulls_text":"103"}
@@ -11875,6 +11884,7 @@
 {"slug":"rafw007/Qwen3.6-35B-A3B-mlx-claude-coder-abliterated","pulls":842,"pulls_text":"842"}
 {"slug":"rafw007/bielik-codex","pulls":142,"pulls_text":"142"}
 {"slug":"rafw007/bielik-custom-ocr-vision","pulls":46,"pulls_text":"46"}
+{"slug":"rafw007/deepseek-v4-flash-fast","pulls":2,"pulls_text":"2"}
 {"slug":"rafw007/gemma4-26b-claude-coder","pulls":720,"pulls_text":"720"}
 {"slug":"rafw007/gemma4-e2b-claude-coder","pulls":826,"pulls_text":"826"}
 {"slug":"rafw007/gemma4-e4b-claude-coder","pulls":624,"pulls_text":"624"}
@@ -13878,6 +13888,8 @@
 {"slug":"tojikontvru/kimi-k2.6","pulls":259,"pulls_text":"259"}
 {"slug":"tojikontvru/safarali_qwen3.5","pulls":4,"pulls_text":"4"}
 {"slug":"tokarusuki/KakushinAI","pulls":0,"pulls_text":"0"}
+{"slug":"tokimoa/jp-gijiroku-1.7b","pulls":0,"pulls_text":"0"}
+{"slug":"tokimoa/jp-gijiroku-4b","pulls":0,"pulls_text":"0"}
 {"slug":"toledano/blogs","pulls":0,"pulls_text":"0"}
 {"slug":"toledano/negocios","pulls":0,"pulls_text":"0"}
 {"slug":"toledano/peepj","pulls":0,"pulls_text":"0"}
@@ -14391,6 +14403,7 @@
 {"slug":"w4d4f4k/gemma3-12b-aiia-think-v3","pulls":0,"pulls_text":"0"}
 {"slug":"w4d4f4k/qwen25-coder-aiia","pulls":11,"pulls_text":"11"}
 {"slug":"w4d4f4k/qwen25-coder-aiia-v2","pulls":0,"pulls_text":"0"}
+{"slug":"w4d4f4k/qwen25-coder-aiia-v3","pulls":0,"pulls_text":"0"}
 {"slug":"w4d4f4k/qwen3_v1","pulls":4,"pulls_text":"4"}
 {"slug":"wagnerborba/pma1","pulls":18,"pulls_text":"18"}
 {"slug":"waguirre82/wag","pulls":0,"pulls_text":"0"}
@@ -14611,6 +14624,7 @@
 {"slug":"worawek/wtc-it","pulls":0,"pulls_text":"0"}
 {"slug":"worawoots/gemma4","pulls":13,"pulls_text":"13"}
 {"slug":"workdreamai1/dream-v1","pulls":11,"pulls_text":"11"}
+{"slug":"workvaleevalex/CityOfMist","pulls":0,"pulls_text":"0"}
 {"slug":"worldguideultra/Titty","pulls":6,"pulls_text":"6"}
 {"slug":"worstcoaster/crucifilth","pulls":14,"pulls_text":"14"}
 {"slug":"worstcoaster/crucifilthv2.1","pulls":5,"pulls_text":"5"}
