@@ -1,0 +1,4 @@
+## 2025-02-27 - [Sentinel: SSRF & Path Traversal Prevention]
+**Vulnerability:** The application was vulnerable to SSRF (Server-Side Request Forgery) and Path Traversal in the `ModelScraper.detect_url` method due to concatenating unsanitized and unencoded user input (`slug`) directly into external URLs (`https://ollama.com/{slug}`).
+**Learning:** Even internal URL generators need URL encoding to prevent query parameter injection (`?`, `&`) or URL structure modification. Additionally, `urllib.parse.quote` does not encode periods (`.`), which necessitated an explicit guard against `..` to prevent directory traversal sequences in URLs.
+**Prevention:** Always validate and sanitize user input before concatenating it into a URL. Explicitly check for unencoded sequence violations like `..` prior to URL encoding. Use `urllib.parse.quote(..., safe="/")` when appropriate to escape URL control characters.

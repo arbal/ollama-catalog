@@ -1,5 +1,6 @@
 import re
 import asyncio
+import urllib.parse
 from datetime import datetime
 from typing import Dict, Any, Optional, List
 import httpx
@@ -28,12 +29,19 @@ class ModelScraper:
         return await self.client.get(url)
 
     def detect_url(self, slug: str) -> str:
+        # Security: Prevent path traversal in URL construction
+        if '..' in slug:
+            raise ValueError(f"Invalid slug: path traversal detected in '{slug}'")
+
+        # Security: URL-encode the user-controlled slug to prevent URL injection
+        encoded_slug = urllib.parse.quote(slug, safe="/")
+
         if "/" in slug:
             # Community model
-            return f"https://ollama.com/{slug}"
+            return f"https://ollama.com/{encoded_slug}"
         else:
             # Official model
-            return f"https://ollama.com/library/{slug}"
+            return f"https://ollama.com/library/{encoded_slug}"
 
     async def fetch_model_detail(self, slug: str) -> Optional[Dict[str, Any]]:
         base_url = self.detect_url(slug)
