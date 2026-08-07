@@ -115,7 +115,7 @@ python3 -m venv .venv
 
 `DiscoveryScraper` uses `StateManager.incremental_stop` (default 3): if 3 consecutive pages for a query contain only already-seen slugs, incremental crawling stops for that query. This makes ad-hoc re-runs fast, but it cannot prove that no unseen URLs occur later in the search results.
 
-Use `--full` for a complete listing reconciliation. It crawls every result page using the upstream HTMX pagination protocol, but still writes only slugs absent from `seen_slugs.json` to the discovery output. It fails rather than replacing state if it extracts no model links. The scheduled GitHub workflow follows it with `fetch --refetch --reconcile`, which removes catalog records absent from the successful full listing. This prevents a changed search ordering, stale HTML selector, or obsolete model URL from silently producing a false zero-addition update.
+Use `--full` for a complete listing reconciliation. It crawls every result page using the upstream HTMX pagination protocol, but still writes only slugs absent from `seen_slugs.json` to the discovery output. It fails rather than replacing state if it extracts no model links. The scheduled GitHub workflow follows it with `fetch --refetch --reconcile`, which removes catalog records absent from the successful full listing. This prevents a changed search ordering, stale HTML selector, or obsolete model URL from silently producing a false zero-addition update. Search absence is not proof of deletion, however: a model page may remain directly available while absent from the search index. Treat reconciliation removals as a reviewable signal until corroboration or a conservative lifecycle-state design is implemented.
 
 ### Fetch — crash recovery
 
@@ -145,6 +145,11 @@ Slug extraction regex: `x-test-search-response-title[^>]*>\s*([^<]+?)\s*<`
 ```bash
 .venv/bin/pytest tests/
 ```
+
+Check validator dependencies before invoking a project-specific checker. If
+the preferred project runtime is unavailable, use a bounded equivalent parser
+or checker that validates the same property and report the fallback explicitly;
+do not silently substitute a weaker check.
 
 | Test file | Covers |
 |---|---|
