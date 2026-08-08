@@ -7,6 +7,10 @@ def test_detect_url():
     scraper = ModelScraper()
     assert scraper.detect_url("llama2") == "https://ollama.com/library/llama2"
     assert scraper.detect_url("huihui_ai/qwen") == "https://ollama.com/huihui_ai/qwen"
+    assert scraper.detect_url("huihui_ai/qwen space") == "https://ollama.com/huihui_ai/qwen%20space"
+
+    with pytest.raises(ValueError, match="path traversal detected"):
+        scraper.detect_url("huihui_ai/../qwen")
 
 def test_library_slug_is_official():
     scraper = ModelScraper()
