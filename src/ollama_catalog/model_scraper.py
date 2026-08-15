@@ -9,6 +9,8 @@ from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_excep
 
 logger = logging.getLogger(__name__)
 
+import urllib.parse
+
 class ModelScraper:
     def __init__(self, client: Optional[httpx.AsyncClient] = None):
         self.client = client or httpx.AsyncClient(
@@ -28,12 +30,19 @@ class ModelScraper:
         return await self.client.get(url)
 
     def detect_url(self, slug: str) -> str:
-        if "/" in slug:
+        # Prevent path traversal vulnerabilities by explicitly rejecting '..'
+        # because urllib.parse.quote does not encode period (.) characters by default.
+        if ".." in slug:
+            raise ValueError(f"Invalid slug: path traversal detected in '{slug}'")
+
+        # URL-encode user-controlled values to ensure special characters are handled safely
+        encoded_slug = urllib.parse.quote(slug, safe="/")
+        if "/" in encoded_slug:
             # Community model
-            return f"https://ollama.com/{slug}"
+            return f"https://ollama.com/{encoded_slug}"
         else:
             # Official model
-            return f"https://ollama.com/library/{slug}"
+            return f"https://ollama.com/library/{encoded_slug}"
 
     async def fetch_model_detail(self, slug: str) -> Optional[Dict[str, Any]]:
         base_url = self.detect_url(slug)
