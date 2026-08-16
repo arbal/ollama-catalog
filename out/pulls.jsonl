@@ -3423,6 +3423,8 @@
 {"slug":"adsfaaron/taide-lx-7b-chat","pulls":523,"pulls_text":"523"}
 {"slug":"advancedistroadmin/Buddy","pulls":4,"pulls_text":"4"}
 {"slug":"advancedistroadmin/CODED","pulls":10,"pulls_text":"10"}
+{"slug":"advancedistroadmin/KRDiD","pulls":0,"pulls_text":"0"}
+{"slug":"advancedistroadmin/MasterP","pulls":10,"pulls_text":"10"}
 {"slug":"advancedistroadmin/STRMKRD","pulls":2,"pulls_text":"2"}
 {"slug":"advwandersonlopes33/GAIA","pulls":2,"pulls_text":"2"}
 {"slug":"adwidianjaya/seallm-7b-v2.5","pulls":194,"pulls_text":"194"}
@@ -4440,6 +4442,7 @@
 {"slug":"batiai/qwen3.5-9b","pulls":301,"pulls_text":"301"}
 {"slug":"batiai/qwen3.6-27b","pulls":15700,"pulls_text":"15.7K"}
 {"slug":"batiai/qwen3.6-35b","pulls":12600,"pulls_text":"12.6K"}
+{"slug":"batiai/qwen3.8-27b","pulls":74,"pulls_text":"74"}
 {"slug":"batprem/deepseek-r1-medical-reasoning","pulls":195,"pulls_text":"195"}
 {"slug":"baykutsukru/query-rescue","pulls":3,"pulls_text":"3"}
 {"slug":"bayselonarrend/tinyllama","pulls":259,"pulls_text":"259"}
@@ -4673,6 +4676,7 @@
 {"slug":"blockchain_dew/aster-admin","pulls":9,"pulls_text":"9"}
 {"slug":"bloxcolayt/lora-turbo","pulls":21,"pulls_text":"21"}
 {"slug":"bluecrck/gemma4agent","pulls":43,"pulls_text":"43"}
+{"slug":"bluehawana/deepseek-v4-flash","pulls":17,"pulls_text":"17"}
 {"slug":"blueishai/anant-base","pulls":58,"pulls_text":"58"}
 {"slug":"blueishai/anant-reason","pulls":8,"pulls_text":"8"}
 {"slug":"blueishai/medic-1.5b-firstaid","pulls":8,"pulls_text":"8"}
@@ -5333,6 +5337,7 @@
 {"slug":"coreworxlab/caal-qwen3.5-2b","pulls":62,"pulls_text":"62"}
 {"slug":"coreworxlab/caal-qwen3.5-4b","pulls":66,"pulls_text":"66"}
 {"slug":"coreworxlab/caal-qwen3.5-9b","pulls":118,"pulls_text":"118"}
+{"slug":"corvojaeger/jina-embeddings-v5-text-small","pulls":0,"pulls_text":"0"}
 {"slug":"cosmonautsdev/Cosm_v1","pulls":247,"pulls_text":"247"}
 {"slug":"costinb333/333","pulls":13,"pulls_text":"13"}
 {"slug":"cow/gemma2_tools","pulls":165,"pulls_text":"165"}
@@ -5497,10 +5502,12 @@
 {"slug":"dandank/qwen-tuned","pulls":3,"pulls_text":"3"}
 {"slug":"dandank/qwen3","pulls":6,"pulls_text":"6"}
 {"slug":"dandydonunhinged/aaron","pulls":19,"pulls_text":"19"}
+{"slug":"dandydonunhinged/aaron-gemma4","pulls":0,"pulls_text":"0"}
 {"slug":"dandydonunhinged/aaron-multimodal","pulls":0,"pulls_text":"0"}
 {"slug":"dandydonunhinged/aaron_v13","pulls":0,"pulls_text":"0"}
 {"slug":"dandydonunhinged/hermes","pulls":22,"pulls_text":"22"}
 {"slug":"dandydonunhinged/phoenix","pulls":7,"pulls_text":"7"}
+{"slug":"dandydonunhinged/qwen3.8-test","pulls":0,"pulls_text":"0"}
 {"slug":"dandydonunhinged/spock","pulls":18,"pulls_text":"18"}
 {"slug":"dandydonunhinged/wayne","pulls":7,"pulls_text":"7"}
 {"slug":"danfranc/bolted-down","pulls":3,"pulls_text":"3"}
@@ -5508,6 +5515,7 @@
 {"slug":"dangkkhoa/chuyen-gia-huong-nghiep-v2","pulls":2,"pulls_text":"2"}
 {"slug":"dangkkhoa/chuyen-gia-tu-van","pulls":11,"pulls_text":"11"}
 {"slug":"dangkkhoa/tuyensinh-multitask","pulls":3,"pulls_text":"3"}
+{"slug":"dangkkhoa/tuyensinh-multitask-v2","pulls":0,"pulls_text":"0"}
 {"slug":"daniau23/lorafrica_gguf","pulls":11,"pulls_text":"11"}
 {"slug":"danideveloper/test1","pulls":4,"pulls_text":"4"}
 {"slug":"daniel_dona/class_prop_7b","pulls":0,"pulls_text":"0"}
@@ -5991,6 +5999,9 @@
 {"slug":"drivedenpadev/deepseek-v3.2","pulls":370,"pulls_text":"370"}
 {"slug":"drmdltd/diffusiongemma-26B-A4B-it-bucket","pulls":529,"pulls_text":"529"}
 {"slug":"drolandcorp/mopsie","pulls":3,"pulls_text":"3"}
+{"slug":"drolandcorp/mopsie-coder","pulls":0,"pulls_text":"0"}
+{"slug":"drolandcorp/mopsie-kim","pulls":0,"pulls_text":"0"}
+{"slug":"drolandcorp/mopsie-r1","pulls":0,"pulls_text":"0"}
 {"slug":"dron3flyv3r/neural-daredevil-8b-abliterated","pulls":741,"pulls_text":"741"}
 {"slug":"dronerazzo/my-test-model","pulls":0,"pulls_text":"0"}
 {"slug":"dronerazzo/test-model","pulls":0,"pulls_text":"0"}
@@ -6188,6 +6199,7 @@
 {"slug":"edtorre/qwen3.5-hermes","pulls":118,"pulls_text":"118"}
 {"slug":"edtorre/qwen3.6-hermes","pulls":593,"pulls_text":"593"}
 {"slug":"eduardobgutierres/GeoAI","pulls":0,"pulls_text":"0"}
+{"slug":"eduardogonik/smol-judge","pulls":0,"pulls_text":"0"}
 {"slug":"eduardonissimura/Meumodel","pulls":0,"pulls_text":"0"}
 {"slug":"edulab/edulab1","pulls":195,"pulls_text":"195"}
 {"slug":"edwardlo12/medgemma-4b-it-Q4_K_M","pulls":508,"pulls_text":"508"}
@@ -6884,6 +6896,7 @@
 {"slug":"gabegoodhart/mamba2","pulls":84,"pulls_text":"84"}
 {"slug":"gabegoodhart/minimax-m2","pulls":173,"pulls_text":"173"}
 {"slug":"gabegoodhart/minimax-m2.1","pulls":528,"pulls_text":"528"}
+{"slug":"gabmonferier/gabtyss","pulls":0,"pulls_text":"0"}
 {"slug":"gabrielartin10/JARVIS","pulls":0,"pulls_text":"0"}
 {"slug":"gabrielblins/psicologo-ai","pulls":28,"pulls_text":"28"}
 {"slug":"gabrielbosse9/qwen3.5-fixed","pulls":354,"pulls_text":"354"}
@@ -7644,6 +7657,7 @@
 {"slug":"hopephoto/qwen3-30b-a3b-instruct_q8","pulls":492,"pulls_text":"492"}
 {"slug":"hopephoto/qwen3-30b-a3b-thinking_q8","pulls":457,"pulls_text":"457"}
 {"slug":"hopephoto/qwen3-coder-30b-a3b-instruct_q8","pulls":973,"pulls_text":"973"}
+{"slug":"hopephoto/qwen3.8-27b","pulls":5,"pulls_text":"5"}
 {"slug":"horatiucod/asistent-13.a","pulls":0,"pulls_text":"0"}
 {"slug":"horatiucod/asistent-13.b","pulls":5,"pulls_text":"5"}
 {"slug":"hossein_fereidooni/Maventra","pulls":0,"pulls_text":"0"}
@@ -7853,6 +7867,7 @@
 {"slug":"hvbhanot/prof_tux-guided","pulls":23,"pulls_text":"23"}
 {"slug":"hvbhanot/prof_tux-recall","pulls":7,"pulls_text":"7"}
 {"slug":"hwb7225/vinsaa","pulls":0,"pulls_text":"0"}
+{"slug":"hxgohxrr/raion","pulls":2,"pulls_text":"2"}
 {"slug":"hydai/gpt-oss-120b-mandarin-thinking","pulls":243,"pulls_text":"243"}
 {"slug":"hydroid7/llama3-suzume","pulls":37,"pulls_text":"37"}
 {"slug":"hymetalab/lumora-general","pulls":0,"pulls_text":"0"}
@@ -9987,11 +10002,13 @@
 {"slug":"lucifers/Polaris-7B-Preview.Q8_0","pulls":154,"pulls_text":"154"}
 {"slug":"lucifers/qwen3-30B-A3B-Instruct-2507.Q4_0","pulls":665,"pulls_text":"665"}
 {"slug":"lucifers/qwen3-30B-coder-tools.Q4_0","pulls":914,"pulls_text":"914"}
+{"slug":"lucifers/qwen3.8","pulls":3,"pulls_text":"3"}
 {"slug":"luckshot2015/bubba","pulls":2,"pulls_text":"2"}
 {"slug":"luckyhuang168/myfirstmodel","pulls":0,"pulls_text":"0"}
 {"slug":"luckyqm/deepseek-r1-671b","pulls":419,"pulls_text":"419"}
 {"slug":"luckyqm/linseek-v3","pulls":0,"pulls_text":"0"}
 {"slug":"luckyqm/lucky-nomic","pulls":3,"pulls_text":"3"}
+{"slug":"lucloner/wen36-35b-uncensored-1m","pulls":37,"pulls_text":"37"}
 {"slug":"lucykabob/hello123","pulls":6,"pulls_text":"6"}
 {"slug":"luepow/teo","pulls":21,"pulls_text":"21"}
 {"slug":"luepow/teo-g4","pulls":14,"pulls_text":"14"}
@@ -10003,6 +10020,7 @@
 {"slug":"luis-orvium/unsloth-llama-3-1b-instruct","pulls":8,"pulls_text":"8"}
 {"slug":"luisandrelopes/turing","pulls":0,"pulls_text":"0"}
 {"slug":"luiscastropess/devbot-pro","pulls":0,"pulls_text":"0"}
+{"slug":"luise4498/LumitaOperativa","pulls":2,"pulls_text":"2"}
 {"slug":"luisppb16/Qwen3.5-9B-Red_Team","pulls":628,"pulls_text":"628"}
 {"slug":"luisppb16/gemma4-e4b-SecOps","pulls":603,"pulls_text":"603"}
 {"slug":"luizharbach/Meu1stModel","pulls":15,"pulls_text":"15"}
@@ -10075,6 +10093,7 @@
 {"slug":"mDevsLabs/mAI-1.5-Apex","pulls":0,"pulls_text":"0"}
 {"slug":"mDevsLabs/mAI-1.5-Light","pulls":5,"pulls_text":"5"}
 {"slug":"mDevsLabs/mAI-1.5-Opal","pulls":5,"pulls_text":"5"}
+{"slug":"maanis/rawmind","pulls":6,"pulls_text":"6"}
 {"slug":"maayan/Qwen2.5-14B-Instruct-GGUF","pulls":831,"pulls_text":"831"}
 {"slug":"maayan/nuextract-1.5","pulls":126,"pulls_text":"126"}
 {"slug":"mabdulre9/medqwen3-4b","pulls":2,"pulls_text":"2"}
@@ -11013,6 +11032,7 @@
 {"slug":"name_not_valid/CLITORIS","pulls":40,"pulls_text":"40"}
 {"slug":"name_not_valid/GRACE","pulls":7,"pulls_text":"7"}
 {"slug":"namenut/Test","pulls":0,"pulls_text":"0"}
+{"slug":"nana3tfg/jarvis","pulls":0,"pulls_text":"0"}
 {"slug":"nanadjmini/mymodel","pulls":2,"pulls_text":"2"}
 {"slug":"nandofernandesneto/lfm2.5-350m","pulls":6,"pulls_text":"6"}
 {"slug":"nandu1237/test-connection","pulls":0,"pulls_text":"0"}
@@ -11027,6 +11047,7 @@
 {"slug":"nat_wan/it_llama","pulls":2,"pulls_text":"2"}
 {"slug":"nat_wan/it_m","pulls":0,"pulls_text":"0"}
 {"slug":"nat_wan/sap","pulls":23,"pulls_text":"23"}
+{"slug":"natakeren890/CLM","pulls":0,"pulls_text":"0"}
 {"slug":"natanaelyared/test","pulls":0,"pulls_text":"0"}
 {"slug":"nate/instinct","pulls":743,"pulls_text":"743"}
 {"slug":"natfil/qwen2_32768","pulls":0,"pulls_text":"0"}
@@ -11396,6 +11417,7 @@
 {"slug":"odendaalkappie/WesKus","pulls":337,"pulls_text":"337"}
 {"slug":"odinjinidon1/redv","pulls":5,"pulls_text":"5"}
 {"slug":"odytrice/gemma4","pulls":435,"pulls_text":"435"}
+{"slug":"odytrice/muse","pulls":2,"pulls_text":"2"}
 {"slug":"odytrice/qwen3.6","pulls":725,"pulls_text":"725"}
 {"slug":"odytrice/qwen3.8","pulls":0,"pulls_text":"0"}
 {"slug":"oerlybird911/codemode","pulls":2,"pulls_text":"2"}
@@ -11469,6 +11491,7 @@
 {"slug":"omersaidylmz/tekstilgpt22","pulls":0,"pulls_text":"0"}
 {"slug":"omidzamani/devops-elite","pulls":157,"pulls_text":"157"}
 {"slug":"omkarjava0103/gpt-oss-mini","pulls":386,"pulls_text":"386"}
+{"slug":"omninode/orion","pulls":8,"pulls_text":"8"}
 {"slug":"omnius1234/wan-prompt-engineer","pulls":43,"pulls_text":"43"}
 {"slug":"omoli/LogicForge","pulls":54,"pulls_text":"54"}
 {"slug":"omsin/teejuta","pulls":6,"pulls_text":"6"}
@@ -12017,6 +12040,7 @@
 {"slug":"pxlksr/llama-3-refueled","pulls":165,"pulls_text":"165"}
 {"slug":"pxlksr/mixtral","pulls":42,"pulls_text":"42"}
 {"slug":"pxlksr/opencodeinterpreter-ds","pulls":594,"pulls_text":"594"}
+{"slug":"pysakura0000/minimath","pulls":0,"pulls_text":"0"}
 {"slug":"pyzz/qwen2-1.5b-lora","pulls":6,"pulls_text":"6"}
 {"slug":"pzahemszky/xlam-1b-fc-r","pulls":32,"pulls_text":"32"}
 {"slug":"q5ca/mymodel","pulls":0,"pulls_text":"0"}
@@ -13997,6 +14021,7 @@
 {"slug":"teex/amalia","pulls":80,"pulls_text":"80"}
 {"slug":"tegararrahman17/spmb-ocr-ai","pulls":13,"pulls_text":"13"}
 {"slug":"tejasmankweshwar/legalsathi","pulls":94,"pulls_text":"94"}
+{"slug":"tejassinkar2311/qwen2.5","pulls":0,"pulls_text":"0"}
 {"slug":"tejasvermawork/LLMJson","pulls":7,"pulls_text":"7"}
 {"slug":"tekimaxllc/granite-ml-coder","pulls":13,"pulls_text":"13"}
 {"slug":"telcelbrce/gideon","pulls":0,"pulls_text":"0"}
@@ -14079,6 +14104,7 @@
 {"slug":"theqtcompany/codellama-7b-qml","pulls":125,"pulls_text":"125"}
 {"slug":"therepairguyjake/claw","pulls":0,"pulls_text":"0"}
 {"slug":"thesoargoat/soar","pulls":0,"pulls_text":"0"}
+{"slug":"thesudarshanchavan/stock-gemma","pulls":0,"pulls_text":"0"}
 {"slug":"theultimateashh/frozen1-2","pulls":4,"pulls_text":"4"}
 {"slug":"thewallandus/v2-phi2-model-q4_k_m.gguf","pulls":85,"pulls_text":"85"}
 {"slug":"theweirdfulmurk/octapi-coder","pulls":18,"pulls_text":"18"}
@@ -14321,6 +14347,8 @@
 {"slug":"tsrman/tpro","pulls":0,"pulls_text":"0"}
 {"slug":"tsrman/tpro2","pulls":2,"pulls_text":"2"}
 {"slug":"tszhowong/rubber-duck-theology-e4b","pulls":0,"pulls_text":"0"}
+{"slug":"ttempvnn/0bserverx-Qwen3.8-27B-Heretic-Abliterated-Uncensored-Q4-K-M","pulls":234,"pulls_text":"234"}
+{"slug":"ttempvnn/Blackfrost-AI-Qwen3.8-27B-ABLITERATED","pulls":85,"pulls_text":"85"}
 {"slug":"ttempvnn/DavidAU-gemma-4-31B-it-Mystery-Fine-Tune-HERETIC-UNCENSORED-Thinking-Q4-K-M","pulls":38,"pulls_text":"38"}
 {"slug":"ttempvnn/DavidAU-gemma-4-31B-it-The-DECKARD-HERETIC-UNCENSORED-Thinking-Q4-K-M","pulls":118,"pulls_text":"118"}
 {"slug":"ttempvnn/DeepSeek-R1-Distill-Qwen-32B-abliterated-Q4-K-M","pulls":17,"pulls_text":"17"}
@@ -14665,6 +14693,7 @@
 {"slug":"vitna/EEVE-Korean-Chat-10.8B","pulls":0,"pulls_text":"0"}
 {"slug":"vitorcalvi/mentallama2","pulls":124,"pulls_text":"124"}
 {"slug":"vitoreafeliciano/Neo","pulls":5,"pulls_text":"5"}
+{"slug":"vivaandineshkanth/vivaancoder","pulls":0,"pulls_text":"0"}
 {"slug":"vivek41598/cloud","pulls":0,"pulls_text":"0"}
 {"slug":"vivekkichmiche/jarvis","pulls":0,"pulls_text":"0"}
 {"slug":"viveksil/prathamops-E2B","pulls":0,"pulls_text":"0"}
@@ -15450,6 +15479,7 @@
 {"slug":"zezaru/zezacode","pulls":4,"pulls_text":"4"}
 {"slug":"zf2106/zf_ml","pulls":11,"pulls_text":"11"}
 {"slug":"zfujicute/OmniCoder-Qwen3.5-9B-Claude-4.6-Opus-Uncensored-v2-GGUF","pulls":299,"pulls_text":"299"}
+{"slug":"zhamm/Qwen3.8","pulls":6,"pulls_text":"6"}
 {"slug":"zhamm/qwen3.6","pulls":678,"pulls_text":"678"}
 {"slug":"zhamm/qwopus3.6","pulls":137,"pulls_text":"137"}
 {"slug":"zhanghua/llama3-8b-chinese-chat-ollama-q8","pulls":75,"pulls_text":"75"}
