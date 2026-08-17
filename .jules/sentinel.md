@@ -1,0 +1,4 @@
+## 2024-05-15 - Prevent path traversal in URL detection
+**Vulnerability:** The `detect_url` method constructed URLs using unsanitized model slugs, allowing path traversal attacks via `..` and URL injection via unencoded special characters.
+**Learning:** `urllib.parse.quote` does not encode periods (`.`) by default. Therefore, explicitly checking and rejecting slugs containing `..` is necessary to prevent path traversal when constructing URLs. Additionally, validation methods that raise `ValueError` must be called inside the `try` block of the caller (e.g. `fetch_model_detail`) so that the application handles errors gracefully.
+**Prevention:** Always explicitly check for and reject traversal sequences (`..`) in user-controlled inputs used in file paths or URLs, even if URL-encoding is applied. URL-encode parameters properly and ensure exception-raising validation is handled inside `try...except` blocks.

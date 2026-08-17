@@ -7,6 +7,9 @@ def test_detect_url():
     scraper = ModelScraper()
     assert scraper.detect_url("llama2") == "https://ollama.com/library/llama2"
     assert scraper.detect_url("huihui_ai/qwen") == "https://ollama.com/huihui_ai/qwen"
+    assert scraper.detect_url("some model") == "https://ollama.com/library/some%20model"
+    with pytest.raises(ValueError):
+        scraper.detect_url("../secret")
 
 def test_library_slug_is_official():
     scraper = ModelScraper()
