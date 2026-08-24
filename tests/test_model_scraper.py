@@ -7,6 +7,14 @@ def test_detect_url():
     scraper = ModelScraper()
     assert scraper.detect_url("llama2") == "https://ollama.com/library/llama2"
     assert scraper.detect_url("huihui_ai/qwen") == "https://ollama.com/huihui_ai/qwen"
+    assert scraper.detect_url("hello world") == "https://ollama.com/library/hello%20world"
+
+def test_detect_url_path_traversal():
+    scraper = ModelScraper()
+    with pytest.raises(ValueError, match="Invalid slug: contains path traversal sequence"):
+        scraper.detect_url("../etc/passwd")
+    with pytest.raises(ValueError, match="Invalid slug: contains path traversal sequence"):
+        scraper.detect_url("huihui_ai/../../etc/passwd")
 
 def test_library_slug_is_official():
     scraper = ModelScraper()
