@@ -102,3 +102,14 @@ async def test_fetch_success(httpx_mock):
     assert result["variants"][0]["tag"] == "latest"
     assert result["model_type"] == "official"
     assert result["namespace"] is None
+
+def test_detect_url_path_traversal():
+    scraper = ModelScraper()
+    with pytest.raises(ValueError):
+        scraper.detect_url("foo/../bar")
+
+@pytest.mark.asyncio
+async def test_fetch_model_detail_handles_value_error():
+    scraper = ModelScraper()
+    result = await scraper.fetch_model_detail("foo/../bar")
+    assert result is None
