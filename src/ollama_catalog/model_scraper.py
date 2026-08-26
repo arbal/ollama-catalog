@@ -1,5 +1,6 @@
 import re
 import asyncio
+import urllib.parse
 from datetime import datetime
 from typing import Dict, Any, Optional, List
 import httpx
@@ -28,18 +29,22 @@ class ModelScraper:
         return await self.client.get(url)
 
     def detect_url(self, slug: str) -> str:
-        if "/" in slug:
+        if ".." in slug:
+            raise ValueError("Path traversal detected in slug")
+
+        encoded_slug = urllib.parse.quote(slug, safe="/")
+        if "/" in encoded_slug:
             # Community model
-            return f"https://ollama.com/{slug}"
+            return f"https://ollama.com/{encoded_slug}"
         else:
             # Official model
-            return f"https://ollama.com/library/{slug}"
+            return f"https://ollama.com/library/{encoded_slug}"
 
     async def fetch_model_detail(self, slug: str) -> Optional[Dict[str, Any]]:
-        base_url = self.detect_url(slug)
-        tags_url = f"{base_url}/tags"
-
         try:
+            base_url = self.detect_url(slug)
+            tags_url = f"{base_url}/tags"
+
             # Fetch both pages concurrently (retries on transient network errors)
             page_resp, tags_resp = await asyncio.gather(
                 self._fetch_url(base_url),
@@ -63,6 +68,9 @@ class ModelScraper:
 
             return self.parse_model_detail(slug, page_resp.text, tags_resp.text)
 
+        except ValueError as e:
+            logger.warning(f"Validation error for {slug}: {e}")
+            return None
         except httpx.HTTPError as e:
             logger.warning(f"HTTP error fetching {slug}: {e}")
             return None
