@@ -574,7 +574,7 @@ def show_namespace_stats(models, ns: str, fmt: str | None = None):
             elif fmt == "tsv":
                 print("slug\tpulls\ttags\tcapabilities\tupdated\tblurb")
             else:
-                console.print(f"[red]No models found for namespace '{ns}'[/red]")
+                console.print(Panel(f"[dim]No models found for namespace '{ns}'.[/dim]", border_style="yellow"))
             return
 
     ns_models.sort(key=lambda m: m.get("pulls", 0), reverse=True)
@@ -737,7 +737,7 @@ def show_detail(models, slug, all_models=None, enrich=False):
     if not matches:
         matches = [m for m in models if slug.lower() in m["slug"].lower()]
     if not matches:
-        console.print(f"[red]No model found matching '{slug}'[/red]")
+        console.print(Panel(f"[dim]No model found matching '{slug}'.[/dim]", border_style="yellow"))
         return
     if len(matches) > 1:
         console.print(f"[yellow]Multiple matches ({len(matches)}) — showing first. Use exact slug.[/yellow]")
@@ -781,6 +781,11 @@ def show_installed_recommendations(models, installed_arg, fmt=None):
 def show_list(models, limit, new_days=None, sort_field="pulls", filter_parts=None, total_catalog=None, compare_ref="", vram_gb=None):
     shown = len(models) if limit == 0 else min(len(models), limit)
     displayed = models[:shown] if limit > 0 else models
+
+    if not displayed:
+        console.print(Panel("[dim]No models found matching your criteria.[/dim]", border_style="yellow"))
+        return
+
     table = Table(box=box.ROUNDED, expand=True)
     table.add_column("#", justify="right", style="dim", no_wrap=True, min_width=3)
     table.add_column("Slug", style="cyan", ratio=3, no_wrap=True)
@@ -915,7 +920,7 @@ def main():
     if args.history:
         entries = load_history_for_slug(args.history, max_commits=args.commits)
         if not entries:
-            console.print(f"[red]No history found for '{args.history}'.[/red]")
+            console.print(Panel(f"[dim]No history found for '{args.history}'.[/dim]", border_style="yellow"))
             return
         chrono = list(reversed(entries))
         pulls_values = [e["pulls"] for e in chrono]
