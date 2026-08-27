@@ -373,6 +373,9 @@ def emit_format(models, fmt, limit=0):
     if fmt == "json":
         print(json.dumps(displayed, indent=2))
         return
+    if not displayed:
+        # Don't print TSV header if there are no models to output
+        return
     print("slug\tpulls\ttags_count\tmodel_type\tnamespace\tupdated\tcapabilities\tblurb\tmin_size_gb\tmax_size_gb")
     for m in displayed:
         sizes = _variant_sizes_gb(m)
@@ -779,6 +782,13 @@ def show_installed_recommendations(models, installed_arg, fmt=None):
 
 
 def show_list(models, limit, new_days=None, sort_field="pulls", filter_parts=None, total_catalog=None, compare_ref="", vram_gb=None):
+    if not models:
+        msg = "[italic]No models found matching your criteria.[/italic]"
+        if filter_parts:
+            msg += "\n\n[dim]Active filters:[/dim] [cyan]" + ", ".join(filter_parts) + "[/cyan]"
+        console.print(Panel(msg, title="Empty Result", border_style="yellow"))
+        return
+
     shown = len(models) if limit == 0 else min(len(models), limit)
     displayed = models[:shown] if limit > 0 else models
     table = Table(box=box.ROUNDED, expand=True)
