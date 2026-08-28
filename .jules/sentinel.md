@@ -1,0 +1,4 @@
+## 2024-05-18 - Path Traversal Vulnerability in Model URL Detection
+**Vulnerability:** The `detect_url` method in `ModelScraper` constructs URLs directly using user-controlled input (`slug`). It checks if a slash is present to decide between library and community models, but fails to prevent path traversal vectors like `..`, which could allow arbitrary URLs on the `ollama.com` domain to be queried. Additionally, the URL is not percent-encoded, risking injection or malformed requests with spaces or special characters.
+**Learning:** Even internal API wrappers must validate parameters that eventually construct network requests, especially when distinguishing namespaces with characters like `/`.
+**Prevention:** Always validate against path traversal tokens (`..`) in path inputs and percent-encode variables embedded into URLs using `urllib.parse.quote(var, safe='/')` if preserving slashes is necessary.
