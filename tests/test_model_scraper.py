@@ -102,3 +102,15 @@ async def test_fetch_success(httpx_mock):
     assert result["variants"][0]["tag"] == "latest"
     assert result["model_type"] == "official"
     assert result["namespace"] is None
+
+def test_detect_url_path_traversal():
+    scraper = ModelScraper()
+    with pytest.raises(ValueError, match="path traversal detected"):
+        scraper.detect_url("some/../path")
+    with pytest.raises(ValueError, match="path traversal detected"):
+        scraper.detect_url("../path")
+
+def test_detect_url_encoding():
+    scraper = ModelScraper()
+    assert scraper.detect_url("model name") == "https://ollama.com/library/model%20name"
+    assert scraper.detect_url("namespace/model name") == "https://ollama.com/namespace/model%20name"
