@@ -1,0 +1,4 @@
+## 2024-05-18 - Prevent path traversal in URL construction
+**Vulnerability:** The `detect_url` method in `model_scraper.py` blindly trusts the `slug` input when constructing URLs (e.g., `f"https://ollama.com/{slug}"`). This allows an attacker to provide a malicious slug like `../../evil` which could lead to Server-Side Request Forgery (SSRF) or arbitrary URL fetching. Additionally, special characters are not URL encoded.
+**Learning:** Even internal tool components that seem to deal with "safe" string identifiers must treat all external data (like model slugs from the internet) as untrusted. `urllib.parse.quote` should be used for escaping, and explicit checks against `..` are necessary because `quote` does not encode periods.
+**Prevention:** Always validate identifiers by rejecting invalid patterns (e.g., directory traversal sequences like `..`) and properly URL encode them using `urllib.parse.quote(slug, safe="/")` before interpolating into URLs.
