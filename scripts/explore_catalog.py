@@ -781,6 +781,12 @@ def show_installed_recommendations(models, installed_arg, fmt=None):
 def show_list(models, limit, new_days=None, sort_field="pulls", filter_parts=None, total_catalog=None, compare_ref="", vram_gb=None):
     shown = len(models) if limit == 0 else min(len(models), limit)
     displayed = models[:shown] if limit > 0 else models
+
+    if not displayed:
+        filter_str = ", ".join(filter_parts) if filter_parts else "none"
+        console.print(Panel(f"[dim]No models found matching criteria.[/dim]\n[dim]Filters: {filter_str}[/dim]", border_style="dim", title="Empty Result"))
+        return
+
     table = Table(box=box.ROUNDED, expand=True)
     table.add_column("#", justify="right", style="dim", no_wrap=True, min_width=3)
     table.add_column("Slug", style="cyan", ratio=3, no_wrap=True)
