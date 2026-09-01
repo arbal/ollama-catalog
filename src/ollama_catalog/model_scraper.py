@@ -5,6 +5,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional, List
 import httpx
 from bs4 import BeautifulSoup, Tag as BSTag
+from typing import Union
 import logging
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
@@ -78,12 +79,13 @@ class ModelScraper:
             logger.warning(f"Unexpected error fetching {slug}: {e}")
             return None
 
-    def _parse_pulls(self, html: str) -> tuple[int, str]:
+    def _parse_pulls(self, html: str, soup: Optional[BeautifulSoup] = None) -> tuple[int, str]:
         # Based on the requirement:
         # Parse pulls count: re.search(r'([0-9]+(?:\.[0-9]+)?)([KMB])?\s*Pulls', html)
         match = re.search(r'([0-9]+(?:\.[0-9]+)?)([KMB])?\s*Pulls', html, re.IGNORECASE)
 
-        soup = BeautifulSoup(html, 'lxml')
+        if soup is None:
+            soup = BeautifulSoup(html, 'lxml')
         text = soup.get_text(separator=' ', strip=True)
 
         if not match:
@@ -111,8 +113,8 @@ class ModelScraper:
             return int(num), pulls_text
         except ValueError:
             return 0, "0"
-    def _parse_capabilities(self, html: str) -> List[str]:
-        soup = BeautifulSoup(html, 'lxml')
+    def _parse_capabilities(self, soup_or_html: Union[str, BeautifulSoup]) -> List[str]:
+        soup = soup_or_html if isinstance(soup_or_html, BeautifulSoup) else BeautifulSoup(soup_or_html, 'lxml')
         capabilities = []
         # Capabilities are usually chips like Tools, Vision, Embedding
         # Example chip classes might have bg-blue-100 or text-blue-600
@@ -128,8 +130,8 @@ class ModelScraper:
         # Remove duplicates
         return list(set(capabilities))
 
-    def _parse_blurb_and_desc(self, html: str) -> tuple[str, str]:
-        soup = BeautifulSoup(html, 'lxml')
+    def _parse_blurb_and_desc(self, soup_or_html: Union[str, BeautifulSoup]) -> tuple[str, str]:
+        soup = soup_or_html if isinstance(soup_or_html, BeautifulSoup) else BeautifulSoup(soup_or_html, 'lxml')
 
         # Meta description usually has the blurb
         blurb = ""
@@ -146,17 +148,17 @@ class ModelScraper:
 
         return blurb, description
 
-    def _parse_updated(self, html: str) -> str:
-        # Looking for 'Updated X days ago' or similar
-        soup = BeautifulSoup(html, 'lxml')
+    def _parse_updated(self, soup_or_html: Union[str, BeautifulSoup]) -> str:
+        # Looking for \'Updated X days ago\' or similar
+        soup = soup_or_html if isinstance(soup_or_html, BeautifulSoup) else BeautifulSoup(soup_or_html, 'lxml')
         text = soup.get_text()
         match = re.search(r'Updated\s+(.*?ago)', text, re.IGNORECASE)
         if match:
             return match.group(1).strip()
         return ""
 
-    def _parse_variants(self, tags_html: str) -> List[Dict[str, str]]:
-        soup = BeautifulSoup(tags_html, 'lxml')
+    def _parse_variants(self, soup_or_html: Union[str, BeautifulSoup]) -> List[Dict[str, str]]:
+        soup = soup_or_html if isinstance(soup_or_html, BeautifulSoup) else BeautifulSoup(soup_or_html, 'lxml')
         variants = []
 
         # Real Ollama /tags HTML structure (verified 2026-04-16):
@@ -242,11 +244,14 @@ class ModelScraper:
             namespace = None
             name = slug
 
-        pulls, pulls_text = self._parse_pulls(page_html)
-        capabilities = self._parse_capabilities(page_html)
-        blurb, description = self._parse_blurb_and_desc(page_html)
-        updated = self._parse_updated(page_html)
-        variants = self._parse_variants(tags_html)
+        page_soup = BeautifulSoup(page_html, 'lxml')
+        tags_soup = BeautifulSoup(tags_html, 'lxml')
+
+        pulls, pulls_text = self._parse_pulls(page_html, page_soup)
+        capabilities = self._parse_capabilities(page_soup)
+        blurb, description = self._parse_blurb_and_desc(page_soup)
+        updated = self._parse_updated(page_soup)
+        variants = self._parse_variants(tags_soup)
 
         return {
             "slug": slug,
