@@ -2,14 +2,24 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in ollama-catalog, please report it responsibly by emailing **arbal@users.noreply.github.com** with the following details:
+**Please do NOT open public GitHub issues for security vulnerabilities.**
 
-- Description of the vulnerability
-- Steps to reproduce (if applicable)
-- Potential impact
-- Suggested fix (if you have one)
+Instead, use GitHub's **private security vulnerability reporting**:
 
-**Do not** open public GitHub issues for security vulnerabilities.
+1. Go to the repository's **Security tab**
+2. Click **"Report a vulnerability"** button
+3. Fill out the vulnerability report form with:
+   - Description of the vulnerability
+   - Steps to reproduce (if applicable)
+   - Potential impact
+   - Suggested fix (if you have one)
+
+This creates a **private security advisory** that only maintainers can see. This allows us to:
+- Assess and fix the vulnerability before public disclosure
+- Protect users by preventing details reaching bad actors before a patch exists
+- Coordinate responsible disclosure timing with you
+
+**GitHub's security reporting form ensures privacy during the fix process.**
 
 ## Response Timeline
 
