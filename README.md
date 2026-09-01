@@ -165,3 +165,23 @@ described above.
 - Since the discovery crawler uses single alphanumeric character queries (`a-z`, `0-9`) to bypass search limitations, it might miss some models if an alphabet subset exceeds the maximum pagination limit.
 
 **Coverage confidence:** The catalog currently tracks **222 official models** and **~10,900 community models** (as of April 2026). The 222 official models are believed to be complete — Ollama's official namespace is bounded and fully reachable via pagination. Community model coverage is harder to bound since Ollama does not publish a total count, but the alphabet-crawl method has been verified to capture the full set of models indexed by `chrizzo84/OllamaScraper` (which served as a reference baseline), confirming the discovery pipeline reliably surfaces at least everything that is prominently searchable. Models that appear only in low-traffic search results near alphabet-boundary pagination limits may still be missed.
+
+## Community & Contributing
+
+### Get Involved
+
+We welcome contributions from the community! Whether you're fixing bugs, adding features, or improving documentation:
+
+- **[Contributing Guide](CONTRIBUTING.md)** — How to contribute, development setup, and styleguides
+- **[Code of Conduct](CODE_OF_CONDUCT.md)** — Community standards and expected behavior
+- **[Security Policy](SECURITY.md)** — Report vulnerabilities responsibly via GitHub Security Advisory
+
+### Support
+
+- 📋 Report bugs via [GitHub Issues](https://github.com/arbal/ollama-catalog/issues)
+- 💡 Suggest features via [GitHub Discussions](https://github.com/arbal/ollama-catalog/discussions)
+- 🔒 Report security vulnerabilities via [GitHub Security Advisory](https://github.com/arbal/ollama-catalog/security/advisories)
+
+### License
+
+This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
