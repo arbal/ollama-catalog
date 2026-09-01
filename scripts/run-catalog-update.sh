@@ -48,7 +48,11 @@ printf 'Catalog update mode: %s\n' "$mode"
 case "$mode" in
   full)
     ollama-catalog discover --full
-    ollama-catalog fetch --refetch --reconcile
+    # --refetch: re-fetch all existing records + discovered new ones
+    # Note: --reconcile disabled to prevent false pruning. Search listing
+    # may be incomplete. Records absent from search but HTTP 200-available
+    # are kept. Future: implement explicit 404-corroboration before pruning.
+    ollama-catalog fetch --refetch
     ;;
   incremental)
     ollama-catalog discover
