@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in ollama-catalog, please report it responsibly by emailing **security@arbal.dev** with the following details:
+If you discover a security vulnerability in ollama-catalog, please report it responsibly by emailing **arbal@users.noreply.github.com** with the following details:
 
 - Description of the vulnerability
 - Steps to reproduce (if applicable)
