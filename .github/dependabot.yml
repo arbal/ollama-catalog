@@ -14,8 +14,7 @@ updates:
       - dependency-type: "direct"
       - dependency-type: "indirect"
     commit-message:
-      prefix: "chore"
-      prefix-scope: "deps"
+      prefix: "chore(deps)"
       include: "scope"
     pull-request-branch-name:
       separator: "/"
@@ -32,8 +31,7 @@ updates:
     reviewers:
       - "arbal"
     commit-message:
-      prefix: "chore"
-      prefix-scope: "ci"
+      prefix: "chore(ci)"
       include: "scope"
     pull-request-branch-name:
       separator: "/"
