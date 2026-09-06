@@ -2319,6 +2319,7 @@
 {"slug":"Natuworkguy/flash-onyx-2.1","pulls":27,"pulls_text":"27"}
 {"slug":"Natuworkguy/flash-onyx-2.2","pulls":10,"pulls_text":"10"}
 {"slug":"Natuworkguy/flash-onyx-2.3","pulls":6,"pulls_text":"6"}
+{"slug":"Natuworkguy/flash-onyx-2.4","pulls":0,"pulls_text":"0"}
 {"slug":"Natwar/Basic","pulls":0,"pulls_text":"0"}
 {"slug":"Naveed513/llama3.1-python","pulls":8,"pulls_text":"8"}
 {"slug":"Navneetjais/navjeet","pulls":0,"pulls_text":"0"}
@@ -5941,6 +5942,7 @@
 {"slug":"devndom03/kimi_k2.5","pulls":70,"pulls_text":"70"}
 {"slug":"devopsnextgenx/Stheno-v3.2-Q6","pulls":135,"pulls_text":"135"}
 {"slug":"devsajid007/hyperx1","pulls":0,"pulls_text":"0"}
+{"slug":"dexterjane598/subby","pulls":0,"pulls_text":"0"}
 {"slug":"dexterteh2014/OpenClaw","pulls":9,"pulls_text":"9"}
 {"slug":"deyvesmelo/DMagent","pulls":2,"pulls_text":"2"}
 {"slug":"dfebrero/DavidAU-Llama-3.2-8X3B-MOE-Dark-Champion-Instruct-uncensored-abliterated-18.4B","pulls":851,"pulls_text":"851"}
@@ -7898,6 +7900,9 @@
 {"slug":"hodza/cotype-nano-1.5-unofficial","pulls":444,"pulls_text":"444"}
 {"slug":"hoeur_lihour/hour","pulls":0,"pulls_text":"0"}
 {"slug":"hollis9/czellama3","pulls":253,"pulls_text":"253"}
+{"slug":"home-rag/gemma4","pulls":4,"pulls_text":"4"}
+{"slug":"home-rag/qwen3.6","pulls":0,"pulls_text":"0"}
+{"slug":"home-rag/qwen3.8","pulls":0,"pulls_text":"0"}
 {"slug":"homeworkmacka/ctc-alpha","pulls":0,"pulls_text":"0"}
 {"slug":"hoodarunner/hoodaAgents","pulls":2,"pulls_text":"2"}
 {"slug":"hoodarunner/offline-agent","pulls":167,"pulls_text":"167"}
@@ -8990,6 +8995,7 @@
 {"slug":"johanteekens/Llama-4-Scout-17B-16E-Instruct","pulls":680,"pulls_text":"680"}
 {"slug":"johnblick187/Mythos-Reborn","pulls":12,"pulls_text":"12"}
 {"slug":"johnblick187/QueenLilith","pulls":7,"pulls_text":"7"}
+{"slug":"johnblick187/SuperTweakBot","pulls":0,"pulls_text":"0"}
 {"slug":"johnblick187/gemma4-rp","pulls":9,"pulls_text":"9"}
 {"slug":"johnblick187/kimi-k2.7-code-abliterated-gguf","pulls":66,"pulls_text":"66"}
 {"slug":"johnblick187/nexus-coder-5q3","pulls":8,"pulls_text":"8"}
@@ -9013,6 +9019,7 @@
 {"slug":"joreilly86/structural_llama","pulls":195,"pulls_text":"195"}
 {"slug":"joreilly86/structural_llama_3.0","pulls":540,"pulls_text":"540"}
 {"slug":"jores1301/deepseek-v4-flash.cloud","pulls":33,"pulls_text":"33"}
+{"slug":"jorgebotero190/claude","pulls":0,"pulls_text":"0"}
 {"slug":"jorgebotero190/debop","pulls":0,"pulls_text":"0"}
 {"slug":"jorgedelosreyesrodriguez/coinbraker","pulls":0,"pulls_text":"0"}
 {"slug":"jorgenm89/chatbot-anico","pulls":0,"pulls_text":"0"}
@@ -9678,6 +9685,7 @@
 {"slug":"kwcbhfl/kwcbhfl1","pulls":0,"pulls_text":"0"}
 {"slug":"kweber/Assistent","pulls":0,"pulls_text":"0"}
 {"slug":"kwmcglon/gemma4-31b-abliterated","pulls":89,"pulls_text":"089"}
+{"slug":"kwmcglon/qwen3.8-flash-next","pulls":5,"pulls_text":"5"}
 {"slug":"kyawzin/github-issue-helper","pulls":0,"pulls_text":"0"}
 {"slug":"kyle89roberts/Claire","pulls":58,"pulls_text":"58"}
 {"slug":"kylebrodeur/microfactory-node","pulls":0,"pulls_text":"0"}
@@ -11462,6 +11470,12 @@
 {"slug":"naufalhilmiaji/gas-composition-analysis","pulls":0,"pulls_text":"0"}
 {"slug":"navadeep0230/gpt-oss-20b","pulls":108,"pulls_text":"108"}
 {"slug":"navthings/lilstory","pulls":0,"pulls_text":"0"}
+{"slug":"navyam-ai/navya-0","pulls":0,"pulls_text":"0"}
+{"slug":"navyam-ai/navya-1a","pulls":0,"pulls_text":"0"}
+{"slug":"navyam-ai/navya-1b","pulls":0,"pulls_text":"0"}
+{"slug":"navyam-ai/navya-1b-sft-v9","pulls":0,"pulls_text":"0"}
+{"slug":"navyam-ai/navya-1c","pulls":0,"pulls_text":"0"}
+{"slug":"navyam-ai/navya-1c-sft","pulls":0,"pulls_text":"0"}
 {"slug":"nawalkhan/legal-llm","pulls":292,"pulls_text":"292"}
 {"slug":"nayakaazkabiantara/Ellie","pulls":35,"pulls_text":"35"}
 {"slug":"nayal/med_mistral","pulls":75,"pulls_text":"75"}
@@ -13287,6 +13301,7 @@
 {"slug":"saaws2/qwen2.5","pulls":7,"pulls_text":"7"}
 {"slug":"saaws2/qwen3.5","pulls":20,"pulls_text":"20"}
 {"slug":"sabarishsjeevi/mndpt_tm","pulls":4,"pulls_text":"4"}
+{"slug":"sabbir/spyglass-sre","pulls":0,"pulls_text":"0"}
 {"slug":"sabi/antisemitism-teacher","pulls":0,"pulls_text":"0"}
 {"slug":"saboja89/saboja","pulls":0,"pulls_text":"0"}
 {"slug":"sac25com29/A","pulls":0,"pulls_text":"0"}
@@ -13652,6 +13667,7 @@
 {"slug":"seungduk-yanolja/EEVE-Korean-Instruct-7B-v2.0-Preview","pulls":180,"pulls_text":"180"}
 {"slug":"sevenumbi/Chloe","pulls":6,"pulls_text":"6"}
 {"slug":"severian/anima","pulls":198,"pulls_text":"198"}
+{"slug":"seyhunak/wamda-3b-reasoning","pulls":0,"pulls_text":"0"}
 {"slug":"seyi/mergedmodels","pulls":2,"pulls_text":"2"}
 {"slug":"seyijava/petromind","pulls":0,"pulls_text":"0"}
 {"slug":"seyo60/deepseekr18b","pulls":25,"pulls_text":"25"}
@@ -14853,6 +14869,7 @@
 {"slug":"treyleo16/mythical-ai","pulls":2,"pulls_text":"2"}
 {"slug":"treyleo16/mythos-5","pulls":42,"pulls_text":"42"}
 {"slug":"treyleo16/opus-5","pulls":110,"pulls_text":"110"}
+{"slug":"treyleo16/small-minded","pulls":37,"pulls_text":"37"}
 {"slug":"treyleo16/sonnet-5","pulls":63,"pulls_text":"63"}
 {"slug":"treyleo16/trai-4-zynr-super-lightweight","pulls":4,"pulls_text":"4"}
 {"slug":"treyrowell1826/qwen3-pinion","pulls":11,"pulls_text":"11"}
@@ -14919,6 +14936,7 @@
 {"slug":"ttempvnn/Huihui-gemma-4-26B-it-qat-q4-0-unquantized-abliterated-Q4-K","pulls":104,"pulls_text":"104"}
 {"slug":"ttempvnn/Igorls-gemma-4-12B-it-heretic-GGUF-Q8-0","pulls":141,"pulls_text":"141"}
 {"slug":"ttempvnn/JonathanColetti-Qwen3.8-27B-Uncensored-Q4-K-M","pulls":87,"pulls_text":"87"}
+{"slug":"ttempvnn/Qwen3-Embedding-4B-Q4-K-M","pulls":2,"pulls_text":"2"}
 {"slug":"ttempvnn/Qwen3-Embedding-8B-Q4-K-M","pulls":7,"pulls_text":"7"}
 {"slug":"ttempvnn/Serenity-v1.0-26B-A4B-Q4-K-M","pulls":0,"pulls_text":"0"}
 {"slug":"ttempvnn/TrevorJS-gemma-4-26B-A4B-it-uncensored-Q4-K-M","pulls":133,"pulls_text":"133"}
@@ -15710,6 +15728,7 @@
 {"slug":"y0uN9/bge-m3","pulls":19,"pulls_text":"19"}
 {"slug":"yaegerjames42/lambo","pulls":0,"pulls_text":"0"}
 {"slug":"yafito/artier1.1","pulls":16,"pulls_text":"16"}
+{"slug":"yahaya0987654321/oneShot","pulls":0,"pulls_text":"0"}
 {"slug":"yakoudev/HirakuCoder","pulls":2,"pulls_text":"2"}
 {"slug":"yakoudev/test","pulls":0,"pulls_text":"0"}
 {"slug":"yamen888/neuro_model_v0.1","pulls":0,"pulls_text":"0"}
