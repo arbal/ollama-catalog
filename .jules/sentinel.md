@@ -1,0 +1,4 @@
+## 2024-05-24 - Prevent git argument injection
+**Vulnerability:** The `git_show` utility passes user-controlled git references directly to `subprocess.run(["git", "show", f"{ref}:{path}"])`. If an attacker inputs a ref that starts with a hyphen (e.g., `-O`), git interprets the entire `ref:path` string as an option, leading to argument injection. Using `--` before the positional argument does not mitigate this for `git show <ref>:<path>` because Git treats strings following `--` as pathspecs rather than revisions.
+**Learning:** When passing combined `<ref>:<path>` arguments to Git commands via subprocess, the standard `--` end-of-options delimiter breaks revision parsing. You must validate the input manually rather than relying on Git's options delimiter.
+**Prevention:** Always validate that the user-provided reference does not start with a hyphen (e.g., `if ref.startswith('-'): raise ValueError(...)`) before passing it to `git show`.
