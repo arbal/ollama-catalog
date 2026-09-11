@@ -2941,6 +2941,8 @@
 {"slug":"Spyder_py/binary_objectification","pulls":4,"pulls_text":"4"}
 {"slug":"SrabanMondal/Alola","pulls":11,"pulls_text":"11"}
 {"slug":"StarLo/114514","pulls":5,"pulls_text":"5"}
+{"slug":"StellarMesh/embedding","pulls":0,"pulls_text":"0"}
+{"slug":"StellarMesh/rerank","pulls":0,"pulls_text":"0"}
 {"slug":"StoneSage/marcus","pulls":66,"pulls_text":"66"}
 {"slug":"StormSplits/shira","pulls":186,"pulls_text":"186"}
 {"slug":"StormSplits/shira-1o","pulls":790,"pulls_text":"790"}
@@ -3012,6 +3014,7 @@
 {"slug":"Tawatchai_Sakate/alpha","pulls":0,"pulls_text":"0"}
 {"slug":"TechMan2012/beefy","pulls":10,"pulls_text":"10"}
 {"slug":"TechMan2012/beefy1.3","pulls":4,"pulls_text":"4"}
+{"slug":"TechmiheUWM/THE_AI","pulls":0,"pulls_text":"0"}
 {"slug":"TechyShishy/magistral","pulls":84,"pulls_text":"84"}
 {"slug":"TechyShishy/ministral-3","pulls":759,"pulls_text":"759"}
 {"slug":"TeeZee/gemma-2-9b-it-abliterated","pulls":609,"pulls_text":"609"}
@@ -5967,6 +5970,8 @@
 {"slug":"devcore/n","pulls":6,"pulls_text":"6"}
 {"slug":"devcore/n-v2","pulls":0,"pulls_text":"0"}
 {"slug":"devcore/n-v3","pulls":0,"pulls_text":"0"}
+{"slug":"developaleksey/glm-4.7-flash","pulls":2,"pulls_text":"2"}
+{"slug":"developaleksey/llama3.1","pulls":0,"pulls_text":"0"}
 {"slug":"deveshsainipro/dev-persona","pulls":3,"pulls_text":"3"}
 {"slug":"devindadilshan0/q3.6","pulls":0,"pulls_text":"0"}
 {"slug":"devkit/L1-Qwen-1.5B-Max","pulls":106,"pulls_text":"106"}
@@ -6696,6 +6701,7 @@
 {"slug":"evilfreelancer/rugpt3","pulls":313,"pulls_text":"313"}
 {"slug":"evilfreelancer/rugpt3.5","pulls":872,"pulls_text":"872"}
 {"slug":"evinai/sherlock","pulls":20,"pulls_text":"20"}
+{"slug":"ewelynschots/qwen3.8","pulls":5,"pulls_text":"5"}
 {"slug":"eworxfor/zac-model","pulls":0,"pulls_text":"0"}
 {"slug":"ex00/testkube","pulls":5,"pulls_text":"5"}
 {"slug":"excelify_agencyos/kimi-high","pulls":13,"pulls_text":"13"}
@@ -6888,6 +6894,7 @@
 {"slug":"fervent_mcclintock/Qwen3-VL-Embedding-2B","pulls":478,"pulls_text":"478"}
 {"slug":"fervent_mcclintock/Sushi-Coder-9B","pulls":9,"pulls_text":"9"}
 {"slug":"fervent_mcclintock/deepseek-r1-0528-qwen3-8b","pulls":655,"pulls_text":"655"}
+{"slug":"fervent_mcclintock/qwen3.8-27b","pulls":3,"pulls_text":"3"}
 {"slug":"fervent_mcclintock/translategemma-4b-instruction-tuned","pulls":666,"pulls_text":"666"}
 {"slug":"feu/warnchat","pulls":86,"pulls_text":"86"}
 {"slug":"feufo/llama3-zz","pulls":15,"pulls_text":"15"}
@@ -7937,6 +7944,7 @@
 {"slug":"hoeur_lihour/hour","pulls":0,"pulls_text":"0"}
 {"slug":"hollis9/czellama3","pulls":253,"pulls_text":"253"}
 {"slug":"home-rag/gemma4","pulls":7,"pulls_text":"7"}
+{"slug":"home-rag/granite4.2","pulls":0,"pulls_text":"0"}
 {"slug":"home-rag/multilingual-e5-large","pulls":0,"pulls_text":"0"}
 {"slug":"home-rag/ornith-1.5","pulls":0,"pulls_text":"0"}
 {"slug":"home-rag/ornith1.5","pulls":0,"pulls_text":"0"}
@@ -8809,6 +8817,7 @@
 {"slug":"jewelzufo/granite-4.0-h-350m-base-GGUF","pulls":42,"pulls_text":"42"}
 {"slug":"jewelzufo/granite4-350m-h-Distill-Gemini-Thinking","pulls":123,"pulls_text":"123"}
 {"slug":"jewelzufo/medical-assistant-350m","pulls":48,"pulls_text":"48"}
+{"slug":"jewelzufo/miniCPM5-1B-SP-Translate","pulls":0,"pulls_text":"0"}
 {"slug":"jewelzufo/ruvltra-claude-code","pulls":140,"pulls_text":"140"}
 {"slug":"jewelzufo/unsloth_granite-4.0-h-350m-GGUF","pulls":482,"pulls_text":"482"}
 {"slug":"jfcardososantos/alfst-chatbot","pulls":161,"pulls_text":"161"}
@@ -9107,6 +9116,7 @@
 {"slug":"joshdu/vtomai_expert_formula_1_0_q8","pulls":8,"pulls_text":"8"}
 {"slug":"joshdu/vtomai_sql_1_0","pulls":3,"pulls_text":"3"}
 {"slug":"joshlcoleman/CFO-Until-No-Kid-In-Need","pulls":97,"pulls_text":"97"}
+{"slug":"joshlcoleman/Fable","pulls":3,"pulls_text":"3"}
 {"slug":"joshlcoleman/dateapp","pulls":18,"pulls_text":"18"}
 {"slug":"joshlcoleman/dateapp-marketing","pulls":11,"pulls_text":"11"}
 {"slug":"joshlcoleman/hermes","pulls":10,"pulls_text":"10"}
@@ -9635,6 +9645,7 @@
 {"slug":"kowertermer/code1","pulls":0,"pulls_text":"0"}
 {"slug":"kpk/gpt","pulls":0,"pulls_text":"0"}
 {"slug":"kradum/sktcinfo","pulls":0,"pulls_text":"0"}
+{"slug":"kratosa481/silly-llama","pulls":0,"pulls_text":"0"}
 {"slug":"krcreddy03/CyberSec","pulls":6,"pulls_text":"6"}
 {"slug":"krcreddy03/vulsec","pulls":76,"pulls_text":"76"}
 {"slug":"krishairnd/Gemma-4-Uncensored","pulls":564,"pulls_text":"564"}
@@ -9939,6 +9950,7 @@
 {"slug":"library/deepseek-v3.1","pulls":726500,"pulls_text":"726.5K"}
 {"slug":"library/deepseek-v4-flash","pulls":444200,"pulls_text":"444.2K"}
 {"slug":"library/deepseek-v4-pro","pulls":394100,"pulls_text":"394.1K"}
+{"slug":"library/deepseek-v4.1-flash","pulls":86,"pulls_text":"086"}
 {"slug":"library/devstral","pulls":1000000,"pulls_text":"1M"}
 {"slug":"library/devstral-2","pulls":355000,"pulls_text":"355K"}
 {"slug":"library/devstral-small-2","pulls":1000000,"pulls_text":"1M"}
@@ -13514,6 +13526,7 @@
 {"slug":"sangwan/pqstar_math_p4","pulls":6,"pulls_text":"6"}
 {"slug":"sanhuezalejandro/llama3.1-python","pulls":0,"pulls_text":"0"}
 {"slug":"sanjayy22/your_japanese_partner","pulls":97,"pulls_text":"97"}
+{"slug":"sanorian/mistral-7b-v0.3-1C-Q4_K_M","pulls":0,"pulls_text":"0"}
 {"slug":"sanruss/qwen3-2b-rag","pulls":34,"pulls_text":"34"}
 {"slug":"sanskarnegi/chatbot","pulls":0,"pulls_text":"0"}
 {"slug":"santaimu/aimu1.0","pulls":0,"pulls_text":"0"}
@@ -15345,6 +15358,7 @@
 {"slug":"villassvj/Caco","pulls":129,"pulls_text":"129"}
 {"slug":"villassvj/Chatdbd","pulls":15,"pulls_text":"15"}
 {"slug":"vimal-yuvabe/newmes","pulls":8,"pulls_text":"8"}
+{"slug":"vimalankaruna/Mango","pulls":0,"pulls_text":"0"}
 {"slug":"vince_ai/mmmistral","pulls":6,"pulls_text":"6"}
 {"slug":"vince_ai/mmmistral8","pulls":0,"pulls_text":"0"}
 {"slug":"vincentg/llama3.2-fluxassistant","pulls":765,"pulls_text":"765"}
@@ -15611,6 +15625,7 @@
 {"slug":"willy_tpfw/MyModel1","pulls":0,"pulls_text":"0"}
 {"slug":"wilson11myahoo/mymodela","pulls":0,"pulls_text":"0"}
 {"slug":"wilsonevangelista22/teste","pulls":2,"pulls_text":"2"}
+{"slug":"wilyjomo4495/poshomill-sft","pulls":0,"pulls_text":"0"}
 {"slug":"windffooxxyang1130764/mesugaki","pulls":250,"pulls_text":"250"}
 {"slug":"windffooxxyang1130764/mesugaki-R18G","pulls":863,"pulls_text":"863"}
 {"slug":"wingmark/opencyberfurry-full","pulls":109,"pulls_text":"109"}
