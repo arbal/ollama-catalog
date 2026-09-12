@@ -23,6 +23,8 @@ console = Console()
 
 
 def git_show(ref: str, path: str) -> str:
+    if ref.startswith("-"):
+        raise ValueError(f"Invalid git ref: {ref}")
     result = subprocess.run(
         ["git", "show", f"{ref}:{path}"],
         capture_output=True,
