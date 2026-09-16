@@ -1,0 +1,4 @@
+## 2024-05-18 - Argument Injection in Git Show Commands
+**Vulnerability:** The `git_show` functions constructed Git commands dynamically (`git show <ref>:<path>`) using `subprocess.run` without validating the `<ref>` argument. If `<ref>` starts with a hyphen (e.g., `-h`), Git interprets it as an option, potentially leading to unintended command execution or errors.
+**Learning:** While the `--` end-of-options delimiter is standard for preventing argument injection for positional paths, it causes Git to interpret the `<ref>:<path>` string strictly as a pathspec rather than a revision when used in `git show -- <ref>:<path>`. Therefore, `--` cannot be used here to protect `<ref>`.
+**Prevention:** Manually validate user-provided revisions to ensure they do not start with a hyphen (e.g., `if ref.startswith('-'): raise ValueError(...)`) before passing them to Git commands where `--` is inapplicable.
