@@ -784,7 +784,7 @@ def show_list(models, limit, new_days=None, sort_field="pulls", filter_parts=Non
 
     if not displayed:
         filter_str = ", ".join(filter_parts) if filter_parts else "none"
-        console.print(Panel(f"[dim]No models found matching criteria.[/dim]\n[dim]Filters: {filter_str}[/dim]", border_style="dim", title="Empty Result"))
+        console.print(Panel(f"[yellow]No models found matching criteria.[/yellow]\n[yellow]Filters: {filter_str}[/yellow]", border_style="yellow", title="Empty Result"))
         return
 
     table = Table(box=box.ROUNDED, expand=True)
