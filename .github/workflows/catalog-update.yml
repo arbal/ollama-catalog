@@ -30,16 +30,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set up uv and Python
+        uses: astral-sh/setup-uv@v6
         with:
           python-version: '3.11'
+          enable-cache: true
+          cache-dependency-glob: uv.lock
 
       - name: Install dependencies
-        run: pip install -e .
+        run: uv sync --locked
 
       - name: Update catalog
-        run: scripts/run-catalog-update.sh "${{ inputs.mode || 'auto' }}"
+        run: uv run --locked scripts/run-catalog-update.sh "${{ inputs.mode || 'auto' }}"
 
       - name: Stage and validate public catalog changes
         run: |
@@ -52,5 +54,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git diff --cached --quiet && echo "No changes to commit." || git commit -m "chore: catalog update $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: catalog update $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          fi
           git push

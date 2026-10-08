@@ -83,8 +83,7 @@ discover  →  out/discovered_slugs.json  →  fetch  →  out/models.jsonl
 ## Development Setup
 
 ```bash
-python3 -m venv .venv
-.venv/bin/pip install -e ".[dev]"
+uv sync --locked --extra dev
 ```
 
 ## CLI Usage
@@ -146,7 +145,7 @@ Slug extraction regex: `x-test-search-response-title[^>]*>\s*([^<]+?)\s*<`
 ## Tests
 
 ```bash
-.venv/bin/pytest tests/
+uv run --locked pytest tests/
 ```
 
 Check validator dependencies before invoking a project-specific checker. If

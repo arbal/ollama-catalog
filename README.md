@@ -16,9 +16,8 @@ Ollama Catalog is a robust web scraper that extracts detailed information about 
 ```bash
 git clone https://github.com/your-username/ollama-catalog.git
 cd ollama-catalog
-uv venv && source .venv/bin/activate
-uv pip install -e .
-ollama-catalog run
+uv sync --locked
+uv run --locked ollama-catalog run
 ```
 
 ## Architecture
