@@ -26,7 +26,10 @@ class _SearchResultLinkParser(HTMLParser):
         attributes = dict(attrs)
         classes = set(attributes.get("class", "").split())
         href = attributes.get("href", "")
-        if {"group", "w-full"}.issubset(classes) and href.startswith("/"):
+        # Ollama's result cards currently use `group flex ... py-6`; older
+        # markup used `group w-full`. Keep the stable card marker and model
+        # path shape while allowing layout classes to change.
+        if "group" in classes and href.startswith("/"):
             slug = href[1:].split("?", 1)[0].split("#", 1)[0]
             if slug and "/" in slug:
                 self.slugs.append(slug)

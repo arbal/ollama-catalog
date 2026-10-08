@@ -8,7 +8,7 @@ Ollama Catalog is a robust web scraper that extracts detailed information about 
 ## Features vs. OllamaScraper
 - **Asynchronous Processing**: Uses `httpx` and `asyncio` to crawl with bounded concurrency.
 - **Support for Community Models**: Understands nested namespaces (`namespace/model`) introduced for community-created models.
-- **Detailed Parsing**: Robust parsing of pulls/downloads, multiple capabilities (vision, tools, thinking, embedding), model variants, descriptions, and metadata.
+- **Detailed Parsing**: Robust parsing of pulls/downloads, catalog capabilities (including Decision and audio), normalized input modalities, local/cloud availability, model variants, descriptions, and metadata.
 - **Incremental Saves & Resiliency**: Periodic JSON flushing (every 50 models) to safeguard data during execution failures.
 
 ## Quick Start
@@ -85,11 +85,15 @@ oc-explore --stale 180
 oc-explore --catalog-history
 oc-explore --history qwen3
 oc-explore --format json --caps vision
+oc-explore --caps decision
+oc-explore --modality text,image
 ```
 
 Common usage patterns:
 - Pullable models only: `oc-explore --local-only`
 - Cloud-only registry entries: `oc-explore --cloud-only`
+- Decision models: `oc-explore --caps decision`
+- Models with image input: `oc-explore --modality image`
 - Fastest-growing local models: `oc-explore --local-only --sort velocity`
 - Publisher summary: `oc-explore --namespace mistral --namespace-stats`
 - Friendlier publisher shorthand: `oc-explore --namespace-stats huihui_ai`

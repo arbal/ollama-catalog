@@ -107,7 +107,8 @@ def test_parse_live_search_result_links(state_manager):
     html = (
         '<a href="/download" class="group w-full">Download</a>'
         '<a href="/library/gemma4" class="group w-full">gemma4</a>'
+        '<a href="/library/clef" class="group flex items-start justify-between gap-6 py-6">clef</a>'
         '<a href="/example/model" class="group w-full">model</a>'
     )
 
-    assert scraper._parse_slugs(html) == ["library/gemma4", "example/model"]
+    assert scraper._parse_slugs(html) == ["library/gemma4", "library/clef", "example/model"]

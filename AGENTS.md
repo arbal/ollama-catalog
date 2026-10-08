@@ -64,18 +64,21 @@ discover  →  out/discovered_slugs.json  →  fetch  →  out/models.jsonl
   "namespace": "namespace",
   "pulls": 12000,
   "pulls_text": "12K",
-  "capabilities": ["tools", "vision"],
+  "capabilities": ["tools", "vision", "decision"],
+  "modalities": ["image", "text"],
+  "availability": ["local", "cloud"],
   "blurb": "Short description from meta tag",
   "description": "Full readme text",
   "updated": "3 days ago",
   "tags_count": 4,
   "variants": [
-    { "tag": "latest", "size_bytes": 4700000000, "size_text": "4.7 GB", "context": "", "input": "" }
+    { "tag": "latest", "size_bytes": 4700000000, "size_text": "4.7 GB", "context": "", "input": "Text, Image", "modalities": ["image", "text"], "availability": "local" }
   ]
 }
 ```
 
 `model_type` is `"official"` for models without a `/` in the slug (e.g. `llama3.2`), `"community"` otherwise.
+`capabilities` records official model-page badges, including `decision`; `modalities` normalizes variant inputs; `availability` lists `local` and/or `cloud`. Variant `availability` is `local` or `cloud`.
 
 ## Development Setup
 

@@ -156,6 +156,27 @@ def _is_cloud_variant(tag: str) -> bool:
     return tag.rstrip().endswith("cloud")
 
 
+def _variant_modalities(variant: dict) -> set[str]:
+    modalities = variant.get("modalities")
+    if modalities:
+        return {str(value).strip().lower() for value in modalities if str(value).strip()}
+    raw = variant.get("input") or ""
+    return {
+        part.strip().lower()
+        for part in re.split(r"\s*(?:,|/|&|\+|\band\b)\s*", str(raw))
+        if part.strip()
+    }
+
+
+def _variant_is_cloud(variant: dict) -> bool:
+    availability = variant.get("availability")
+    if isinstance(availability, str) and availability:
+        return availability.lower() == "cloud"
+    if availability:
+        return "cloud" in {str(value).lower() for value in availability}
+    return _is_cloud_variant(variant.get("tag", ""))
+
+
 def detect_family(slug: str) -> str:
     name = slug.split("/")[-1].lower()
     name = re.sub(r"[-_.]?(q\d+(_k_[sml])?|iq\d+_\w+|f16|f32|bf16)$", "", name)
@@ -254,7 +275,8 @@ def _namespace_name(m) -> str:
 def apply_filters(models, search=None, field="all", caps=None, model_type=None,
                   tag_pattern=None, size_min=None, size_max=None, new_days=None,
                   stale_days=None, min_tags=None, well_described=False, namespace=None, vram_max=None,
-                  family=None, quant=None, min_context=None, local_only=False, cloud_only=False):
+                  family=None, quant=None, min_context=None, local_only=False, cloud_only=False,
+                  modality=None):
     if search:
         q = search.lower()
         field_map = {
@@ -274,6 +296,16 @@ def apply_filters(models, search=None, field="all", caps=None, model_type=None,
     if caps:
         required = {c.strip().lower() for c in caps.split(",")}
         models = [m for m in models if required.issubset({c.lower() for c in m.get("capabilities", [])})]
+
+    if modality:
+        required_modalities = {value.strip().lower() for value in modality.split(",") if value.strip()}
+        models = [
+            m for m in models
+            if any(required_modalities.issubset(_variant_modalities(v)) for v in m.get("variants", []))
+            or (not m.get("variants") and required_modalities.issubset({
+                str(value).strip().lower() for value in m.get("modalities", [])
+            }))
+        ]
 
     if model_type:
         models = [m for m in models if m.get("model_type", "") == model_type]
@@ -331,10 +363,16 @@ def apply_filters(models, search=None, field="all", caps=None, model_type=None,
         models = [m for m in models if any(_ctx_tokens(v) >= min_context for v in m.get("variants", []))]
 
     if local_only:
-        models = [m for m in models if not m.get("variants") or any(not _is_cloud_variant(v.get("tag", "")) for v in m.get("variants", []))]
+        models = [m for m in models if (
+            ("local" in m.get("availability", [])) if m.get("availability") else
+            (not m.get("variants") or any(not _variant_is_cloud(v) for v in m.get("variants", [])))
+        )]
 
     if cloud_only:
-        models = [m for m in models if m.get("variants") and all(_is_cloud_variant(v.get("tag", "")) for v in m.get("variants", []))]
+        models = [m for m in models if (
+            m.get("availability") == ["cloud"] if m.get("availability") else
+            (m.get("variants") and all(_variant_is_cloud(v) for v in m.get("variants", [])))
+        )]
 
     return models
 
@@ -373,7 +411,7 @@ def emit_format(models, fmt, limit=0):
     if fmt == "json":
         print(json.dumps(displayed, indent=2))
         return
-    print("slug\tpulls\ttags_count\tmodel_type\tnamespace\tupdated\tcapabilities\tblurb\tmin_size_gb\tmax_size_gb")
+    print("slug\tpulls\ttags_count\tmodel_type\tnamespace\tupdated\tcapabilities\tblurb\tmin_size_gb\tmax_size_gb\tmodalities\tavailability")
     for m in displayed:
         sizes = _variant_sizes_gb(m)
         print("\t".join([
@@ -387,6 +425,8 @@ def emit_format(models, fmt, limit=0):
             (m.get("blurb") or "").replace("\n", " "),
             f"{min(sizes):.2f}" if sizes else "",
             f"{max(sizes):.2f}" if sizes else "",
+            ",".join(m.get("modalities", [])),
+            ",".join(m.get("availability", [])),
         ]))
 
 
@@ -636,12 +676,14 @@ def show_namespace_stats(models, ns: str, fmt: str | None = None):
     table.add_column("Pulls", justify="right", style="yellow", no_wrap=True, min_width=6)
     table.add_column("Tags", justify="right", no_wrap=True, min_width=4)
     table.add_column("Capabilities", ratio=2, no_wrap=True)
+    table.add_column("Modalities", ratio=1, no_wrap=True)
     table.add_column("Updated", style="dim", no_wrap=True, min_width=8)
     table.add_column("Blurb", ratio=4, no_wrap=True)
     for i, m in enumerate(ns_models, 1):
         table.add_row(
             str(i), m["slug"], fmt_pulls(m.get("pulls_text", ""), m.get("pulls", 0)), str(m.get("tags_count", "")),
-            fmt_caps(m.get("capabilities", [])), m.get("updated", "") or "[dim]—[/dim]",
+            fmt_caps(m.get("capabilities", [])), fmt_caps(m.get("modalities", [])),
+            m.get("updated", "") or "[dim]—[/dim]",
             (m.get("blurb") or "").strip().replace("\n", " "),
         )
     console.print(table)
@@ -745,7 +787,8 @@ def show_detail(models, slug, all_models=None, enrich=False):
     console.print(Panel(
         f"[bold cyan]{m['slug']}[/bold cyan]\n"
         f"[yellow]{fmt_pulls(m.get('pulls_text', ''))} pulls[/yellow]  ·  {m.get('tags_count', 0)} tags  ·  updated: {m.get('updated', '-')}\n"
-        f"capabilities: {fmt_caps(m.get('capabilities', []))}\n\n"
+        f"capabilities: {fmt_caps(m.get('capabilities', []))}\n"
+        f"modalities: {fmt_caps(m.get('modalities', []))}  ·  availability: {fmt_caps(m.get('availability', []))}\n\n"
         f"[italic]{(m.get('blurb') or '').strip()}[/italic]",
         title="Model", border_style="cyan",
     ))
@@ -793,6 +836,8 @@ def show_list(models, limit, new_days=None, sort_field="pulls", filter_parts=Non
     table.add_column("Pulls", justify="right", style="yellow", no_wrap=True, min_width=7)
     table.add_column("Tags", justify="right", no_wrap=True, min_width=4)
     table.add_column("Capabilities", ratio=2, no_wrap=True)
+    table.add_column("Modalities", ratio=1, no_wrap=True)
+    table.add_column("Availability", ratio=1, no_wrap=True)
     table.add_column("Updated", style="dim", no_wrap=True, min_width=8)
     table.add_column("Blurb", ratio=4, no_wrap=True)
     for i, m in enumerate(displayed, 1):
@@ -802,6 +847,8 @@ def show_list(models, limit, new_days=None, sort_field="pulls", filter_parts=Non
             fmt_pulls(m.get("pulls_text", ""), m.get("pulls", 0)),
             str(m.get("tags_count", 0)),
             fmt_caps(m.get("capabilities", [])),
+            fmt_caps(m.get("modalities", [])),
+            fmt_caps(m.get("availability", [])),
             m.get("updated", "") or "-",
             (m.get("blurb") or "").strip().replace("\n", " "),
         )
@@ -840,6 +887,8 @@ def main():
   %(prog)s --catalog-history                       # catalog-wide pull history sparkline
   %(prog)s --history qwen3                         # model pull history sparkline
   %(prog)s --format json --caps vision             # machine-readable export
+  %(prog)s --caps decision                         # System One decision models
+  %(prog)s --modality text,image                   # models accepting both inputs
   %(prog)s --format tsv --stale 365                # stale models for spreadsheet/scripting""",
     )
     parser.add_argument("ref", nargs="?", default=None,
@@ -852,6 +901,8 @@ def main():
     parser.add_argument("--new", metavar="DAYS", type=int, help="Filter/highlight models updated within N days")
     parser.add_argument("--stale", metavar="DAYS", type=int, help="Filter to models not updated in N+ days")
     parser.add_argument("--caps", "-c", metavar="CAP[,CAP]", help="Filter by capability (comma-separated; model must have ALL listed)")
+    parser.add_argument("--modality", "--input", dest="modality", metavar="MOD[,MOD]",
+                        help="Filter to models with a variant accepting every listed input modality")
     parser.add_argument("--type", "-t", metavar="TYPE", choices=["official", "community"], help="Filter by model type")
     parser.add_argument("--namespace", metavar="PATTERN", help="Filter to models whose namespace contains PATTERN")
     parser.add_argument("--min-tags", metavar="N", type=int, help="Filter to models with at least N variant tags (maturity proxy)")
@@ -1013,6 +1064,8 @@ def main():
         filter_parts.append(f"search={args.search}{scope}")
     if args.caps:
         filter_parts.append(f"caps={args.caps}")
+    if args.modality:
+        filter_parts.append(f"modality={args.modality}")
     if args.type:
         filter_parts.append(f"type={args.type}")
     if args.namespace:
@@ -1049,7 +1102,7 @@ def main():
         stale_days=args.stale, min_tags=args.min_tags, well_described=args.well_described,
         namespace=args.namespace, vram_max=vram_gb,
         family=args.family, quant=args.quant, min_context=args.min_context,
-        local_only=args.local_only, cloud_only=args.cloud_only,
+        local_only=args.local_only, cloud_only=args.cloud_only, modality=args.modality,
     )
     sorted_models = apply_sort(filtered, args.sort)
     if args.format:

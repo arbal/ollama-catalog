@@ -28,6 +28,22 @@ def patch_catalog_output_paths(paths):
         SEEN_SLUGS_FILE=paths["seen"],
     )
 
+
+def test_load_existing_catalog_prefers_committed_split_files(catalog_output_paths):
+    paths = catalog_output_paths
+    paths["catalog"].write_text(json.dumps({"models": [{"slug": "stale/model"}]}))
+    paths["models"].write_text(json.dumps({"slug": "current/model", "modalities": ["text"]}) + "\n")
+    paths["pulls"].write_text(json.dumps({"slug": "current/model", "pulls": 12}) + "\n")
+
+    with patch_catalog_output_paths(paths):
+        fetcher = CatalogFetcher()
+        data = fetcher.load_existing_catalog()
+        asyncio.run(fetcher.client.aclose())
+
+    assert [model["slug"] for model in data["models"]] == ["current/model"]
+    assert data["models"][0]["modalities"] == ["text"]
+    assert data["models"][0]["pulls"] == 12
+
 @pytest.mark.asyncio
 async def test_run_preserves_existing_models(catalog_output_paths):
     catalog_file = catalog_output_paths["catalog"]

@@ -57,6 +57,33 @@ def test_parse_variants():
     assert variants[1]["tag"] == "8b"
     assert variants[1]["size_text"] == "8.5 GB"
 
+
+def test_parse_decision_audio_modalities_and_cloud_availability():
+    scraper = ModelScraper()
+    page_html = """
+    <html><body>
+      <span>Decision</span><span>Audio</span><span>Cloud</span>
+    </body></html>
+    """
+    tags_html = """
+    <div class="group px-4 py-3"><div class="grid grid-cols-12 items-center">
+      <div><a>latest</a></div><div>2.0 GB</div><div>128K</div><div>Text, Image</div>
+    </div></div>
+    <div class="group px-4 py-3"><div class="grid grid-cols-12 items-center">
+      <div><a>latest-cloud</a></div><div>Cloud</div><div>128K</div><div>Text, Image</div>
+    </div></div>
+    """
+
+    model = scraper.parse_model_detail("library/clef", page_html, tags_html)
+
+    assert model["capabilities"] == ["audio", "decision"]
+    assert model["modalities"] == ["image", "text"]
+    assert model["availability"] == ["cloud", "local"]
+    assert model["variants"][0]["modalities"] == ["image", "text"]
+    assert model["variants"][0]["availability"] == "local"
+    assert model["variants"][1]["availability"] == "cloud"
+    assert model["variants"][1]["size_bytes"] == 0
+
 @pytest.mark.asyncio
 async def test_fetch_404(httpx_mock):
     httpx_mock.add_response(url="https://ollama.com/library/notfound", status_code=404)

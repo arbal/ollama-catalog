@@ -10,6 +10,22 @@ from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_excep
 
 logger = logging.getLogger(__name__)
 
+_CAPABILITY_LABELS = frozenset({"audio", "decision", "embedding", "thinking", "tools", "vision"})
+
+
+def _parse_modalities(input_type: str) -> List[str]:
+    """Normalize a catalog variant's displayed input types for filtering."""
+    return sorted({
+        part.strip().lower()
+        for part in re.split(r"\s*(?:,|/|&|\+|\band\b)\s*", input_type)
+        if part.strip()
+    })
+
+
+def _is_cloud_variant(tag: str) -> bool:
+    return tag.strip().lower().endswith("cloud")
+
+
 class ModelScraper:
     def __init__(self, client: Optional[httpx.AsyncClient] = None):
         self.client = client or httpx.AsyncClient(
@@ -113,20 +129,21 @@ class ModelScraper:
             return 0, "0"
     def _parse_capabilities(self, html: str) -> List[str]:
         soup = BeautifulSoup(html, 'lxml')
-        capabilities = []
-        # Capabilities are usually chips like Tools, Vision, Embedding
-        # Example chip classes might have bg-blue-100 or text-blue-600
-        # For simplicity, we can look for specific keywords in small span/divs
-
-        # In Ollama's site, capability chips often have 'Tools', 'Vision', etc.
-        # We look for spans containing these.
+        capabilities = set()
         for span in soup.find_all('span'):
             text = span.get_text(strip=True).lower()
-            if text in ['tools', 'vision', 'thinking', 'embedding']:
-                capabilities.append(text)
+            if text in _CAPABILITY_LABELS:
+                capabilities.add(text)
+        return sorted(capabilities)
 
-        # Remove duplicates
-        return list(set(capabilities))
+    def _parse_availability(self, html: str, variants: List[Dict[str, Any]]) -> List[str]:
+        availability = {v.get("availability") for v in variants if v.get("availability")}
+        if any(
+            span.get_text(strip=True).lower() == "cloud"
+            for span in BeautifulSoup(html, 'lxml').find_all('span')
+        ):
+            availability.add("cloud")
+        return sorted(availability)
 
     def _parse_blurb_and_desc(self, html: str) -> tuple[str, str]:
         soup = BeautifulSoup(html, 'lxml')
@@ -202,6 +219,8 @@ class ModelScraper:
                     "size_text": size_text,
                     "context": context,
                     "input": input_type,
+                    "modalities": _parse_modalities(input_type),
+                    "availability": "cloud" if _is_cloud_variant(tag_name) else "local",
                 })
 
         # Fallback for unit tests using mock HTML with class="tag-item"
@@ -218,6 +237,8 @@ class ModelScraper:
                         "size_text": size_text,
                         "context": "",
                         "input": "",
+                        "modalities": [],
+                        "availability": "cloud" if _is_cloud_variant(tag_name) else "local",
                     })
 
         # Deduplicate preserving order
@@ -247,6 +268,10 @@ class ModelScraper:
         blurb, description = self._parse_blurb_and_desc(page_html)
         updated = self._parse_updated(page_html)
         variants = self._parse_variants(tags_html)
+        modalities = sorted({
+            modality for variant in variants for modality in variant.get("modalities", [])
+        })
+        availability = self._parse_availability(page_html, variants)
 
         return {
             "slug": slug,
@@ -254,6 +279,8 @@ class ModelScraper:
             "pulls": pulls,
             "pulls_text": pulls_text,
             "capabilities": capabilities,
+            "modalities": modalities,
+            "availability": availability,
             "blurb": blurb,
             "description": description,
             "updated": updated,

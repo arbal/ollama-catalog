@@ -21,7 +21,8 @@ SEEN_SLUGS_FILE = STATE_FILE
 
 # Fields committed to models.jsonl (stable — only changes on structural updates)
 _STABLE_FIELDS = ["slug", "name", "model_type", "namespace", "capabilities",
-                   "blurb", "description", "updated", "tags_count", "variants"]
+                   "modalities", "availability", "blurb", "description",
+                   "updated", "tags_count", "variants"]
 
 class CatalogFetcher:
     def __init__(self, concurrency: int = 10):
@@ -50,14 +51,8 @@ class CatalogFetcher:
             return []
 
     def load_existing_catalog(self) -> Dict[str, Any]:
-        # Primary: full JSON (fast local working file)
-        if CATALOG_FILE.exists():
-            try:
-                with open(CATALOG_FILE, "r", encoding="utf-8") as f:
-                    return json.load(f)
-            except (json.JSONDecodeError, IOError):
-                pass
-        # Fallback: reconstruct from committed JSONL split files
+        # The committed split files are authoritative. The ignored aggregate is
+        # derived local state and may be stale, so only use it as a fallback.
         if MODELS_JSONL.exists() and PULLS_JSONL.exists():
             models: Dict[str, Any] = {}
             with open(MODELS_JSONL, "r", encoding="utf-8") as f:
@@ -74,6 +69,13 @@ class CatalogFetcher:
                         if p["slug"] in models:
                             models[p["slug"]].update(p)
             return {"scraped_at": None, "model_count": len(models), "models": list(models.values())}
+        # Compatibility fallback for a local aggregate without split artifacts.
+        if CATALOG_FILE.exists():
+            try:
+                with open(CATALOG_FILE, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except (json.JSONDecodeError, IOError):
+                pass
         return {"scraped_at": None, "model_count": 0, "models": []}
 
     def save_catalog(self):
@@ -103,6 +105,8 @@ class CatalogFetcher:
                 stable = {k: m[k] for k in _STABLE_FIELDS if k in m}
                 if "capabilities" in stable:
                     stable["capabilities"] = sorted(stable["capabilities"])
+                if "modalities" in stable:
+                    stable["modalities"] = sorted(stable["modalities"])
                 mf.write(json.dumps(stable, separators=(',', ':')) + "\n")
                 pf.write(json.dumps(
                     {"slug": m["slug"], "pulls": m.get("pulls", 0), "pulls_text": m.get("pulls_text", "0")},
