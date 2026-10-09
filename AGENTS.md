@@ -77,7 +77,17 @@ discover  →  out/discovered_slugs.json  →  fetch  →  out/models.jsonl
 }
 ```
 
-`model_type` is `"official"` for models without a `/` in the slug (e.g. `llama3.2`), `"community"` otherwise.
+`model_type` is `"official"` for bare slugs without a `/` (e.g. `llama3.2`)
+and for slugs under `library/` (e.g. `library/llama3.2`). Other namespaced
+slugs are `"community"`. This follows the scraper's classification rule;
+`library/` entries and bare slugs may be separate catalog records for related
+or shared-counter models.
+
+Discovery and time-series comparisons identify newly observed **slugs**. A
+slug newly added to the catalog is not necessarily a newly released model:
+it may be an alias, another listing for an existing model, or a variant.
+Describe rankings as new-slug rankings unless release identity and timing are
+independently verified.
 `capabilities` records official model-page badges, including `decision`; `modalities` normalizes variant inputs; `availability` lists `local` and/or `cloud`. Variant `availability` is `local` or `cloud`.
 
 ## Development Setup
