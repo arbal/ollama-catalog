@@ -448,7 +448,7 @@ def _slug_table(models_list: list, color: str = "cyan") -> Table:
     return t
 
 
-def show_diff(current_models: list, ref: str, fmt=None):
+def show_diff(current_models: list, ref: str, fmt=None, limit=0):
     if not fmt:
         console.print(f"[dim]Loading snapshot at {ref}...[/dim]")
     try:
@@ -467,15 +467,38 @@ def show_diff(current_models: list, ref: str, fmt=None):
     added_models = sorted([current_by_slug[s] for s in added_slugs], key=lambda m: m.get("pulls", 0), reverse=True) if added_slugs else []
     removed_models = sorted([prev_by_slug[s] for s in removed_slugs], key=lambda m: m.get("pulls", 0), reverse=True) if removed_slugs else []
 
+    # Treat --limit as a cap across all changes, prioritizing the highest-pull
+    # entries while retaining stable ordering for ties.
+    changes = sorted(
+        [("added", m) for m in added_models] + [("removed", m) for m in removed_models],
+        key=lambda item: (-item[1].get("pulls", 0), item[1]["slug"], item[0]),
+    )
+    if limit > 0:
+        changes = changes[:limit]
+    displayed_added = [m for change, m in changes if change == "added"]
+    displayed_removed = [m for change, m in changes if change == "removed"]
+    truncated = len(changes) < len(added_models) + len(removed_models)
+
     if fmt == "json":
-        print(json.dumps({"added": [m["slug"] for m in added_models], "removed": [m["slug"] for m in removed_models]}, indent=2))
+        print(json.dumps({
+            "added": [m["slug"] for m in displayed_added],
+            "removed": [m["slug"] for m in displayed_removed],
+            "total_added": len(added_models),
+            "total_removed": len(removed_models),
+            "truncated": truncated,
+        }, indent=2))
         return
     if fmt == "tsv":
         print("change\tslug")
-        for m in added_models:
+        for m in displayed_added:
             print(f"added\t{m['slug']}")
-        for m in removed_models:
+        for m in displayed_removed:
             print(f"removed\t{m['slug']}")
+        if truncated:
+            print(
+                f"Showing {len(changes)} of {len(added_models) + len(removed_models)} changes; use --limit 0 to show all.",
+                file=sys.stderr,
+            )
         return
 
     console.print(Panel(
@@ -484,12 +507,14 @@ def show_diff(current_models: list, ref: str, fmt=None):
         title=f"Catalog diff vs {ref}",
         border_style="yellow",
     ))
-    if added_models:
-        console.print(f"\n[bold green]+ Added ({len(added_models)})[/bold green]")
-        console.print(_slug_table(added_models, color="green"))
-    if removed_models:
-        console.print(f"\n[bold red]− Removed ({len(removed_models)})[/bold red]")
-        console.print(_slug_table(removed_models, color="red"))
+    if displayed_added:
+        console.print(f"\n[bold green]+ Added ({len(displayed_added)} of {len(added_models)})[/bold green]")
+        console.print(_slug_table(displayed_added, color="green"))
+    if displayed_removed:
+        console.print(f"\n[bold red]− Removed ({len(displayed_removed)} of {len(removed_models)})[/bold red]")
+        console.print(_slug_table(displayed_removed, color="red"))
+    if truncated:
+        console.print(f"[dim]Showing {len(changes)} of {len(added_models) + len(removed_models)} changes; use --limit 0 to show all.[/dim]")
 
 
 def load_catalog_pull_history(max_commits: int = 30) -> list:
@@ -1028,7 +1053,7 @@ def main():
         return
 
     if args.diff:
-        show_diff(models, args.diff, fmt=args.format)
+        show_diff(models, args.diff, fmt=args.format, limit=args.limit)
         return
 
     if args.installed is not None:

@@ -106,3 +106,58 @@ def test_show_list_displays_new_columns(capsys):
     assert "Availability" in output
     assert "image text" in output
     assert "cloud" in output
+
+
+def test_show_diff_limit_caps_combined_changes_and_preserves_totals(monkeypatch, capsys):
+    explore_catalog = _load_explore_catalog_module()
+    current = [
+        {"slug": "new/popular", "pulls": 90},
+        {"slug": "new/other", "pulls": 20},
+        {"slug": "shared/model", "pulls": 10},
+    ]
+    previous = [
+        {"slug": "old/popular", "pulls": 80},
+        {"slug": "old/other", "pulls": 5},
+        {"slug": "shared/model", "pulls": 10},
+    ]
+    monkeypatch.setattr(explore_catalog, "load_models", lambda ref: (previous, {"scraped_at": "2026-01-01"}))
+
+    explore_catalog.show_diff(current, "HEAD~1", fmt="json", limit=2)
+
+    import json
+    result = json.loads(capsys.readouterr().out)
+    assert result == {
+        "added": ["new/popular"],
+        "removed": ["old/popular"],
+        "total_added": 2,
+        "total_removed": 2,
+        "truncated": True,
+    }
+
+
+def test_show_diff_zero_limit_keeps_all_tsv_changes(monkeypatch, capsys):
+    explore_catalog = _load_explore_catalog_module()
+    current = [{"slug": "new/model", "pulls": 20}]
+    previous = [{"slug": "old/model", "pulls": 10}]
+    monkeypatch.setattr(explore_catalog, "load_models", lambda ref: (previous, {}))
+
+    explore_catalog.show_diff(current, "HEAD~1", fmt="tsv", limit=0)
+
+    assert capsys.readouterr().out.splitlines() == [
+        "change\tslug",
+        "added\tnew/model",
+        "removed\told/model",
+    ]
+
+
+def test_show_diff_limited_tsv_reports_truncation_on_stderr(monkeypatch, capsys):
+    explore_catalog = _load_explore_catalog_module()
+    current = [{"slug": "new/model", "pulls": 20}]
+    previous = [{"slug": "old/model", "pulls": 10}]
+    monkeypatch.setattr(explore_catalog, "load_models", lambda ref: (previous, {}))
+
+    explore_catalog.show_diff(current, "HEAD~1", fmt="tsv", limit=1)
+
+    captured = capsys.readouterr()
+    assert captured.out.splitlines() == ["change\tslug", "added\tnew/model"]
+    assert "Showing 1 of 2 changes" in captured.err
