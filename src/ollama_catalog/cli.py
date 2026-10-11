@@ -8,6 +8,12 @@ from .state import StateManager
 from .scraper import DiscoveryScraper
 from .catalog import CatalogFetcher
 
+def positive_int(value):
+    parsed = int(value)
+    if parsed < 1:
+        raise argparse.ArgumentTypeError("must be a positive integer")
+    return parsed
+
 def run_discover(args, console):
     state = StateManager()
     scraper = DiscoveryScraper(state_manager=state, limit=args.limit, full_mode=args.full, dry_run=args.dry_run)
@@ -61,6 +67,22 @@ def run_sanitize(args, console):
         f"{result.records} model records."
     )
 
+def run_verify_missing(args, console):
+    fetcher = CatalogFetcher(concurrency=args.concurrency)
+    result = asyncio.run(
+        fetcher.verify_missing_models(limit=args.limit, apply=args.apply)
+    )
+    mode = "Applied" if result["applied"] else "Dry run"
+    console.print(
+        f"{mode}: checked {result['checked']} model pages; "
+        f"{len(result['candidates'])} direct 404/410 candidates; "
+        f"{result['available']} available; {result['inconclusive']} inconclusive."
+    )
+    if result["candidates"]:
+        console.print("Candidates: " + ", ".join(result["candidates"]))
+    if not args.apply:
+        console.print("No files changed. Pass --apply to remove only these freshly verified candidates.")
+
 def main():
     parser = argparse.ArgumentParser(description="Ollama community model catalog scraper")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -102,6 +124,14 @@ def main():
 
     subparsers.add_parser("sanitize", help="Redact sensitive-looking text from committed models.jsonl without network access")
 
+    verify_parser = subparsers.add_parser(
+        "verify-missing",
+        help="Check incomplete legacy records; dry-run by default, remove direct 404/410 records with --apply",
+    )
+    verify_parser.add_argument("--apply", action="store_true", help="Remove freshly verified 404/410 records and save catalog artifacts")
+    verify_parser.add_argument("--limit", type=positive_int, help="Check at most N catalog records")
+    verify_parser.add_argument("--concurrency", type=positive_int, default=4, help="Number of concurrent page checks")
+
     args = parser.parse_args()
     console = Console()
 
@@ -113,6 +143,8 @@ def main():
         run_all(args, console)
     elif args.command == "sanitize":
         run_sanitize(args, console)
+    elif args.command == "verify-missing":
+        run_verify_missing(args, console)
 
 if __name__ == "__main__":
     main()

@@ -120,6 +120,46 @@ class CatalogFetcher:
         """Redact existing public model text without changing scrape metadata."""
         return sanitize_models_jsonl(MODELS_JSONL)
 
+    async def verify_missing_models(
+        self, limit: Optional[int] = None, apply: bool = False
+    ) -> Dict[str, Any]:
+        """Check direct model pages and optionally remove current 404/410 records."""
+        existing = self.load_existing_catalog()
+        self.models = {m["slug"]: m for m in existing.get("models", []) if m is not None}
+        # Limit this lifecycle check to legacy/incomplete records. This keeps
+        # the opt-in operation bounded and avoids probing the whole catalog.
+        slugs = sorted(
+            slug for slug, model in self.models.items()
+            if not model.get("modalities") and not model.get("availability")
+        )
+        if limit is not None:
+            slugs = slugs[:limit]
+
+        semaphore = asyncio.Semaphore(self.concurrency)
+
+        async def check(slug: str) -> tuple[str, Optional[int]]:
+            async with semaphore:
+                return slug, await self.scraper.check_model_page_status(slug)
+
+        try:
+            results = await asyncio.gather(*(check(slug) for slug in slugs))
+            candidates = sorted(slug for slug, status in results if status in (404, 410))
+            available = sum(status is not None and 200 <= status < 400 for _, status in results)
+            inconclusive = len(results) - len(candidates) - available
+            if apply and candidates:
+                for slug in candidates:
+                    self.models.pop(slug, None)
+                self.save_catalog()
+            return {
+                "checked": len(results),
+                "available": available,
+                "candidates": candidates,
+                "inconclusive": inconclusive,
+                "applied": bool(apply and candidates),
+            }
+        finally:
+            await self.client.aclose()
+
     async def _fetch_and_process(self, slug: str, progress: Progress, task_id: TaskID) -> None:
         async with self.semaphore:
             model_data = await self.scraper.fetch_model_detail(slug)

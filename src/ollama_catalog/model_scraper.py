@@ -55,6 +55,19 @@ class ModelScraper:
             # Official model
             return f"https://ollama.com/library/{safe_slug}"
 
+    async def check_model_page_status(self, slug: str) -> Optional[int]:
+        """Return the direct model-page HTTP status, or None if inconclusive."""
+        try:
+            url = self.detect_url(slug)
+            response = await self._fetch_url(url)
+            return response.status_code
+        except (ValueError, httpx.HTTPError) as e:
+            logger.warning("Could not verify model page for %s: %s", slug, e)
+            return None
+        except Exception as e:
+            logger.warning("Unexpected model-page verification failure for %s: %s", slug, e)
+            return None
+
     async def fetch_model_detail(self, slug: str) -> Optional[Dict[str, Any]]:
         try:
             base_url = self.detect_url(slug)

@@ -94,6 +94,15 @@ async def test_fetch_404(httpx_mock):
     assert result is None
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize("status", [404, 410, 503])
+async def test_direct_model_page_status_is_returned_without_checking_tags(httpx_mock, status):
+    httpx_mock.add_response(url="https://ollama.com/library/status-model", status_code=status)
+    scraper = ModelScraper()
+    result = await scraper.check_model_page_status("status-model")
+    assert result == status
+    assert len(httpx_mock.get_requests()) == 1
+
+@pytest.mark.asyncio
 async def test_fetch_success(httpx_mock):
     httpx_mock.add_response(
         url="https://ollama.com/library/testmodel",

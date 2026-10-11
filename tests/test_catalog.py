@@ -130,3 +130,51 @@ async def test_reconcile_prunes_models_not_in_full_discovery(catalog_output_path
 
     with open(catalog_output_paths["catalog"], "r") as f:
         assert [model["slug"] for model in json.load(f)["models"]] == ["current/model"]
+
+
+@pytest.mark.asyncio
+async def test_verify_missing_dry_run_preserves_catalog(catalog_output_paths):
+    original = {"models": [
+        {"slug": "gone/model", "name": "model"},
+        {"slug": "kept/model", "name": "model"},
+        {"slug": "complete/model", "name": "model", "modalities": ["text"], "availability": ["local"]},
+    ]}
+    catalog_output_paths["catalog"].write_text(json.dumps(original))
+
+    with patch_catalog_output_paths(catalog_output_paths):
+        fetcher = CatalogFetcher()
+        fetcher.scraper.check_model_page_status = AsyncMock(side_effect=[404, 503])
+        result = await fetcher.verify_missing_models()
+
+    assert result == {
+        "checked": 2,
+        "available": 0,
+        "candidates": ["gone/model"],
+        "inconclusive": 1,
+        "applied": False,
+    }
+    assert json.loads(catalog_output_paths["catalog"].read_text()) == original
+    assert not catalog_output_paths["models"].exists()
+
+
+@pytest.mark.asyncio
+async def test_verify_missing_apply_removes_only_fresh_404_410_candidates(catalog_output_paths):
+    catalog_output_paths["catalog"].write_text(json.dumps({"models": [
+        {"slug": "gone/model", "name": "model"},
+        {"slug": "gone410/model", "name": "model"},
+        {"slug": "kept/model", "name": "model"},
+        {"slug": "complete/model", "name": "model", "modalities": ["text"], "availability": ["local"]},
+    ]}))
+
+    with patch_catalog_output_paths(catalog_output_paths):
+        fetcher = CatalogFetcher()
+        fetcher.scraper.check_model_page_status = AsyncMock(side_effect=[404, 410, 500])
+        result = await fetcher.verify_missing_models(apply=True)
+
+    assert result["candidates"] == ["gone/model", "gone410/model"]
+    assert result["checked"] == 3
+    assert result["inconclusive"] == 1
+    assert result["applied"] is True
+    assert {model["slug"] for model in json.loads(catalog_output_paths["catalog"].read_text())["models"]} == {
+        "kept/model", "complete/model"
+    }
