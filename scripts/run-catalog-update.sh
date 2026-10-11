@@ -49,9 +49,9 @@ case "$mode" in
   full)
     ollama-catalog discover --full
     # --refetch: re-fetch all existing records + discovered new ones
-    # Note: --reconcile disabled to prevent false pruning. Search listing
-    # may be incomplete. Records absent from search but HTTP 200-available
-    # are kept. Future: implement explicit 404-corroboration before pruning.
+    # --reconcile stays disabled: search absence alone is not proof of deletion.
+    # Use `ollama-catalog verify-missing` for a separate dry-run direct check;
+    # `--apply` is required to prune only model pages returning HTTP 404/410.
     ollama-catalog fetch --refetch
     ;;
   incremental)

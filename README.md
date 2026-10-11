@@ -53,16 +53,19 @@ OLLAMASCRAPER_REPO=/path/to/ollama-catalog ollama-models-diff --days 7
 | :--- | :--- | :--- |
 | `discover` | `--full`, `--dry-run`, `--limit N` | Crawl Ollama search to identify new model slugs. |
 | `fetch` | `--refetch`, `--limit N`, `--concurrency N` | Download model metadata for discovered slugs. |
+| `verify-missing` | `--limit N`, `--concurrency N`, `--apply` | Directly check records missing modalities/availability; dry-run by default, with removal limited to fresh model-page HTTP 404/410 results. |
 | `run` | *(Combines all above flags)* | Executes `discover` followed by `fetch`. This is the typical workflow for daily automation. |
 
 ### Automation cadence
 
 Catalog Update runs at 06:00 UTC every day. In `auto` mode, Monday and Thursday
-use a full discovery, refetch, and reconciliation to repair coverage and prune
-stale records; Tuesday, Wednesday, Friday, Saturday, and Sunday use incremental
-discovery and fetch only newly discovered models. Manual workflow dispatch
-supports `auto`, `incremental`, and `full` modes. The shared update entry point
-is:
+use full discovery and refetch to repair coverage without pruning records based
+on search absence; Tuesday, Wednesday, Friday, Saturday, and Sunday use
+incremental discovery and fetch only newly discovered models. Direct absence
+pruning is a separate operation: `verify-missing` is read-only by default and
+`--apply` removes only records whose freshly checked model page returns 404/410.
+Manual workflow dispatch supports `auto`, `incremental`, and `full` modes. The
+shared update entry point is:
 
 ```bash
 scripts/run-catalog-update.sh auto
