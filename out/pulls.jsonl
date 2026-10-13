@@ -1509,6 +1509,7 @@
 {"slug":"GQD/qwen2.5","pulls":55,"pulls_text":"55"}
 {"slug":"GX-Telecom/Qwen3.6-35B-APEX-Uncensored","pulls":545,"pulls_text":"545"}
 {"slug":"GX-Telecom/gemma-4-26B-A4B-it-ultra-uncensored-heretic-Q5-APEX","pulls":262,"pulls_text":"262"}
+{"slug":"Gabriel382/biojev-systemone","pulls":3,"pulls_text":"3"}
 {"slug":"GabrielGeo/basic-tropics-ai","pulls":0,"pulls_text":"0"}
 {"slug":"GabrielLandete/aa","pulls":0,"pulls_text":"0"}
 {"slug":"Gabriele_986/LABINNLLAMA","pulls":4,"pulls_text":"4"}
@@ -3561,6 +3562,7 @@
 {"slug":"adityakarnam/Ornith-1.5-9B-MLX-distil","pulls":55,"pulls_text":"55"}
 {"slug":"adlsdztony/qwen2.5-rui","pulls":2,"pulls_text":"2"}
 {"slug":"adlsdztony/rui","pulls":0,"pulls_text":"0"}
+{"slug":"admiring_chatelet_716/Ban10","pulls":0,"pulls_text":"0"}
 {"slug":"admpiranot/j.quantum","pulls":2,"pulls_text":"2"}
 {"slug":"adnanwaasi/qwen_code","pulls":4,"pulls_text":"4"}
 {"slug":"adnenrebhi/AIInterviewReply","pulls":7,"pulls_text":"7"}
@@ -5276,6 +5278,7 @@
 {"slug":"carstenuhlig/omnicoder-2-9b","pulls":625,"pulls_text":"625"}
 {"slug":"carstenuhlig/omnicoder-9b","pulls":17300,"pulls_text":"17.3K"}
 {"slug":"cartier403c/NIYAH","pulls":0,"pulls_text":"0"}
+{"slug":"carverbodine/brodybot","pulls":2,"pulls_text":"2"}
 {"slug":"cas/alma-r","pulls":271,"pulls_text":"271"}
 {"slug":"cas/alphamonarch-7b","pulls":120,"pulls_text":"120"}
 {"slug":"cas/aya-expanse-8b","pulls":679,"pulls_text":"679"}
@@ -6005,6 +6008,7 @@
 {"slug":"dayuwidayadi/hammer","pulls":0,"pulls_text":"0"}
 {"slug":"dazzling_carson_447/gemma4-e2b-test","pulls":7,"pulls_text":"7"}
 {"slug":"dazzling_carson_447/qwen35-9b-test","pulls":13,"pulls_text":"13"}
+{"slug":"dazzling_galileo_294/Jarvis","pulls":6,"pulls_text":"6"}
 {"slug":"dbcjsaud/bee","pulls":0,"pulls_text":"0"}
 {"slug":"dbekas314/jarvis_ultimate_v2","pulls":7,"pulls_text":"7"}
 {"slug":"dbekas314/jarvis_ultimate_v3","pulls":5,"pulls_text":"5"}
@@ -6342,6 +6346,7 @@
 {"slug":"dlasher/Qwen3-VL-2B-Instruct","pulls":11,"pulls_text":"11"}
 {"slug":"dlasher/Qwen3-VL-2B-Instruct-ENG","pulls":0,"pulls_text":"0"}
 {"slug":"dlasher/Qwen3-VL-30B-A3B-Instruct","pulls":17,"pulls_text":"17"}
+{"slug":"dlasher/Qwen3-VL-30B-A3B-Instruct-ENG","pulls":3,"pulls_text":"3"}
 {"slug":"dlasher/Qwen3-VL-32B-Instruct-ENG","pulls":2,"pulls_text":"2"}
 {"slug":"dlasher/Qwen3-VL-4B-Instruct","pulls":14,"pulls_text":"14"}
 {"slug":"dlasher/Qwen3-VL-4B-Instruct-ENG","pulls":0,"pulls_text":"0"}
@@ -6352,6 +6357,7 @@
 {"slug":"dlasher/Qwen3.8-27B-ENG","pulls":5,"pulls_text":"5"}
 {"slug":"dlasher/Qwen3.8-27B-GGUF","pulls":115,"pulls_text":"115"}
 {"slug":"dlasher/Qwen3.8-35B-A3B-Distill-ENG","pulls":8,"pulls_text":"8"}
+{"slug":"dlasher/Qwen3.8-Flash-Next-ENG","pulls":10,"pulls_text":"10"}
 {"slug":"dlasher/Qwen3.8-Flash-Next-GGUF","pulls":42,"pulls_text":"42"}
 {"slug":"dlasher/Swift-1.5-Qwen3.8-Flash-Next","pulls":44,"pulls_text":"44"}
 {"slug":"dlasher/granite-4.2-30b-GGUF","pulls":19,"pulls_text":"19"}
@@ -9353,15 +9359,20 @@
 {"slug":"jmorgan/all-minilm","pulls":4,"pulls_text":"4"}
 {"slug":"jmorgan/all-minilm-l6","pulls":35000,"pulls_text":"35K"}
 {"slug":"jmorgan/bespoke-minicheck","pulls":177,"pulls_text":"177"}
+{"slug":"jmorgan/clef","pulls":9,"pulls_text":"9"}
+{"slug":"jmorgan/clef-flash","pulls":11,"pulls_text":"11"}
 {"slug":"jmorgan/codegemma","pulls":6,"pulls_text":"6"}
 {"slug":"jmorgan/codestral","pulls":20,"pulls_text":"20"}
+{"slug":"jmorgan/d1","pulls":15,"pulls_text":"15"}
 {"slug":"jmorgan/deepseek-v2","pulls":15,"pulls_text":"15"}
 {"slug":"jmorgan/disco","pulls":0,"pulls_text":"0"}
+{"slug":"jmorgan/embeddinggemma-2","pulls":11,"pulls_text":"11"}
 {"slug":"jmorgan/gpt2","pulls":104,"pulls_text":"104"}
 {"slug":"jmorgan/granite-code","pulls":2,"pulls_text":"2"}
 {"slug":"jmorgan/grok","pulls":30,"pulls_text":"030"}
 {"slug":"jmorgan/gte-small","pulls":835,"pulls_text":"835"}
 {"slug":"jmorgan/hermes3","pulls":15,"pulls_text":"15"}
+{"slug":"jmorgan/laya","pulls":17,"pulls_text":"17"}
 {"slug":"jmorgan/llama2","pulls":9,"pulls_text":"9"}
 {"slug":"jmorgan/llama3","pulls":15,"pulls_text":"15"}
 {"slug":"jmorgan/llama32","pulls":0,"pulls_text":"0"}
@@ -9370,11 +9381,14 @@
 {"slug":"jmorgan/mistral","pulls":7,"pulls_text":"7"}
 {"slug":"jmorgan/mixtral","pulls":333,"pulls_text":"333"}
 {"slug":"jmorgan/msn","pulls":8,"pulls_text":"8"}
+{"slug":"jmorgan/nimble","pulls":17,"pulls_text":"17"}
 {"slug":"jmorgan/nomic-embed-text","pulls":180,"pulls_text":"180"}
 {"slug":"jmorgan/orca-mini","pulls":26,"pulls_text":"26"}
+{"slug":"jmorgan/pplx-decider","pulls":57,"pulls_text":"57"}
 {"slug":"jmorgan/qwen","pulls":15,"pulls_text":"15"}
 {"slug":"jmorgan/qwen2vl-test","pulls":847,"pulls_text":"847"}
 {"slug":"jmorgan/test","pulls":34,"pulls_text":"34"}
+{"slug":"jmorgan/tev1","pulls":22,"pulls_text":"22"}
 {"slug":"jmorgan/turbo","pulls":49,"pulls_text":"49"}
 {"slug":"jmorgan/yesno","pulls":15,"pulls_text":"15"}
 {"slug":"jmorgan/yi","pulls":6,"pulls_text":"6"}
@@ -10451,6 +10465,7 @@
 {"slug":"library/granite4.2","pulls":131600,"pulls_text":"131.6K"}
 {"slug":"library/hermes3","pulls":1700000,"pulls_text":"1.7M"}
 {"slug":"library/internlm2","pulls":1100000,"pulls_text":"1.1M"}
+{"slug":"library/kev","pulls":177,"pulls_text":"177"}
 {"slug":"library/kimi-k2.6","pulls":490000,"pulls_text":"490K"}
 {"slug":"library/kimi-k2.7-code","pulls":249600,"pulls_text":"249.6K"}
 {"slug":"library/kimi-k3","pulls":102200,"pulls_text":"102.2K"}
@@ -10519,6 +10534,7 @@
 {"slug":"library/neural-chat","pulls":1200000,"pulls_text":"1.2M"}
 {"slug":"library/nexusraven","pulls":917600,"pulls_text":"917.6K"}
 {"slug":"library/nimble","pulls":38900,"pulls_text":"38.9K"}
+{"slug":"library/nimble-v3","pulls":486,"pulls_text":"486"}
 {"slug":"library/nomic-embed-text","pulls":89300000,"pulls_text":"89.3M"}
 {"slug":"library/nomic-embed-text-v2-moe","pulls":1100000,"pulls_text":"1.1M"}
 {"slug":"library/north-mini-code-1.0","pulls":68300,"pulls_text":"68.3K"}
@@ -10588,6 +10604,7 @@
 {"slug":"library/starcoder","pulls":1600000,"pulls_text":"1.6M"}
 {"slug":"library/starcoder2","pulls":3000000,"pulls_text":"3M"}
 {"slug":"library/starling-lm","pulls":1000000,"pulls_text":"1M"}
+{"slug":"library/strands-decider","pulls":252,"pulls_text":"252"}
 {"slug":"library/tev1","pulls":85900,"pulls_text":"85.9K"}
 {"slug":"library/tinydolphin","pulls":740400,"pulls_text":"740.4K"}
 {"slug":"library/tinyllama","pulls":6100000,"pulls_text":"6.1M"}
@@ -10717,6 +10734,7 @@
 {"slug":"llamaET/windsurf","pulls":35,"pulls_text":"35"}
 {"slug":"llamafamily/atom-7b-chat","pulls":687,"pulls_text":"687"}
 {"slug":"llamafamily/llama3-chinese-8b-instruct","pulls":408,"pulls_text":"408"}
+{"slug":"llamallamaduck/mse-to-forge-converter","pulls":0,"pulls_text":"0"}
 {"slug":"llamallamaduck/mtg-card-converter-14b-instruct","pulls":20,"pulls_text":"20"}
 {"slug":"llamallamaduck/mtg-card-converter-14b-instruct-iMat_1","pulls":8,"pulls_text":"8"}
 {"slug":"llamallamaduck/mtg-card-converter-7b-instruct","pulls":15,"pulls_text":"15"}
@@ -11055,6 +11073,7 @@
 {"slug":"mani12maran05/llama3.1","pulls":4,"pulls_text":"4"}
 {"slug":"mannenspannen/VT","pulls":0,"pulls_text":"0"}
 {"slug":"mannix/Bonsai-2-27B","pulls":169,"pulls_text":"169"}
+{"slug":"mannix/Bonsai-2-27B-CRACK","pulls":33,"pulls_text":"33"}
 {"slug":"mannix/JackOD-9B-Coder","pulls":526,"pulls_text":"526"}
 {"slug":"mannix/deepseek-coder-v2-lite-instruct","pulls":995,"pulls_text":"995"}
 {"slug":"mannix/deepseek-v2-lite-instruct","pulls":655,"pulls_text":"655"}
@@ -11129,6 +11148,7 @@
 {"slug":"mannix/wan2.1","pulls":72,"pulls_text":"72"}
 {"slug":"mannix/wan2.2","pulls":88,"pulls_text":"88"}
 {"slug":"mannix/whisper","pulls":236,"pulls_text":"236"}
+{"slug":"mannix/whistle","pulls":17,"pulls_text":"17"}
 {"slug":"mannix/wizardlm2","pulls":110,"pulls_text":"110"}
 {"slug":"mannix/z-image","pulls":155,"pulls_text":"155"}
 {"slug":"mano-wii/gemma-3-finetune","pulls":12,"pulls_text":"12"}
@@ -11891,6 +11911,7 @@
 {"slug":"mroxso/satoshi-nakamoto","pulls":20,"pulls_text":"20"}
 {"slug":"mrqasmqasm8/my-models","pulls":0,"pulls_text":"0"}
 {"slug":"mrscratchcat22/aurelis","pulls":10,"pulls_text":"10"}
+{"slug":"mrscratchcat22/aurelis-coder","pulls":3,"pulls_text":"3"}
 {"slug":"mrthp/omnicoder2","pulls":942,"pulls_text":"942"}
 {"slug":"mrutkows/granite-docling","pulls":17,"pulls_text":"17"}
 {"slug":"mrutkows/granite-embedding","pulls":72,"pulls_text":"72"}
@@ -15718,8 +15739,11 @@
 {"slug":"tracell/minimind-ant-v0","pulls":5,"pulls_text":"5"}
 {"slug":"tradingplacebilt/byltrade","pulls":48,"pulls_text":"48"}
 {"slug":"trancanall/QwenVN","pulls":17,"pulls_text":"17"}
+{"slug":"trangthanhdai287/zenith","pulls":2,"pulls_text":"2"}
 {"slug":"trangthanhdai287/zenith1","pulls":0,"pulls_text":"0"}
+{"slug":"trangthanhdai287/zenith2.1","pulls":0,"pulls_text":"0"}
 {"slug":"tranhuythang9999/clef-flash","pulls":18,"pulls_text":"18"}
+{"slug":"tranhuythang9999/defiant-fable","pulls":6,"pulls_text":"6"}
 {"slug":"tranhuythang9999/qwen25vl-7b-vi-hwr-10k-v2","pulls":5,"pulls_text":"5"}
 {"slug":"tranhuythang9999/swift-qwen3.8-27b","pulls":50,"pulls_text":"50"}
 {"slug":"tranhuythang9999/vi-ocr-hwr","pulls":16,"pulls_text":"16"}
@@ -15765,6 +15789,7 @@
 {"slug":"treyleo16/fable-5-1","pulls":123,"pulls_text":"123"}
 {"slug":"treyleo16/forge","pulls":2,"pulls_text":"2"}
 {"slug":"treyleo16/freeform","pulls":50,"pulls_text":"50"}
+{"slug":"treyleo16/gemini-1-5","pulls":0,"pulls_text":"0"}
 {"slug":"treyleo16/gemini-3-1-pro","pulls":192,"pulls_text":"192"}
 {"slug":"treyleo16/gemini-3-7-flash","pulls":346,"pulls_text":"346"}
 {"slug":"treyleo16/gemini-3-8","pulls":0,"pulls_text":"0"}
@@ -15791,6 +15816,7 @@
 {"slug":"treyleo16/mythical-ai","pulls":6,"pulls_text":"6"}
 {"slug":"treyleo16/mythos-5","pulls":178,"pulls_text":"178"}
 {"slug":"treyleo16/opus-5","pulls":238,"pulls_text":"238"}
+{"slug":"treyleo16/oscar","pulls":0,"pulls_text":"0"}
 {"slug":"treyleo16/pea-size-reasoner","pulls":0,"pulls_text":"0"}
 {"slug":"treyleo16/qwen","pulls":34,"pulls_text":"34"}
 {"slug":"treyleo16/small-minded","pulls":124,"pulls_text":"124"}
@@ -16278,6 +16304,7 @@
 {"slug":"vrishankraina/vitty-f16","pulls":0,"pulls_text":"0"}
 {"slug":"vrishankraina/vittyquantized","pulls":11,"pulls_text":"11"}
 {"slug":"vrozax1337/ministral-3-8b-mlx","pulls":139,"pulls_text":"139"}
+{"slug":"vrundpatel/iqud-ocr","pulls":22,"pulls_text":"22"}
 {"slug":"vrutkovs/merlinite-kcd","pulls":6,"pulls_text":"6"}
 {"slug":"vtboyarc/adamus","pulls":11,"pulls_text":"11"}
 {"slug":"vthebeast/mythalion-13b","pulls":164,"pulls_text":"164"}
@@ -16306,6 +16333,7 @@
 {"slug":"w4d4f4k/qwen25-coder-aiia-v3","pulls":3,"pulls_text":"3"}
 {"slug":"w4d4f4k/qwen25-coder-aiia-v5","pulls":9,"pulls_text":"9"}
 {"slug":"w4d4f4k/qwen3_v1","pulls":24,"pulls_text":"24"}
+{"slug":"waglemangesh/attestor-44","pulls":3,"pulls_text":"3"}
 {"slug":"wagnerborba/pma1","pulls":20,"pulls_text":"20"}
 {"slug":"waguirre82/wag","pulls":0,"pulls_text":"0"}
 {"slug":"waikwan/tinyMerleo","pulls":2,"pulls_text":"2"}
