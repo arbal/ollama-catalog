@@ -1,0 +1,4 @@
+## 2025-03-03 - Prevent git command injection via leading hyphens
+**Vulnerability:** Git command injection via user-provided `ref` and `date_str` parameters passed to `subprocess.run(["git", ...])`. Using arguments starting with a hyphen (e.g., `--stat`) could cause Git to treat the ref or date as an arbitrary option flag rather than a target pathspec/value.
+**Learning:** When passing untrusted strings directly into command-line tools without the `--` delimiter (or when they precede it), arguments starting with `-` can inject unintended flags. Explicit validation `if arg.startswith('-')` is required when constructing dynamic commands where user input occupies an option-parsing position.
+**Prevention:** Always validate that user inputs intended as positional arguments or parameters do not start with a hyphen, or strictly isolate them after a `--` delimiter when the underlying CLI tool supports it.
