@@ -26,6 +26,8 @@ from pathlib import Path
 
 
 def git_show(ref: str, path: str) -> str:
+    if ref.startswith("-"):
+        raise ValueError(f"Invalid git reference: '{ref}'")
     result = subprocess.run(
         ["git", "show", f"{ref}:{path}"],
         capture_output=True, text=True, check=True
@@ -35,6 +37,8 @@ def git_show(ref: str, path: str) -> str:
 
 def resolve_date(date_str: str) -> str:
     """Resolve YYYY-MM-DD to the most recent commit hash on or before that date."""
+    if date_str.startswith("-"):
+        raise ValueError(f"Invalid date string: '{date_str}'")
     result = subprocess.run(
         ["git", "log", f"--before={date_str} 23:59:59", "-1", "--format=%H"],
         capture_output=True, text=True, check=True
