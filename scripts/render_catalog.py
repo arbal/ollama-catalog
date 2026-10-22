@@ -26,6 +26,9 @@ from pathlib import Path
 
 
 def git_show(ref: str, path: str) -> str:
+    # Security: Prevent argument injection if ref starts with a hyphen
+    if ref.startswith("-"):
+        raise ValueError(f"Invalid git reference: cannot start with a hyphen ({ref})")
     result = subprocess.run(
         ["git", "show", f"{ref}:{path}"],
         capture_output=True, text=True, check=True
