@@ -1,3 +1,3 @@
-## 2024-05-24 - Initial Review
-**Learning:** Found some CLI tools with empty states (like `oc-explore.sh`) that might benefit from better UI handling. Need to explore the UI logic.
-**Action:** Review the `scripts/explore_catalog.py` file to see how it handles empty states or error states.
+## 2024-05-19 - Empty State Contrast
+**Learning:** Using `dim` formatting for empty states or error messages reduces visibility and creates accessibility issues for users with low vision or high contrast needs.
+**Action:** Use clear, contrasting colors like `yellow` for empty states and warnings instead of `dim`.
