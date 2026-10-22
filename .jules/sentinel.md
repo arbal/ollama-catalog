@@ -1,0 +1,4 @@
+## 2025-02-28 - Command Injection in Git Show Command
+**Vulnerability:** The `git_show` function in `scripts/explore_catalog.py` and `scripts/render_catalog.py` constructs a git command using `f"{ref}:{path}"` where `ref` is user-provided input. An attacker could potentially inject command options. Also, `subprocess.run(["git", "show", f"{ref}:{path}"])` does not use the end-of-options delimiter `--`, which allows argument injection if `ref` starts with `-`.
+**Learning:** Argument injection can happen even when using a list of arguments in `subprocess.run` if a user-controlled argument can start with a hyphen (e.g., `-`) and is misinterpreted by the command as an option.
+**Prevention:** Validate user-provided inputs to prevent them from starting with hyphens when used in shell commands, and/or use `--` to separate options from arguments where possible (though in this case `ref:path` is an argument, but preventing `-` handles it).
