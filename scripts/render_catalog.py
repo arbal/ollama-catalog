@@ -26,6 +26,8 @@ from pathlib import Path
 
 
 def git_show(ref: str, path: str) -> str:
+    if ref.startswith("-"):
+        raise ValueError(f"Invalid git reference (argument injection blocked): {ref}")
     result = subprocess.run(
         ["git", "show", f"{ref}:{path}"],
         capture_output=True, text=True, check=True
