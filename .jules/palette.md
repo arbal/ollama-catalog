@@ -1,3 +1,3 @@
-## 2024-05-24 - Initial Review
-**Learning:** Found some CLI tools with empty states (like `oc-explore.sh`) that might benefit from better UI handling. Need to explore the UI logic.
-**Action:** Review the `scripts/explore_catalog.py` file to see how it handles empty states or error states.
+## 2025-01-20 - Improve empty state visibility
+**Learning:** Terminal text styled with `dim` formatting often suffers from low contrast against default backgrounds, reducing readability and creating accessibility barriers, especially for critical feedback like empty search results.
+**Action:** Use higher-contrast colors like `yellow` for empty states and warnings in CLI applications instead of `dim` formatting to ensure users can clearly read the feedback.
