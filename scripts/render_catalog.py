@@ -26,6 +26,9 @@ from pathlib import Path
 
 
 def git_show(ref: str, path: str) -> str:
+    # Prevent argument injection in git show by rejecting refs starting with a hyphen
+    if ref.startswith("-"):
+        raise ValueError(f"Invalid git ref (potential argument injection): {ref}")
     result = subprocess.run(
         ["git", "show", f"{ref}:{path}"],
         capture_output=True, text=True, check=True
