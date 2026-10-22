@@ -1,3 +1,3 @@
-## 2024-05-24 - Initial Review
-**Learning:** Found some CLI tools with empty states (like `oc-explore.sh`) that might benefit from better UI handling. Need to explore the UI logic.
-**Action:** Review the `scripts/explore_catalog.py` file to see how it handles empty states or error states.
+## 2024-05-24 - CLI Empty State Polish
+**Learning:** Using `rich` raw text instead of a `Panel` for empty states makes errors unnoticeable and disrupts the visual structure of CLI outputs, especially when mixing rich Tables/Panels with standard text.
+**Action:** When implementing UI improvements for empty states in a CLI utilizing `rich`, use `rich.panel.Panel` wrappers for "Not Found" messages to maintain visual consistency and clearly signal to the user that a query returned no results.
