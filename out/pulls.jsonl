@@ -1395,6 +1395,7 @@
 {"slug":"Duss02/qwen2_5_3b_ocr_100s","pulls":41,"pulls_text":"41"}
 {"slug":"Duss02/qwen2_5_3b_ocr_50s","pulls":87,"pulls_text":"87"}
 {"slug":"Duss02/qwen2_5_3b_ocr_50s_tq2","pulls":52,"pulls_text":"52"}
+{"slug":"DutchIT/moss-prompt-enhancer-i2i","pulls":0,"pulls_text":"0"}
 {"slug":"Dwayz/Coding","pulls":0,"pulls_text":"0"}
 {"slug":"EFFAF/gemma2b","pulls":7,"pulls_text":"7"}
 {"slug":"EIDAAA/G.A","pulls":2,"pulls_text":"2"}
@@ -3036,7 +3037,7 @@
 {"slug":"SoyMaycol/TF0-Code","pulls":67,"pulls_text":"67"}
 {"slug":"SparkLLM/Spark-X2.5-1.7B","pulls":923,"pulls_text":"923"}
 {"slug":"SparkLLM/Spark-X2.5-4B","pulls":13300,"pulls_text":"13.3K"}
-{"slug":"SparkLLM/Spark-X2.6-1.7B","pulls":3,"pulls_text":"3"}
+{"slug":"SparkLLM/Spark-X2.6-1.7B","pulls":22,"pulls_text":"22"}
 {"slug":"SparkLLM/Spark-X2.6-4B","pulls":221,"pulls_text":"221"}
 {"slug":"SpeakLeash/bielik-1.5b-v3.0-instruct","pulls":6,"pulls_text":"006"}
 {"slug":"SpeakLeash/bielik-11b-v2.0-instruct","pulls":187,"pulls_text":"187"}
@@ -6085,6 +6086,7 @@
 {"slug":"dayuwidayadi/hammer","pulls":0,"pulls_text":"0"}
 {"slug":"dazzling_carson_447/gemma4-e2b-test","pulls":7,"pulls_text":"7"}
 {"slug":"dazzling_carson_447/qwen35-9b-test","pulls":13,"pulls_text":"13"}
+{"slug":"dazzling_galileo_294/AURA","pulls":0,"pulls_text":"0"}
 {"slug":"dazzling_galileo_294/Aura","pulls":3,"pulls_text":"3"}
 {"slug":"dazzling_galileo_294/Jarvis","pulls":6,"pulls_text":"6"}
 {"slug":"dbcjsaud/bee","pulls":0,"pulls_text":"0"}
@@ -6549,6 +6551,7 @@
 {"slug":"doreilly/minicpm26_q5_k_m","pulls":633,"pulls_text":"633"}
 {"slug":"dorian2b/lumimaid","pulls":543,"pulls_text":"543"}
 {"slug":"dorukkdev/b1","pulls":6,"pulls_text":"6"}
+{"slug":"dosserhim/cabbocuh","pulls":0,"pulls_text":"0"}
 {"slug":"dotdesh2020/shan","pulls":2,"pulls_text":"2"}
 {"slug":"dotkaio/avis","pulls":6,"pulls_text":"6"}
 {"slug":"dougsangerdavies/Smyth-Ai","pulls":15,"pulls_text":"15"}
@@ -8970,6 +8973,7 @@
 {"slug":"ingloryon/Nex-N2.5-mini","pulls":5,"pulls_text":"5"}
 {"slug":"ingloryon/Qwen3.8-27B","pulls":152,"pulls_text":"152"}
 {"slug":"ingloryon/flint","pulls":9,"pulls_text":"9"}
+{"slug":"ingloryon/gemma4","pulls":2,"pulls_text":"2"}
 {"slug":"ingloryon/k2-horizon","pulls":555,"pulls_text":"555"}
 {"slug":"ingloryon/ornith-1.5","pulls":15,"pulls_text":"15"}
 {"slug":"ingu627/EXAONE-Deep-7.8B","pulls":58,"pulls_text":"58"}
@@ -9000,6 +9004,7 @@
 {"slug":"innocentevil0914/Qwen3-8B-UD-Q4_K_XL","pulls":171,"pulls_text":"171"}
 {"slug":"innovategy/voicehero","pulls":88,"pulls_text":"88"}
 {"slug":"innsystem/assistent_ia","pulls":2,"pulls_text":"2"}
+{"slug":"insidergoa/Aaryan","pulls":0,"pulls_text":"0"}
 {"slug":"instructlab/granite-7b-lab","pulls":906,"pulls_text":"906"}
 {"slug":"instructlab/merlinite-7b-lab","pulls":14,"pulls_text":"014"}
 {"slug":"intelfox/ToucanQwen3.5","pulls":18,"pulls_text":"18"}
@@ -11514,6 +11519,7 @@
 {"slug":"maubertin/tig2-9b-q2k","pulls":2,"pulls_text":"2"}
 {"slug":"mauij/ai_tutor","pulls":3,"pulls_text":"3"}
 {"slug":"mauricioluis123/test","pulls":0,"pulls_text":"0"}
+{"slug":"maxbabintsev/qwen2.5-coder","pulls":3,"pulls_text":"3"}
 {"slug":"maxbehzadi82/mixer","pulls":0,"pulls_text":"0"}
 {"slug":"maxid/vitalik.eth","pulls":8,"pulls_text":"8"}
 {"slug":"maximebodereau/hr_jems","pulls":6,"pulls_text":"6"}
@@ -12823,6 +12829,7 @@
 {"slug":"ollamaced/holo1_7B_f16","pulls":19,"pulls_text":"19"}
 {"slug":"ollamaced/holo1_7B_q8_0","pulls":24,"pulls_text":"24"}
 {"slug":"ollamachulo/Chewlo","pulls":0,"pulls_text":"0"}
+{"slug":"ollamagdp/qwen14-rag-selettivo","pulls":0,"pulls_text":"0"}
 {"slug":"ollamasiddhu123/sidz","pulls":6,"pulls_text":"6"}
 {"slug":"ollamay/w3e","pulls":67,"pulls_text":"67"}
 {"slug":"olmo-3","pulls":476800,"pulls_text":"476.8K"}
@@ -14115,6 +14122,7 @@
 {"slug":"rluncasu/rollama2-7b-chat-q8_0","pulls":12,"pulls_text":"12"}
 {"slug":"rluncasu/rollama3-7b-instruct-q8","pulls":11,"pulls_text":"11"}
 {"slug":"rluncasu/rollama3-8b-instruct","pulls":3,"pulls_text":"3"}
+{"slug":"rm_kaiz/batman","pulls":0,"pulls_text":"0"}
 {"slug":"rmd26/rm26AI","pulls":0,"pulls_text":"0"}
 {"slug":"rmdashrf/distil-qwen3-0.6b-SHELLper","pulls":28,"pulls_text":"28"}
 {"slug":"rmdashrf/webgen-preview-4b","pulls":28,"pulls_text":"28"}
@@ -14161,6 +14169,7 @@
 {"slug":"robit/ornith-1.5-omni","pulls":36,"pulls_text":"36"}
 {"slug":"robit/ornith-1.5-omni-audio-bridge","pulls":501,"pulls_text":"501"}
 {"slug":"robit/ornith-vision","pulls":187,"pulls_text":"187"}
+{"slug":"robit/phonon-echo","pulls":38,"pulls_text":"38"}
 {"slug":"robit/qwen3.5-9b-r5-research","pulls":90,"pulls_text":"90"}
 {"slug":"robit/qwen3.5-9b-r5-vision","pulls":628,"pulls_text":"628"}
 {"slug":"robit/qwen3.5-9b-r7-research","pulls":178,"pulls_text":"178"}
@@ -14536,6 +14545,7 @@
 {"slug":"sanchezsase1991/navin2","pulls":0,"pulls_text":"0"}
 {"slug":"sandeepmanchinasetti007/iris","pulls":0,"pulls_text":"0"}
 {"slug":"sandeeprdy1729/timps-coder","pulls":41,"pulls_text":"41"}
+{"slug":"sandeepsinghbaloda1717/pentest","pulls":0,"pulls_text":"0"}
 {"slug":"sandeshk06/networkNinja","pulls":70,"pulls_text":"70"}
 {"slug":"sandeshrb87/gpt-oss-20b","pulls":38,"pulls_text":"38"}
 {"slug":"sandraalhaddad/example","pulls":70,"pulls_text":"70"}
@@ -14660,6 +14670,7 @@
 {"slug":"scb10x/typhoon2.5-qwen3-30b-a3b","pulls":941,"pulls_text":"941"}
 {"slug":"scb10x/typhoon2.5-qwen3-4b","pulls":52,"pulls_text":"052"}
 {"slug":"schamane1992/Loredana","pulls":0,"pulls_text":"0"}
+{"slug":"schien/bonsai2-9b-kb","pulls":0,"pulls_text":"0"}
 {"slug":"schien/g9v3-3b","pulls":74,"pulls_text":"74"}
 {"slug":"schien/qwen3.5-lite","pulls":815,"pulls_text":"815"}
 {"slug":"schip76/aqua","pulls":0,"pulls_text":"0"}
@@ -16058,6 +16069,7 @@
 {"slug":"treyleo16/claude-mythos-5-1","pulls":169,"pulls_text":"169"}
 {"slug":"treyleo16/claude-opus-4","pulls":36,"pulls_text":"36"}
 {"slug":"treyleo16/claude-opus-5-5","pulls":824,"pulls_text":"824"}
+{"slug":"treyleo16/claude-oss","pulls":2,"pulls_text":"2"}
 {"slug":"treyleo16/deepseek","pulls":25,"pulls_text":"25"}
 {"slug":"treyleo16/drumstickgpt","pulls":6,"pulls_text":"6"}
 {"slug":"treyleo16/fable-5-1","pulls":139,"pulls_text":"139"}
@@ -16081,6 +16093,7 @@
 {"slug":"treyleo16/gpt-6-astra","pulls":783,"pulls_text":"783"}
 {"slug":"treyleo16/gpt-oss-distills","pulls":11,"pulls_text":"11"}
 {"slug":"treyleo16/grok-4-5","pulls":125,"pulls_text":"125"}
+{"slug":"treyleo16/grok-4-7","pulls":0,"pulls_text":"0"}
 {"slug":"treyleo16/haiku-4-5","pulls":114,"pulls_text":"114"}
 {"slug":"treyleo16/haiku-5-5","pulls":51,"pulls_text":"51"}
 {"slug":"treyleo16/kimi-k3","pulls":794,"pulls_text":"794"}
