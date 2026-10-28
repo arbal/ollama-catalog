@@ -2411,6 +2411,8 @@
 {"slug":"Neoxider/QwenUnity","pulls":100,"pulls_text":"100"}
 {"slug":"NetIntel/NetIntelOCR-7B-0925","pulls":233,"pulls_text":"233"}
 {"slug":"NetIntel/NetIntelOCR-9BT-0925","pulls":16,"pulls_text":"16"}
+{"slug":"Netoo_ofc/ia-juridica","pulls":2,"pulls_text":"2"}
+{"slug":"Netoo_ofc/kimi-k3","pulls":3,"pulls_text":"3"}
 {"slug":"NeuralNet/openchat-3.6","pulls":110,"pulls_text":"110"}
 {"slug":"NeuralNet/opencoder","pulls":124,"pulls_text":"124"}
 {"slug":"NeuralNexusLab/AuraTek","pulls":57,"pulls_text":"57"}
@@ -3543,6 +3545,7 @@
 {"slug":"acc100/muse-glimmer-heretic","pulls":411,"pulls_text":"411"}
 {"slug":"acc100/qwen3.8-27b-heretic-mtp-fixed","pulls":353,"pulls_text":"353"}
 {"slug":"account87/linux","pulls":0,"pulls_text":"0"}
+{"slug":"acecomomontanagaming/Eternia","pulls":0,"pulls_text":"0"}
 {"slug":"aceptriana/alma-trader","pulls":174,"pulls_text":"174"}
 {"slug":"aceptriana/xploit","pulls":56,"pulls_text":"56"}
 {"slug":"achieversictclub/holas-defender-ultimate-v13","pulls":118,"pulls_text":"118"}
@@ -4881,6 +4884,8 @@
 {"slug":"benedict/linkbricks-mistral-nemo-korean","pulls":571,"pulls_text":"571"}
 {"slug":"benedict/linkbricks-mixtral-8x7-korean-q4","pulls":22,"pulls_text":"22"}
 {"slug":"benedict/linkbricks-mixtral-8x7-korean-q8","pulls":15,"pulls_text":"15"}
+{"slug":"bengladstonemail/B.E.N-Coder1.5","pulls":0,"pulls_text":"0"}
+{"slug":"bengladstonemail/BEN1.5","pulls":2,"pulls_text":"2"}
 {"slug":"bengt0/em_german_leo_mistral","pulls":171,"pulls_text":"171"}
 {"slug":"benhaotang/JetBrains-Mellum-Continue","pulls":20,"pulls_text":"20"}
 {"slug":"benhaotang/Nanonets-OCR-s","pulls":184,"pulls_text":"184"}
@@ -4982,6 +4987,7 @@
 {"slug":"bird123/deepseek-r1-huanhuan2025","pulls":0,"pulls_text":"0"}
 {"slug":"bird123/deepseek-r1-medical","pulls":4,"pulls_text":"4"}
 {"slug":"bird123/deepseek-r1-sanguo","pulls":2,"pulls_text":"2"}
+{"slug":"birgermoell/agora","pulls":2,"pulls_text":"2"}
 {"slug":"bit-sync-dev/nexus1","pulls":221,"pulls_text":"221"}
 {"slug":"bitbinge/dazz","pulls":5,"pulls_text":"5"}
 {"slug":"bitbinge/stickler","pulls":14,"pulls_text":"14"}
@@ -6426,6 +6432,8 @@
 {"slug":"dkm/tinyllama","pulls":26,"pulls_text":"26"}
 {"slug":"dkvon/angular-coder","pulls":18,"pulls_text":"18"}
 {"slug":"dlanorok/demo","pulls":0,"pulls_text":"0"}
+{"slug":"dlasher/Devstral-Small-2-24B-Instruct-2512","pulls":0,"pulls_text":"0"}
+{"slug":"dlasher/Devstral-Small-2-24B-Instruct-2512-ENG","pulls":2,"pulls_text":"2"}
 {"slug":"dlasher/GLM-4.7-Flash-GGUF","pulls":35,"pulls_text":"35"}
 {"slug":"dlasher/Hermes-4.3-36B-GGUF","pulls":11,"pulls_text":"11"}
 {"slug":"dlasher/LFM2.5-24B-A2B-ENG","pulls":26,"pulls_text":"26"}
@@ -7359,6 +7367,7 @@
 {"slug":"firesmasher-c6/opentalon-spark-flash","pulls":13,"pulls_text":"13"}
 {"slug":"firmen102/qwen3.5-27b","pulls":51,"pulls_text":"51"}
 {"slug":"firmin_777/thinkrrok","pulls":0,"pulls_text":"0"}
+{"slug":"firstprinciples/theo-quark","pulls":5,"pulls_text":"5"}
 {"slug":"fishesarethings/Finn","pulls":9,"pulls_text":"9"}
 {"slug":"fit2cloud/chat2db-sql","pulls":204,"pulls_text":"204"}
 {"slug":"fit2cloud/llama3-chinese","pulls":214,"pulls_text":"214"}
@@ -7483,6 +7492,7 @@
 {"slug":"frob/davidau-qwen3.6-uncensored","pulls":60,"pulls_text":"060"}
 {"slug":"frob/deepseek-v4-flash","pulls":453,"pulls_text":"453"}
 {"slug":"frob/deepseek-v4-flash-0731","pulls":68900,"pulls_text":"68.9K"}
+{"slug":"frob/deepseek-v4.1-flash","pulls":8,"pulls_text":"8"}
 {"slug":"frob/glm-4.7","pulls":782,"pulls_text":"782"}
 {"slug":"frob/glm-5","pulls":518,"pulls_text":"518"}
 {"slug":"frob/glm-5.1","pulls":866,"pulls_text":"866"}
@@ -8462,6 +8472,7 @@
 {"slug":"home-rag/jais-3","pulls":0,"pulls_text":"0"}
 {"slug":"home-rag/multilingual-e5-large","pulls":23,"pulls_text":"23"}
 {"slug":"home-rag/muse-glimmer","pulls":9,"pulls_text":"9"}
+{"slug":"home-rag/nanbeige4.3","pulls":9,"pulls_text":"9"}
 {"slug":"home-rag/ornith-1.5","pulls":20,"pulls_text":"20"}
 {"slug":"home-rag/qwen3.6","pulls":11,"pulls_text":"11"}
 {"slug":"home-rag/qwen3.8","pulls":79,"pulls_text":"79"}
@@ -8950,6 +8961,7 @@
 {"slug":"incept5/dmindai","pulls":59,"pulls_text":"59"}
 {"slug":"incept5/llama3.1-claude","pulls":105500,"pulls_text":"105.5K"}
 {"slug":"inclunet/gemma4","pulls":6,"pulls_text":"6"}
+{"slug":"incu6us/qwen3.8-gsq","pulls":2,"pulls_text":"2"}
 {"slug":"indhifarhandika/sinukar-v1","pulls":2,"pulls_text":"2"}
 {"slug":"individuumx2/Husa","pulls":0,"pulls_text":"0"}
 {"slug":"inexile07/qwen3.6","pulls":16,"pulls_text":"16"}
@@ -9660,6 +9672,7 @@
 {"slug":"jordanwarren529/starfire","pulls":21,"pulls_text":"21"}
 {"slug":"jordigonzalez/model_1","pulls":4,"pulls_text":"4"}
 {"slug":"jordimurgo/medgemma1.5-thinking","pulls":118,"pulls_text":"118"}
+{"slug":"jordimurgo/methodprint-embed","pulls":0,"pulls_text":"0"}
 {"slug":"joreilly86/engineering_assistant_3.0","pulls":253,"pulls_text":"253"}
 {"slug":"joreilly86/structural_llama","pulls":216,"pulls_text":"216"}
 {"slug":"joreilly86/structural_llama_3.0","pulls":555,"pulls_text":"555"}
@@ -10664,6 +10677,10 @@
 {"slug":"library/lfm2","pulls":1100000,"pulls_text":"1.1M"}
 {"slug":"library/lfm2.5","pulls":271600,"pulls_text":"271.6K"}
 {"slug":"library/lfm2.5-thinking","pulls":1300000,"pulls_text":"1.3M"}
+{"slug":"library/lfm3","pulls":122,"pulls_text":"122"}
+{"slug":"library/lfm3-audio","pulls":908,"pulls_text":"908"}
+{"slug":"library/lfm3-omni","pulls":775,"pulls_text":"775"}
+{"slug":"library/lfm3-vl","pulls":375,"pulls_text":"375"}
 {"slug":"library/llama-guard3","pulls":1100000,"pulls_text":"1.1M"}
 {"slug":"library/llama-pro","pulls":943600,"pulls_text":"943.6K"}
 {"slug":"library/llama2","pulls":7600000,"pulls_text":"7.6M"}
@@ -12395,6 +12412,7 @@
 {"slug":"necdetuygur/neu","pulls":159,"pulls_text":"159"}
 {"slug":"necdetuygur/neu2","pulls":17,"pulls_text":"17"}
 {"slug":"necdetuygur/neu3","pulls":42,"pulls_text":"42"}
+{"slug":"necdetuygur/neu4","pulls":0,"pulls_text":"0"}
 {"slug":"neeoggl/glm-5.2","pulls":68,"pulls_text":"68"}
 {"slug":"neerajcsai/youtube","pulls":3,"pulls_text":"3"}
 {"slug":"nefnux/nutricoach","pulls":2,"pulls_text":"2"}
@@ -12563,6 +12581,8 @@
 {"slug":"nilecui/qwen1.5-lora-iepile","pulls":0,"pulls_text":"0"}
 {"slug":"ninjasatwork/deepseek-v4-flash-abliterated","pulls":206,"pulls_text":"206"}
 {"slug":"ninjasatwork/gemma4_RP_Companion_abliterated","pulls":131,"pulls_text":"131"}
+{"slug":"ninjasatwork/lit-noncon","pulls":0,"pulls_text":"0"}
+{"slug":"ninjasatwork/llama-noncon","pulls":0,"pulls_text":"0"}
 {"slug":"ninjasatwork/ornith-35b-abliterated","pulls":376,"pulls_text":"376"}
 {"slug":"ninjasatwork/qwen3-omni-abliterated","pulls":158,"pulls_text":"158"}
 {"slug":"ninjasatwork/qwen3.8-flash-next-abliterated","pulls":570,"pulls_text":"570"}
@@ -12883,6 +12903,7 @@
 {"slug":"openamer/openamer-mini","pulls":2,"pulls_text":"2"}
 {"slug":"openbmb/minicpm-o2.6","pulls":28900,"pulls_text":"28.9K"}
 {"slug":"openbmb/minicpm-o4.5","pulls":551,"pulls_text":"551"}
+{"slug":"openbmb/minicpm-ocr1.0","pulls":18,"pulls_text":"18"}
 {"slug":"openbmb/minicpm-v2.5","pulls":535,"pulls_text":"535"}
 {"slug":"openbmb/minicpm-v2.6","pulls":206,"pulls_text":"206"}
 {"slug":"openbmb/minicpm-v4","pulls":654,"pulls_text":"654"}
@@ -13669,6 +13690,7 @@
 {"slug":"rafw007/qwen3.8-27b-redteam","pulls":451,"pulls_text":"451"}
 {"slug":"rafw007/qwen35-claude-coder","pulls":10200,"pulls_text":"10.2K"}
 {"slug":"rafw007/qwen36-a3b-claude-coder","pulls":186,"pulls_text":"186"}
+{"slug":"raggazzoplatafom/openclaw","pulls":0,"pulls_text":"0"}
 {"slug":"raghav932/qwen-vl-32b","pulls":392,"pulls_text":"392"}
 {"slug":"raghebdebabis2004/Kimi","pulls":6,"pulls_text":"6"}
 {"slug":"ragungnoviandri/ran1.0","pulls":33,"pulls_text":"33"}
@@ -13836,6 +13858,7 @@
 {"slug":"refinedneuro/refinedtoolcallv5-3b","pulls":743,"pulls_text":"743"}
 {"slug":"refinedneuro/vibethinker-3b-hermes","pulls":476,"pulls_text":"476"}
 {"slug":"reflection","pulls":634100,"pulls_text":"634.1K"}
+{"slug":"regisftm/fortivoithos","pulls":0,"pulls_text":"0"}
 {"slug":"reh3376/mdemg-llm-v1","pulls":7,"pulls_text":"7"}
 {"slug":"reh3376/mdemg-llm-v1-adapter","pulls":3,"pulls_text":"3"}
 {"slug":"reh3376/mdemg-llm-v2","pulls":2,"pulls_text":"2"}
@@ -14639,6 +14662,7 @@
 {"slug":"savingsvi/Berea","pulls":3,"pulls_text":"3"}
 {"slug":"savingsvi/bereab2","pulls":2,"pulls_text":"2"}
 {"slug":"savramov/stockdashboard","pulls":33,"pulls_text":"33"}
+{"slug":"savyasingla/obsidian","pulls":0,"pulls_text":"0"}
 {"slug":"sawantalwar10/veda-chat","pulls":3,"pulls_text":"3"}
 {"slug":"saxaivanov/gpt-oss","pulls":8,"pulls_text":"8"}
 {"slug":"sayedm04/dell","pulls":0,"pulls_text":"0"}
@@ -14933,6 +14957,7 @@
 {"slug":"shwetawable/pss-myphi","pulls":0,"pulls_text":"0"}
 {"slug":"shy6oon82/afreet","pulls":5,"pulls_text":"5"}
 {"slug":"shyamsundarmishra223/ollama","pulls":0,"pulls_text":"0"}
+{"slug":"siamcafe/bom-ai","pulls":20,"pulls_text":"20"}
 {"slug":"siamcafe/bomai-r75-highiq-safety","pulls":8,"pulls_text":"8"}
 {"slug":"siasi/qwen2-vl-7b-instruct","pulls":277,"pulls_text":"277"}
 {"slug":"siaszb/deepseek-r1-medical","pulls":0,"pulls_text":"0"}
@@ -15011,6 +15036,7 @@
 {"slug":"sjo/llama3.1-8b-instruct-abliterated","pulls":109,"pulls_text":"109"}
 {"slug":"sjo/neuraldaredevil-8b-abliterated","pulls":226,"pulls_text":"226"}
 {"slug":"sk_kenny/cissp-tutor","pulls":2,"pulls_text":"2"}
+{"slug":"skad00sh/signal-classifier","pulls":2,"pulls_text":"2"}
 {"slug":"skaeb/temp","pulls":4,"pulls_text":"4"}
 {"slug":"skamachochi/qwen-email-ft","pulls":2,"pulls_text":"2"}
 {"slug":"skelterh72/openclaw","pulls":22,"pulls_text":"22"}
@@ -15871,7 +15897,9 @@
 {"slug":"thox-ai/thox-micro","pulls":4,"pulls_text":"4"}
 {"slug":"thox-ai/thoxair-16m-role","pulls":4,"pulls_text":"4"}
 {"slug":"thox-ai/thoxclip-9m-role","pulls":3,"pulls_text":"3"}
+{"slug":"thox-ai/thoxclip-qwen3-0.6b","pulls":0,"pulls_text":"0"}
 {"slug":"thox-ai/thoxedge-0.5b","pulls":6,"pulls_text":"6"}
+{"slug":"thox-ai/thoxedge-0.8b","pulls":3,"pulls_text":"3"}
 {"slug":"thox-ai/thoxflux-350m","pulls":5,"pulls_text":"5"}
 {"slug":"thox-ai/thoxforge","pulls":4,"pulls_text":"4"}
 {"slug":"thox-ai/thoxforge-7b","pulls":43,"pulls_text":"43"}
@@ -17042,6 +17070,7 @@
 {"slug":"xu/orionmoe-chat","pulls":0,"pulls_text":"0"}
 {"slug":"xuananle/distill-CaseHold","pulls":4,"pulls_text":"4"}
 {"slug":"xublix/uncensored-medium","pulls":138,"pulls_text":"138"}
+{"slug":"xuonglun123/ui-voyager","pulls":5,"pulls_text":"5"}
 {"slug":"xvalentim/gemma3-1b-q8_0","pulls":10,"pulls_text":"10"}
 {"slug":"xwinlm","pulls":1100000,"pulls_text":"1.1M"}
 {"slug":"xxbenutzernamexx/hermes-4.3-64k","pulls":9,"pulls_text":"9"}
