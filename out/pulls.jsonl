@@ -2048,6 +2048,7 @@
 {"slug":"Lmf/mymodel","pulls":5,"pulls_text":"5"}
 {"slug":"LoPld/devstral-24b-small-2505-q4_K_S","pulls":95,"pulls_text":"95"}
 {"slug":"LoPld/devstral-small-2-24b-instruct-2512-q4_K_S","pulls":253,"pulls_text":"253"}
+{"slug":"LoPld/north-mini-code-1.0-nothink","pulls":0,"pulls_text":"0"}
 {"slug":"LoPld/qwen3-coder-30b-a3b-q4_K_S","pulls":427,"pulls_text":"427"}
 {"slug":"LoTUs5494/mistral-small-3.1","pulls":814,"pulls_text":"814"}
 {"slug":"Loke-60000/rin-4b-r1-exp","pulls":2,"pulls_text":"2"}
@@ -3561,6 +3562,7 @@
 {"slug":"abhisheksingh995639/fineweb-assistant-124M","pulls":21,"pulls_text":"21"}
 {"slug":"abhisheksingh995639/mygpt_assistant","pulls":367,"pulls_text":"367"}
 {"slug":"abiyo2/lefiscaliste","pulls":17,"pulls_text":"17"}
+{"slug":"abliterant/qwen3.5-rana","pulls":40,"pulls_text":"40"}
 {"slug":"abliterant/qwen3.8-rana","pulls":531,"pulls_text":"531"}
 {"slug":"abmateen/glm-4.7cloud","pulls":588,"pulls_text":"588"}
 {"slug":"aboba/saiga_mistral_13b","pulls":138,"pulls_text":"138"}
@@ -6336,6 +6338,7 @@
 {"slug":"devkit/L1-Qwen-1.5B-Max","pulls":111,"pulls_text":"111"}
 {"slug":"devmilano/nomic-embed-private","pulls":0,"pulls_text":"0"}
 {"slug":"devndom03/kimi_k2.5","pulls":82,"pulls_text":"82"}
+{"slug":"devon-ai/dev0.1","pulls":0,"pulls_text":"0"}
 {"slug":"devopsnextgenx/Stheno-v3.2-Q6","pulls":140,"pulls_text":"140"}
 {"slug":"devsajid007/hyperx1","pulls":0,"pulls_text":"0"}
 {"slug":"devstral","pulls":1100000,"pulls_text":"1.1M"}
@@ -7630,6 +7633,7 @@
 {"slug":"frob/qwen3.5-instruct","pulls":18100,"pulls_text":"18.1K"}
 {"slug":"frob/qwen3.6","pulls":126,"pulls_text":"126"}
 {"slug":"frob/qwen3.8-flash-next","pulls":12000,"pulls_text":"12K"}
+{"slug":"frob/ripple-preview","pulls":3,"pulls_text":"3"}
 {"slug":"frob/sarvam","pulls":64,"pulls_text":"64"}
 {"slug":"frob/trinity","pulls":41,"pulls_text":"41"}
 {"slug":"frob/unlimited-ocr","pulls":970,"pulls_text":"970"}
@@ -10050,6 +10054,7 @@
 {"slug":"kang49/gemma2-transTH-dialogue-wuthering-waves","pulls":53,"pulls_text":"53"}
 {"slug":"kangali/room-coder","pulls":778,"pulls_text":"778"}
 {"slug":"kangali/room-research","pulls":355,"pulls_text":"355"}
+{"slug":"kangbj980829/bk-probe","pulls":0,"pulls_text":"0"}
 {"slug":"kangwifi/mx-kfai","pulls":0,"pulls_text":"0"}
 {"slug":"kangyufei/llama2","pulls":48,"pulls_text":"48"}
 {"slug":"kannaspi/LLAMA3.2","pulls":36,"pulls_text":"36"}
@@ -10271,6 +10276,8 @@
 {"slug":"kiwi_kiwi/qwen3.5-abliterated","pulls":123,"pulls_text":"123"}
 {"slug":"kiwi_kiwi/qwen3.5-abliterated-vision","pulls":656,"pulls_text":"656"}
 {"slug":"kiwi_kiwi/qwen3.5_a","pulls":65,"pulls_text":"65"}
+{"slug":"kiwi_kiwi/qwen3.8-abliterated-9b","pulls":19,"pulls_text":"19"}
+{"slug":"kiwi_kiwi/qwen3.8-uncensored","pulls":73,"pulls_text":"73"}
 {"slug":"kiwi_kiwi/qwen3_a","pulls":316,"pulls_text":"316"}
 {"slug":"kiwi_kiwi/qwen3_a-MOE","pulls":67,"pulls_text":"67"}
 {"slug":"kiwi_kiwi/qwen3_a_2507","pulls":151,"pulls_text":"151"}
@@ -12570,6 +12577,7 @@
 {"slug":"necdetuygur/neu2","pulls":18,"pulls_text":"18"}
 {"slug":"necdetuygur/neu3","pulls":43,"pulls_text":"43"}
 {"slug":"necdetuygur/neu4","pulls":5,"pulls_text":"5"}
+{"slug":"neelcontractor/qwen-weight-space","pulls":2,"pulls_text":"2"}
 {"slug":"neeoggl/glm-5.2","pulls":70,"pulls_text":"70"}
 {"slug":"neerajcsai/youtube","pulls":4,"pulls_text":"4"}
 {"slug":"nefnux/nutricoach","pulls":2,"pulls_text":"2"}
@@ -12607,6 +12615,7 @@
 {"slug":"neolinschen/Qwen-Thinking","pulls":52,"pulls_text":"52"}
 {"slug":"neolinschen/llama-coding","pulls":154,"pulls_text":"154"}
 {"slug":"neominnthu/tony","pulls":0,"pulls_text":"0"}
+{"slug":"neonicyofficial/qsec","pulls":3,"pulls_text":"3"}
 {"slug":"neonshark/dolphin-2.8-mistral-7b-v02-q4_k_s","pulls":601,"pulls_text":"601"}
 {"slug":"neonshark/ggml-mambahermes-3b-q8_0","pulls":89,"pulls_text":"89"}
 {"slug":"neonshark/mamba-gpt-7b-v2-mistral","pulls":473,"pulls_text":"473"}
@@ -13032,6 +13041,7 @@
 {"slug":"omaciel/ticketeer-llama3.1","pulls":22,"pulls_text":"22"}
 {"slug":"omaciel/ticketeer-llama3.2","pulls":22,"pulls_text":"22"}
 {"slug":"omarmurhig/INANA","pulls":2,"pulls_text":"2"}
+{"slug":"omc1/pokedex","pulls":0,"pulls_text":"0"}
 {"slug":"omepunkey/droom","pulls":0,"pulls_text":"0"}
 {"slug":"omepunkey/schrijfstijl","pulls":5,"pulls_text":"5"}
 {"slug":"omer_elinav/nuextract-1.5","pulls":46,"pulls_text":"46"}
@@ -13269,6 +13279,7 @@
 {"slug":"param302/pocket-coder","pulls":10,"pulls_text":"10"}
 {"slug":"paramhshah19gpt/claudecode1","pulls":335,"pulls_text":"335"}
 {"slug":"paraphrase-multilingual","pulls":961300,"pulls_text":"961.3K"}
+{"slug":"parejasarronkian/Helios","pulls":18,"pulls_text":"18"}
 {"slug":"paritok/paritok-4b-v1","pulls":354,"pulls_text":"354"}
 {"slug":"parkkavip2907/llama3.2","pulls":4,"pulls_text":"4"}
 {"slug":"parnuphun5555/gemma-rag","pulls":2,"pulls_text":"2"}
@@ -14102,6 +14113,7 @@
 {"slug":"remijang/smac-dpo-gemma3","pulls":0,"pulls_text":"0"}
 {"slug":"remijang/smac-sft-gemma3","pulls":7,"pulls_text":"7"}
 {"slug":"remix3030303/GemmaE4B-WSKZ-Cybersecurity-Fine-Tuned-Model","pulls":139,"pulls_text":"139"}
+{"slug":"remonlam/gemma4","pulls":4,"pulls_text":"4"}
 {"slug":"remy03828/phi35-remy","pulls":0,"pulls_text":"0"}
 {"slug":"remyxai/spaceom","pulls":109,"pulls_text":"109"}
 {"slug":"remyxai/spaceqwen2.5vl-3b","pulls":29,"pulls_text":"29"}
