@@ -14,7 +14,7 @@ updates:
     reviewers:
       - "arbal"
     commit-message:
-      prefix: "chore(deps)"
+      prefix: "chore"
       include: "scope"
     groups:
       python-minor-and-patch:
@@ -39,7 +39,7 @@ updates:
     reviewers:
       - "arbal"
     commit-message:
-      prefix: "chore(ci)"
+      prefix: "ci"
       include: "scope"
     groups:
       github-actions:
