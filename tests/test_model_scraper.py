@@ -38,6 +38,21 @@ def test_parse_pulls():
     html = "<span>4.2M</span> Downloads"
     assert scraper._parse_pulls(html) == (4200000, "4.2M")
 
+def test_parse_pulls_keeps_thousands_separator_digits():
+    # Regression: "1,003" was parsed as 3 and "1,000" as 0 (ollama.com/jeffh/intfloat-e5-base-v2).
+    scraper = ModelScraper()
+    html = '<span>1,003</span> <span class="hidden sm:flex">&nbsp;Downloads</span>'
+    assert scraper._parse_pulls(html) == (1003, "1003")
+    html = '<span>1,000</span> <span>&nbsp;Downloads</span>'
+    assert scraper._parse_pulls(html) == (1000, "1000")
+    html = '<span>12,345,678</span> Pulls'
+    assert scraper._parse_pulls(html) == (12345678, "12345678")
+
+def test_parse_pulls_thousands_separator_with_suffix_is_unchanged():
+    scraper = ModelScraper()
+    html = "<span>1.2K</span> Pulls"
+    assert scraper._parse_pulls(html) == (1200, "1.2K")
+
 def test_parse_variants():
     scraper = ModelScraper()
     tags_html = """

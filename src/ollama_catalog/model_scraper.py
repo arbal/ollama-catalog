@@ -12,6 +12,8 @@ from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_excep
 logger = logging.getLogger(__name__)
 
 _CAPABILITY_LABELS = frozenset({"audio", "decision", "embedding", "thinking", "tools", "vision"})
+# Pull counts: plain, thousands-grouped ("1,003"), or decimal ("1.2"), before a K/M/B suffix.
+_PULLS_NUMBER = r'((?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)(?:\.[0-9]+)?)'
 
 
 def _parse_modalities(input_type: str) -> List[str]:
@@ -111,23 +113,24 @@ class ModelScraper:
     def _parse_pulls(self, html: str, soup: Optional[BeautifulSoup] = None) -> tuple[int, str]:
         # Based on the requirement:
         # Parse pulls count: re.search(r'([0-9]+(?:\.[0-9]+)?)([KMB])?\s*Pulls', html)
-        match = re.search(r'([0-9]+(?:\.[0-9]+)?)([KMB])?\s*Pulls', html, re.IGNORECASE)
+        match = re.search(_PULLS_NUMBER + r'([KMB])?\s*Pulls', html, re.IGNORECASE)
 
         if soup is None:
             soup = BeautifulSoup(html, 'lxml')
         text = soup.get_text(separator=' ', strip=True)
 
         if not match:
-            match = re.search(r'([0-9]+(?:\.[0-9]+)?)([KMB])?\s*Pulls', text, re.IGNORECASE)
+            match = re.search(_PULLS_NUMBER + r'([KMB])?\s*Pulls', text, re.IGNORECASE)
 
         # Fallback to Downloads if Pulls is not found (Ollama changed it)
         if not match:
-            match = re.search(r'([0-9]+(?:\.[0-9]+)?)([KMB])?\s*Downloads', text, re.IGNORECASE)
+            match = re.search(_PULLS_NUMBER + r'([KMB])?\s*Downloads', text, re.IGNORECASE)
 
         if not match:
             return 0, "0"
 
-        num_str = match.group(1)
+        # Upstream renders counts >= 1,000 with thousands separators ("1,003").
+        num_str = match.group(1).replace(",", "")
         suffix = (match.group(2) or "").upper()
         pulls_text = f"{num_str}{suffix}"
 
