@@ -26,6 +26,10 @@ from pathlib import Path
 
 
 def git_show(ref: str, path: str) -> str:
+    # A ref starting with "-" would be parsed by git as an option (e.g. --output=FILE).
+    # "--" cannot be used here because "git show -- REF:PATH" treats the argument as a pathspec.
+    if ref.startswith("-"):
+        raise SystemExit(f"error: invalid git ref {ref!r}: must not start with '-'")
     result = subprocess.run(
         ["git", "show", f"{ref}:{path}"],
         capture_output=True, text=True, check=True

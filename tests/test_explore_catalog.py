@@ -161,3 +161,11 @@ def test_show_diff_limited_tsv_reports_truncation_on_stderr(monkeypatch, capsys)
     captured = capsys.readouterr()
     assert captured.out.splitlines() == ["change\tslug", "added\tnew/model"]
     assert "Showing 1 of 2 changes" in captured.err
+
+
+def test_git_show_rejects_refs_that_git_would_parse_as_options():
+    import pytest
+
+    explore_catalog = _load_explore_catalog_module()
+    with pytest.raises(SystemExit, match="must not start with '-'"):
+        explore_catalog.git_show("--output=/tmp/should-not-write", "out/models.jsonl")
