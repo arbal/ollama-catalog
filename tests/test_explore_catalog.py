@@ -169,3 +169,26 @@ def test_git_show_rejects_refs_that_git_would_parse_as_options():
     explore_catalog = _load_explore_catalog_module()
     with pytest.raises(SystemExit, match="must not start with '-'"):
         explore_catalog.git_show("--output=/tmp/should-not-write", "out/models.jsonl")
+
+
+def test_dedupe_pull_total_counts_aliases_once():
+    explore_catalog = _load_explore_catalog_module()
+    items = [
+        ("nomic-embed-text", 100),
+        ("library/nomic-embed-text", 100),
+        ("qwen3", 40),
+        ("library/qwen3", 40),
+        ("someone/model", 7),
+    ]
+    assert explore_catalog.dedupe_pull_total(items) == 147
+
+
+def test_dedupe_pull_total_keeps_distinct_namespaced_models_separate():
+    explore_catalog = _load_explore_catalog_module()
+    items = [("alice/tool", 5), ("bob/tool", 5)]
+    assert explore_catalog.dedupe_pull_total(items) == 10
+
+
+def test_dedupe_pull_total_handles_missing_values():
+    explore_catalog = _load_explore_catalog_module()
+    assert explore_catalog.dedupe_pull_total([("a", None), ("library/a", 3)]) == 3
