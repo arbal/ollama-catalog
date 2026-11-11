@@ -192,3 +192,21 @@ def test_dedupe_pull_total_keeps_distinct_namespaced_models_separate():
 def test_dedupe_pull_total_handles_missing_values():
     explore_catalog = _load_explore_catalog_module()
     assert explore_catalog.dedupe_pull_total([("a", None), ("library/a", 3)]) == 3
+
+
+def test_collapse_alias_rows_keeps_bare_slug_and_unpaired_library_models():
+    explore_catalog = _load_explore_catalog_module()
+    models = [
+        {"slug": "llama3.1"},
+        {"slug": "library/llama3.1"},
+        {"slug": "library/only-official"},
+        {"slug": "alice/llama3.1"},
+    ]
+    kept = [m["slug"] for m in explore_catalog.collapse_alias_rows(models)]
+    assert kept == ["llama3.1", "library/only-official", "alice/llama3.1"]
+
+
+def test_collapse_alias_rows_keeps_library_when_bare_is_filtered_out():
+    explore_catalog = _load_explore_catalog_module()
+    models = [{"slug": "library/nomic-embed-text"}]
+    assert [m["slug"] for m in explore_catalog.collapse_alias_rows(models)] == ["library/nomic-embed-text"]
