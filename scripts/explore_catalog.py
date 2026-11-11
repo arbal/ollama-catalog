@@ -36,6 +36,15 @@ def dedupe_pull_total(items) -> int:
     return sum(best.values())
 
 
+def collapse_alias_rows(models):
+    """Drop 'library/X' when a bare 'X' is also present. The two records differ only in slug."""
+    slugs = {m["slug"] for m in models}
+    return [
+        m for m in models
+        if not (m["slug"].startswith("library/") and m["slug"][len("library/"):] in slugs)
+    ]
+
+
 def git_show(ref: str, path: str) -> str:
     # A ref starting with "-" would be parsed by git as an option (e.g. --output=FILE).
     # "--" cannot be used here because "git show -- REF:PATH" treats the argument as a pathspec.
@@ -1149,7 +1158,7 @@ def main():
         family=args.family, quant=args.quant, min_context=args.min_context,
         local_only=args.local_only, cloud_only=args.cloud_only, modality=args.modality,
     )
-    sorted_models = apply_sort(filtered, args.sort)
+    sorted_models = apply_sort(collapse_alias_rows(filtered), args.sort)
     if args.format:
         emit_format(sorted_models, args.format, limit=args.limit)
     else:
