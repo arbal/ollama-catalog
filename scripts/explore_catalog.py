@@ -22,6 +22,20 @@ from rich.table import Table
 console = Console()
 
 
+def _canonical_pull_slug(slug: str) -> str:
+    """'library/X' and 'X' name the same official model; upstream shows identical counters for both."""
+    return slug[len("library/"):] if slug.startswith("library/") else slug
+
+
+def dedupe_pull_total(items) -> int:
+    """Sum pulls once per model. Takes the larger value across aliases; they are equal in practice."""
+    best: dict[str, int] = {}
+    for slug, pulls in items:
+        key = _canonical_pull_slug(slug or "")
+        best[key] = max(best.get(key, 0), int(pulls or 0))
+    return sum(best.values())
+
+
 def git_show(ref: str, path: str) -> str:
     # A ref starting with "-" would be parsed by git as an option (e.g. --output=FILE).
     # "--" cannot be used here because "git show -- REF:PATH" treats the argument as a pathspec.
@@ -538,7 +552,8 @@ def load_catalog_pull_history(max_commits: int = 30) -> list:
         date_str = parts[1][:10] if len(parts) > 1 else "?"
         try:
             content = git_show(commit, "out/pulls.jsonl")
-            total = sum(json.loads(row.strip()).get("pulls", 0) for row in content.splitlines() if row.strip())
+            rows = [json.loads(row.strip()) for row in content.splitlines() if row.strip()]
+            total = dedupe_pull_total((r.get("slug", ""), r.get("pulls", 0)) for r in rows)
             entries.append({"date": date_str, "commit": commit[:8], "total_pulls": total})
         except (subprocess.CalledProcessError, json.JSONDecodeError):
             pass
@@ -565,7 +580,7 @@ def load_namespace_pull_history(ns: str, max_commits: int = 30) -> list:
             content = git_show(commit, "out/pulls.jsonl")
         except subprocess.CalledProcessError:
             continue
-        total = 0
+        ns_rows = []
         for row in content.splitlines():
             row = row.strip()
             if not row:
@@ -577,7 +592,8 @@ def load_namespace_pull_history(ns: str, max_commits: int = 30) -> list:
             slug = p.get("slug", "")
             row_ns = slug.split("/")[0] if "/" in slug else "library"
             if row_ns.lower() == target_ns:
-                total += p.get("pulls", 0)
+                ns_rows.append((slug, p.get("pulls", 0)))
+        total = dedupe_pull_total(ns_rows)
         entries.append({"date": date_str, "commit": commit[:8], "total_pulls": total})
     return list(reversed(entries))
 
@@ -647,7 +663,7 @@ def show_namespace_stats(models, ns: str, fmt: str | None = None):
             return
 
     ns_models.sort(key=lambda m: m.get("pulls", 0), reverse=True)
-    total_pulls = sum(m.get("pulls", 0) for m in ns_models)
+    total_pulls = dedupe_pull_total((m["slug"], m.get("pulls", 0)) for m in ns_models)
     cap_counts: Counter = Counter(c for m in ns_models for c in m.get("capabilities", []))
     updated_ages = [parse_age_days(m.get("updated", "")) for m in ns_models]
     updated_ages = [a for a in updated_ages if a is not None]
@@ -724,7 +740,7 @@ def _build_namespace_leaderboard_rows(models, compare_ref=""):
         ns_models[_namespace_name(m)].append(m)
     rows = []
     for ns, ms in ns_models.items():
-        total_pulls = sum(m.get("pulls", 0) for m in ms)
+        total_pulls = dedupe_pull_total((m["slug"], m.get("pulls", 0)) for m in ms)
         top = max(ms, key=lambda m: m.get("pulls", 0))
         rows.append({"namespace": ns, "count": len(ms), "pulls": total_pulls, "top_slug": top["slug"]})
     has_delta = False
@@ -782,7 +798,7 @@ def show_stats(models, metadata):
     for m in models:
         for c in m.get("capabilities", []):
             cap_counts[c] += 1
-    total_pulls = sum(m.get("pulls", 0) for m in models)
+    total_pulls = dedupe_pull_total((m["slug"], m.get("pulls", 0)) for m in models)
     top_ns = Counter(m.get("namespace", "") for m in models if m.get("model_type") == "community")
     new_7 = sum(1 for m in models if (a := parse_age_days(m.get("updated", ""))) is not None and a <= 7)
     new_30 = sum(1 for m in models if (a := parse_age_days(m.get("updated", ""))) is not None and a <= 30)
