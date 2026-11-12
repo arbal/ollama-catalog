@@ -1,14 +1,17 @@
 import asyncio
 import json
+import logging
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 import httpx
 from rich.progress import Progress, TaskID
 
-from .model_scraper import ModelScraper
+from .model_scraper import ModelScraper, assert_pull_label_present
 from .sanitization import SanitizationResult, sanitize_model_record, sanitize_models_jsonl
 from .state import STATE_FILE
+
+logger = logging.getLogger(__name__)
 
 CATALOG_FILE = Path("out/ollama_catalog.json")
 DISCOVERED_FILE = Path("out/discovered_slugs.json")
@@ -244,8 +247,26 @@ class CatalogFetcher:
 
         with Progress() as progress:
             task_id = progress.add_task("Fetching models...", total=self.total_count)
+            # Snapshot prior pull counts: _fetch_and_process overwrites self.models per slug.
+            prior_pulls = {slug: (rec or {}).get("pulls", 0) for slug, rec in self.models.items()}
             tasks = [self._fetch_and_process(slug, progress, task_id) for slug in slugs_to_fetch]
             await asyncio.gather(*tasks)
+
+        # Pull-label regime check: abort before publish if the page format changed.
+        scraper = self.scraper
+        fetched_pages = scraper.pull_label_found + len(scraper.pull_label_missing_slugs)
+        assert_pull_label_present(scraper.pull_label_found, fetched_pages)
+        # Pages without a label are expected for zero-download models. Only log those whose
+        # previous record had pulls, since a previously-positive model going unlabelled is worth a look.
+        regressed = [
+            slug for slug in scraper.pull_label_missing_slugs
+            if prior_pulls.get(slug, 0) > 0
+        ]
+        if regressed:
+            logger.warning(
+                "%d fetched page(s) lost their pull label despite positive prior pulls: %s",
+                len(regressed), ", ".join(regressed[:10]),
+            )
 
         if self.processed_count > 0:
             self.save_catalog()

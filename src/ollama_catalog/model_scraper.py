@@ -14,6 +14,18 @@ logger = logging.getLogger(__name__)
 _CAPABILITY_LABELS = frozenset({"audio", "decision", "embedding", "thinking", "tools", "vision"})
 # Pull counts: plain, thousands-grouped ("1,003"), or decimal ("1.2"), before a K/M/B suffix.
 _PULLS_NUMBER = r'((?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)(?:\.[0-9]+)?)'
+# Pages without a pull label are normal for zero-download models, so the check
+# only fires on a large fetch in which no page carries the label at all.
+MIN_PAGES_FOR_LABEL_CHECK = 50
+
+
+def assert_pull_label_present(found: int, fetched: int) -> None:
+    """Abort when a large fetch finds the pull counter label on no page: the upstream format changed."""
+    if fetched >= MIN_PAGES_FOR_LABEL_CHECK and found == 0:
+        raise RuntimeError(
+            f"No page in {fetched} fetched carries a 'Pulls' or 'Downloads' label. "
+            "The upstream format has likely changed; aborting before publish."
+        )
 
 
 def _parse_modalities(input_type: str) -> List[str]:
@@ -37,6 +49,10 @@ class ModelScraper:
             headers={"User-Agent": "Mozilla/5.0 (compatible; ollama-catalog/1.0)"},
             timeout=30.0
         )
+        # Pull-label tracking for the fetch-run regime check (assert_pull_label_present).
+        self.last_pull_label_found = True
+        self.pull_label_found = 0
+        self.pull_label_missing_slugs: List[str] = []
 
     @retry(
         stop=stop_after_attempt(3),
@@ -127,7 +143,9 @@ class ModelScraper:
             match = re.search(_PULLS_NUMBER + r'([KMB])?\s*Downloads', text, re.IGNORECASE)
 
         if not match:
+            self.last_pull_label_found = False
             return 0, "0"
+        self.last_pull_label_found = True
 
         # Upstream renders counts >= 1,000 with thousands separators ("1,003").
         num_str = match.group(1).replace(",", "")
@@ -285,6 +303,10 @@ class ModelScraper:
         tags_soup = BeautifulSoup(tags_html, 'lxml')
 
         pulls, pulls_text = self._parse_pulls(page_html, page_soup)
+        if self.last_pull_label_found:
+            self.pull_label_found += 1
+        else:
+            self.pull_label_missing_slugs.append(slug)
         capabilities = self._parse_capabilities(page_soup)
         blurb, description = self._parse_blurb_and_desc(page_soup)
         updated = self._parse_updated(page_soup)
