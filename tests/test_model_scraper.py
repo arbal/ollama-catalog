@@ -153,3 +153,25 @@ async def test_fetch_success(httpx_mock):
     assert result["variants"][0]["tag"] == "latest"
     assert result["model_type"] == "official"
     assert result["namespace"] is None
+
+
+def test_assert_pull_label_present_aborts_only_on_a_large_fetch_with_no_labels():
+    from ollama_catalog.model_scraper import assert_pull_label_present
+
+    with pytest.raises(RuntimeError, match="upstream format has likely changed"):
+        assert_pull_label_present(found=0, fetched=50)
+    # Small fetches (for example incremental runs of new slugs) must not trip the check.
+    assert_pull_label_present(found=0, fetched=49)
+    # Any labelled page means the format is still recognised.
+    assert_pull_label_present(found=1, fetched=500)
+
+
+def test_missing_pull_label_is_tracked_per_slug_not_silently_dropped():
+    scraper = ModelScraper()
+    scraper.parse_model_detail("someone/zero-downloads", "", "")
+    assert scraper.pull_label_missing_slugs == ["someone/zero-downloads"]
+    assert scraper.pull_label_found == 0
+
+    scraper.parse_model_detail("someone/has-count", "<span>5</span> Pulls", "")
+    assert scraper.pull_label_found == 1
+    assert scraper.pull_label_missing_slugs == ["someone/zero-downloads"]
