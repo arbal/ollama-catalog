@@ -2503,6 +2503,8 @@
 {"slug":"Nouhid29/JSONllm","pulls":15,"pulls_text":"15"}
 {"slug":"NovaTech/Ndosa-ia","pulls":0,"pulls_text":"0"}
 {"slug":"NucEniac/DeepSeek","pulls":119,"pulls_text":"119"}
+{"slug":"Nurmix/fjord","pulls":0,"pulls_text":"0"}
+{"slug":"Nurmix/mistral-7b-liberated","pulls":3,"pulls_text":"3"}
 {"slug":"Nwj123/NwjModel001","pulls":0,"pulls_text":"0"}
 {"slug":"OGMatrix/arcadex-llm","pulls":18,"pulls_text":"18"}
 {"slug":"OGMatrix/arcadex-llm-gen1","pulls":3,"pulls_text":"3"}
@@ -4156,6 +4158,7 @@
 {"slug":"aman6303/my-qwen-model","pulls":4,"pulls_text":"4"}
 {"slug":"aman6303/my-qwen2","pulls":25,"pulls_text":"25"}
 {"slug":"amanago81/claude-sonnet-4-5","pulls":161,"pulls_text":"161"}
+{"slug":"amanjha112113/Arka","pulls":4,"pulls_text":"4"}
 {"slug":"amatechx/amaswage-balanced","pulls":3,"pulls_text":"3"}
 {"slug":"amatechx/amaswage-lite","pulls":0,"pulls_text":"0"}
 {"slug":"amatechx/amaswage-pro","pulls":0,"pulls_text":"0"}
@@ -4946,6 +4949,7 @@
 {"slug":"beebosofficial/VoDa-AI3.1-Lite","pulls":8,"pulls_text":"8"}
 {"slug":"beebosofficial/VoDa-AI3.2","pulls":3,"pulls_text":"3"}
 {"slug":"beebosofficial/VoDa-AI4-Coder","pulls":6,"pulls_text":"6"}
+{"slug":"beebosofficial/VoDa-AI4-Lite","pulls":0,"pulls_text":"0"}
 {"slug":"beezu/Evathene-v1.2","pulls":101,"pulls_text":"101"}
 {"slug":"beezu/Midnight-Miqu-103B-v1.5","pulls":204,"pulls_text":"204"}
 {"slug":"beingvikrant2000/analyzer","pulls":0,"pulls_text":"0"}
@@ -5337,6 +5341,7 @@
 {"slug":"busy_dewdney_138/Zones_UI_Automation","pulls":25,"pulls_text":"25"}
 {"slug":"busy_dewdney_138/Zones_UI_Automation_TV","pulls":14,"pulls_text":"14"}
 {"slug":"busy_dewdney_138/qwenCodeLocal","pulls":53,"pulls_text":"53"}
+{"slug":"butanoshippo1532/classifire-model","pulls":0,"pulls_text":"0"}
 {"slug":"buttockmanto/a","pulls":0,"pulls_text":"0"}
 {"slug":"bvassie/gemma4","pulls":325,"pulls_text":"325"}
 {"slug":"bvassie/nemotron-3.5-lightning","pulls":98,"pulls_text":"98"}
@@ -5635,6 +5640,8 @@
 {"slug":"chiefeu/layla_mistralv4","pulls":23,"pulls_text":"23"}
 {"slug":"chiefeu/layla_phi2","pulls":27,"pulls_text":"27"}
 {"slug":"chigwel/cevra-citation-decisions","pulls":19,"pulls_text":"19"}
+{"slug":"chigwel/cevra-reasoning-decisions","pulls":5,"pulls_text":"5"}
+{"slug":"chigwel/cevra-reasoning-decisions-4b","pulls":17,"pulls_text":"17"}
 {"slug":"chigwel/cevra-toolchoice-4b","pulls":574,"pulls_text":"574"}
 {"slug":"chigwel/gemma-4-12b-soup-mvp","pulls":14,"pulls_text":"14"}
 {"slug":"chigwel/urbanflux-borough-nemotron3-nano","pulls":7,"pulls_text":"7"}
@@ -6538,6 +6545,7 @@
 {"slug":"dirkiedevelopment/gemini-3-flash-preview","pulls":113,"pulls_text":"113"}
 {"slug":"dirkiedevelopment/qwen2.5-1.5b","pulls":29,"pulls_text":"29"}
 {"slug":"disburyben/claw","pulls":0,"pulls_text":"0"}
+{"slug":"dishankagrawal05/vaprix-cyber","pulls":0,"pulls_text":"0"}
 {"slug":"disinfozone/telos","pulls":100,"pulls_text":"100"}
 {"slug":"distracted_hermann_258/alaneus-27b-coder","pulls":12,"pulls_text":"12"}
 {"slug":"divakantpandey/code-embed-v2","pulls":2,"pulls_text":"2"}
@@ -9241,6 +9249,9 @@
 {"slug":"innovategy/voicehero","pulls":88,"pulls_text":"88"}
 {"slug":"innsystem/assistent_ia","pulls":2,"pulls_text":"2"}
 {"slug":"inomokgoko/Icynigma.ai","pulls":17,"pulls_text":"17"}
+{"slug":"inomokgoko/icynigma-ri","pulls":0,"pulls_text":"0"}
+{"slug":"inomokgoko/icynigma-ri-coder","pulls":2,"pulls_text":"2"}
+{"slug":"inomokgoko/icynigma-ri-vision","pulls":2,"pulls_text":"2"}
 {"slug":"insidergoa/Aaryan","pulls":3,"pulls_text":"3"}
 {"slug":"instructlab/granite-7b-lab","pulls":910,"pulls_text":"910"}
 {"slug":"instructlab/merlinite-7b-lab","pulls":1015,"pulls_text":"1015"}
@@ -9317,6 +9328,7 @@
 {"slug":"itznbur21alternate/FluxAI","pulls":12,"pulls_text":"12"}
 {"slug":"itzune/kimu","pulls":64,"pulls_text":"64"}
 {"slug":"itzune/latxa","pulls":137,"pulls_text":"137"}
+{"slug":"iue42/qwen35-4b-coding-distilled","pulls":4,"pulls_text":"4"}
 {"slug":"iunera/aura-l","pulls":90,"pulls_text":"90"}
 {"slug":"iunera/aura-m","pulls":242,"pulls_text":"242"}
 {"slug":"iunera/aura-xl","pulls":85,"pulls_text":"85"}
@@ -10171,6 +10183,7 @@
 {"slug":"kangali/room-research","pulls":369,"pulls_text":"369"}
 {"slug":"kangbj980829/bk-probe","pulls":0,"pulls_text":"0"}
 {"slug":"kangwifi/mx-kfai","pulls":0,"pulls_text":"0"}
+{"slug":"kangwifiinc/rara-ai","pulls":3,"pulls_text":"3"}
 {"slug":"kangyufei/llama2","pulls":48,"pulls_text":"48"}
 {"slug":"kannaspi/LLAMA3.2","pulls":36,"pulls_text":"36"}
 {"slug":"kannaspi/LLAMA3.2-1B","pulls":81,"pulls_text":"81"}
@@ -13176,6 +13189,7 @@
 {"slug":"ollamagdp/qwen14-rag-selettivo","pulls":19,"pulls_text":"19"}
 {"slug":"ollamagdp/qwen14-scienziato-v2","pulls":23,"pulls_text":"23"}
 {"slug":"ollamagdp/qwen14-scienziato-v2-nt","pulls":20,"pulls_text":"20"}
+{"slug":"ollamagdp/qwen3-8b-chem-v5","pulls":6,"pulls_text":"6"}
 {"slug":"ollamasiddhu123/sidz","pulls":7,"pulls_text":"7"}
 {"slug":"ollamay/w3e","pulls":78,"pulls_text":"78"}
 {"slug":"olmo-3","pulls":489300,"pulls_text":"489.3K"}
@@ -15835,6 +15849,7 @@
 {"slug":"sselimcalik/sallama31","pulls":0,"pulls_text":"0"}
 {"slug":"sselimcalik/trendyol","pulls":44,"pulls_text":"44"}
 {"slug":"sselimcalik/trendyol_small","pulls":12,"pulls_text":"12"}
+{"slug":"ssfdre38/ava","pulls":0,"pulls_text":"0"}
 {"slug":"ssfdre38/gemma4-nano","pulls":3016,"pulls_text":"3016"}
 {"slug":"ssfdre38/gemma4-turbo","pulls":25900,"pulls_text":"25.9K"}
 {"slug":"ssimkani/cf","pulls":2,"pulls_text":"2"}
@@ -17199,6 +17214,7 @@
 {"slug":"vv130295/iso21434","pulls":3,"pulls_text":"3"}
 {"slug":"vveerrgg/glm-4-9b-cooking-assistant","pulls":5,"pulls_text":"5"}
 {"slug":"vveerrgg/qwen3-8b-cooking-assistant","pulls":102,"pulls_text":"102"}
+{"slug":"vveerrgg/qwen3.8-27b-bilingual-canadian","pulls":3,"pulls_text":"3"}
 {"slug":"vvh413/suzume-llama3-multilingual","pulls":220,"pulls_text":"220"}
 {"slug":"vynthen/vynthen-aria-1","pulls":35,"pulls_text":"35"}
 {"slug":"vzaone/codegemmadev","pulls":0,"pulls_text":"0"}
