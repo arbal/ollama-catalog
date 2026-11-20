@@ -99,6 +99,7 @@
 {"slug":"2320997738/deepseek-r1-medical-demo","pulls":8,"pulls_text":"8"}
 {"slug":"2321589082/qwen3-tts-cantonese","pulls":22,"pulls_text":"22"}
 {"slug":"2321589082/t1rip","pulls":2,"pulls_text":"2"}
+{"slug":"2396329/Test","pulls":0,"pulls_text":"0"}
 {"slug":"23g110karthick/Zefra-V1-9B","pulls":21,"pulls_text":"21"}
 {"slug":"23jr1a05d1cse/gopi-ai","pulls":9,"pulls_text":"9"}
 {"slug":"2418200065/deepseek-r1-medical-demo","pulls":9,"pulls_text":"9"}
@@ -2472,6 +2473,7 @@
 {"slug":"NiemsDrift/aether","pulls":3,"pulls_text":"3"}
 {"slug":"NiemsDrift/pip","pulls":16,"pulls_text":"16"}
 {"slug":"NiemsDrift/skuttle","pulls":2,"pulls_text":"2"}
+{"slug":"NiemsDrift/superg","pulls":3,"pulls_text":"3"}
 {"slug":"NightChill3R/gemma3_27b","pulls":2,"pulls_text":"2"}
 {"slug":"NightFuryTimo/hermes-2-theta-llama-3-8b","pulls":9,"pulls_text":"9"}
 {"slug":"Nik97/nlp","pulls":24,"pulls_text":"24"}
@@ -4178,6 +4180,7 @@
 {"slug":"aminroudaki/decisio","pulls":652,"pulls_text":"652"}
 {"slug":"aminroudaki/decisio-gemma","pulls":795,"pulls_text":"795"}
 {"slug":"aminroudaki/decisio-gemma-tuned","pulls":73,"pulls_text":"73"}
+{"slug":"aminroudaki/decisio-v3","pulls":4,"pulls_text":"4"}
 {"slug":"aminvici73/Myself","pulls":8,"pulls_text":"8"}
 {"slug":"amirgon/srt2heb","pulls":88,"pulls_text":"88"}
 {"slug":"amirtayman5/tayman","pulls":3,"pulls_text":"3"}
@@ -6451,6 +6454,7 @@
 {"slug":"dhiltgen/glm-ocr","pulls":325,"pulls_text":"325"}
 {"slug":"dhiltgen/gpt-oss","pulls":1562,"pulls_text":"1562"}
 {"slug":"dhiltgen/gpt-oss-safeguard","pulls":124,"pulls_text":"124"}
+{"slug":"dhiltgen/hy4-flash","pulls":7,"pulls_text":"7"}
 {"slug":"dhiltgen/jev","pulls":13,"pulls_text":"13"}
 {"slug":"dhiltgen/laguna-s-2.1","pulls":159,"pulls_text":"159"}
 {"slug":"dhiltgen/laguna-xs-2.1","pulls":69,"pulls_text":"69"}
@@ -6989,6 +6993,8 @@
 {"slug":"edyrkaj/gemma3-1b-translator","pulls":172,"pulls_text":"172"}
 {"slug":"eess8811/EEVE-Korean-Chat-10.8B","pulls":6,"pulls_text":"6"}
 {"slug":"eficode-kang/test11231233423","pulls":0,"pulls_text":"0"}
+{"slug":"eflanta/theo-agentic","pulls":5,"pulls_text":"5"}
+{"slug":"eflanta/theo-ultron","pulls":3,"pulls_text":"3"}
 {"slug":"efso/gemma-4-e4b-it-gr-v2","pulls":112,"pulls_text":"112"}
 {"slug":"egallegos02/INTERAPAS","pulls":0,"pulls_text":"0"}
 {"slug":"eggitai/gienwen","pulls":0,"pulls_text":"0"}
@@ -13830,6 +13836,7 @@
 {"slug":"prometech_corp/Cicikus-v3-1.4B-Opus4.6-Powered","pulls":72,"pulls_text":"72"}
 {"slug":"prometech_corp/Cicikus_v2_3B","pulls":59,"pulls_text":"59"}
 {"slug":"prometech_corp/MiniBirdv1","pulls":2,"pulls_text":"2"}
+{"slug":"prometech_corp/MiniBirdv2","pulls":3,"pulls_text":"3"}
 {"slug":"prometech_corp/prettybird_bce_basic_15b_coder","pulls":28,"pulls_text":"28"}
 {"slug":"prometech_corp/prettybird_bce_basic_8B","pulls":43,"pulls_text":"43"}
 {"slug":"prometech_corp/prettybird_bce_basic_coder_8b","pulls":44,"pulls_text":"44"}
@@ -16288,6 +16295,8 @@
 {"slug":"thamaraikannan/phi3_conti_pretrain","pulls":10,"pulls_text":"10"}
 {"slug":"thanhdinhvan/doa-ai","pulls":2,"pulls_text":"2"}
 {"slug":"thanhdinhvan/doa-ai-35B","pulls":2,"pulls_text":"2"}
+{"slug":"tharunch2000/omeai","pulls":0,"pulls_text":"0"}
+{"slug":"tharunch2000/omeai-qwen","pulls":0,"pulls_text":"0"}
 {"slug":"tharunreddy/text2sql-mistral","pulls":308,"pulls_text":"308"}
 {"slug":"thatdamai/llama3.1-claude-8b","pulls":231,"pulls_text":"231"}
 {"slug":"thatdamai/llama3.2-claude","pulls":99,"pulls_text":"99"}
@@ -16648,6 +16657,7 @@
 {"slug":"trantnhan0506/mt5_validator","pulls":2,"pulls_text":"2"}
 {"slug":"treedy2024/rainbow","pulls":16,"pulls_text":"16"}
 {"slug":"treedy2024/rainbow_7b_q8_0","pulls":15,"pulls_text":"15"}
+{"slug":"trevai/trevcoder","pulls":5,"pulls_text":"5"}
 {"slug":"treyleo16/brainrot","pulls":18,"pulls_text":"18"}
 {"slug":"treyleo16/chili-pepper-cookie","pulls":9,"pulls_text":"9"}
 {"slug":"treyleo16/cicada-bzz","pulls":4,"pulls_text":"4"}
@@ -16783,6 +16793,7 @@
 {"slug":"ttempvnn/TrevorJS-gemma-4-26B-A4B-it-uncensored-Q4-K-M","pulls":265,"pulls_text":"265"}
 {"slug":"ttempvnn/TrevorJS-gemma-4-31B-it-uncensored-GGUF-Q4-K-M","pulls":472,"pulls_text":"472"}
 {"slug":"ttempvnn/aifeifei798-Gemma-4-Queen-31B-it-uncensored-heretic-Q4-K-M","pulls":478,"pulls_text":"478"}
+{"slug":"ttempvnn/hiudev-gpt-oss-20B-vietnamese-Q4-K-M","pulls":3,"pulls_text":"3"}
 {"slug":"ttempvnn/llmfan46-gpt-oss-120b-heretic-v2-GGUF","pulls":6,"pulls_text":"6"}
 {"slug":"ttick/siem","pulls":2,"pulls_text":"2"}
 {"slug":"tttudor15/song-messages","pulls":0,"pulls_text":"0"}
@@ -17041,6 +17052,7 @@
 {"slug":"vanta-research/scout-4b","pulls":122,"pulls_text":"122"}
 {"slug":"vanta-research/wraith-8b","pulls":50,"pulls_text":"50"}
 {"slug":"vanta-research/wraith-coder-7b","pulls":613,"pulls_text":"613"}
+{"slug":"vantra-productions/core-nano","pulls":12,"pulls_text":"12"}
 {"slug":"vardaanr56/KAAL","pulls":0,"pulls_text":"0"}
 {"slug":"varunkrishnankv2002/code-explainer","pulls":5,"pulls_text":"5"}
 {"slug":"varunkumaravak/Alfalawdesk","pulls":2,"pulls_text":"2"}
